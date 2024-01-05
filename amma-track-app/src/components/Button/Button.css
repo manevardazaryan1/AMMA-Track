@@ -31,6 +31,10 @@
   color: #ffffff;
 }
 
+.button.create {
+  background-color: #fc8224;
+}
+
 .button:hover {
   opacity: .75;
 }
