@@ -6,10 +6,9 @@ function App() {
   return (
     <div className='App'>
       <Routes>
-        <Route path='/' element={<BoardsPage />} />
+        <Route path='/' element={<MainPage />} />
+        <Route path='/workspaces' element={<BoardsPage />} />
       </Routes>
-
-
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import './Header.css'
 import logo from '../../images/logo.svg'
 import { Link } from 'react-router-dom'
+
 import { Button } from '../Button/Button'
 import  user from '../../images/user.jpg'
 export const Header = ({ logged }) => {
