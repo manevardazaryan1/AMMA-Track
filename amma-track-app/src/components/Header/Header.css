@@ -1,0 +1,29 @@
+.header {
+  width: 100%;
+  background: #f5f5f5;
+  box-shadow: 0px 1px 4px rgb(86, 86, 86);
+  position: fixed;
+  top: 0;
+}
+
+.header-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+
+}
+
+.header-wrapper a{
+  display: flex;
+  gap: 2px;
+  font-family: "Poppins";
+  align-items: center;
+  text-decoration: none;
+}
+
+
+.header-buttons{
+  display: flex;
+  gap: 5px;
+}
