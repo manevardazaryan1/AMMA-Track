@@ -13,3 +13,6 @@
   justify-content: center;
   gap: 10px;
 }
+.footer-wrapper p{
+  cursor: pointer;
+}
