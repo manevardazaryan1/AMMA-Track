@@ -9,12 +9,15 @@
   padding: 0 15px;
   margin: 0 auto;
 }
-a{
+
+a {
   text-decoration: none;
   background: inherit;
   color: inherit;
 }
+
 body {
   font-family: 'Roboto', sans-serif;
-
+  background-color: #f5f5f5;
 }
+
