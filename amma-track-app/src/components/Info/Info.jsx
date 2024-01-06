@@ -15,7 +15,7 @@ export const Info = () => {
             Collaborate, manage projects, and reach new productivity peaks. From high rises to the home office, the way your team works is unique - accomplish it all with AMMA-Track!
           </p>
           <Button>
-            <Link to='/sing-up'> Get AMMA-Track for free</Link>
+            <Link to='/sign-up'> Get AMMA-Track for free</Link>
           </Button>
         </div>
       </div>
