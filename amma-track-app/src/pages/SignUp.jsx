@@ -12,7 +12,7 @@ export default function SignUp() {
 
     useEffect(() => {
         if (loggedIn) {
-            navigate('/account');
+            navigate('/workspaces');
         }
     }, [loggedIn, navigate]);
 

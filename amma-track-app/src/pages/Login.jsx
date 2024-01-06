@@ -11,7 +11,7 @@ export default function Login() {
 
     useEffect(() => {
         if (loggedIn) {
-            navigate('/account');
+            navigate('/workspaces');
         }
     }, [loggedIn, navigate]);
 
@@ -41,7 +41,7 @@ export default function Login() {
                 window.localStorage.setItem('loggedUser', JSON.stringify(user.payload));
                 dispatch(login(user.payload));
                 setUserIsNotExists(() => false);
-                navigate("/account");
+                navigate("/workspaces");
             }
         }
 
