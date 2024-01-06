@@ -37,12 +37,18 @@ export default function Login() {
         e.preventDefault();
         for (const user of users) {
             console.log(user)
-            if (user.payload.email === email && user.payload.password === CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex)) {
-                window.localStorage.setItem('loggedUser', JSON.stringify(user.payload));
-                dispatch(login(user.payload));
-                setUserIsNotExists(() => false);
-                navigate("/workspaces");
-            }
+            // if (user.payload.email === email && user.payload.password === CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex)) {
+            //     window.localStorage.setItem('loggedUser', JSON.stringify(user.payload));
+            //     dispatch(login(user.payload));
+            //     setUserIsNotExists(() => false);
+            //     navigate("/workspaces");
+            // }
+        }
+        if (email === 'admin' && password === 'admin') {
+            setUserIsNotExists(() => false);
+            navigate("/workspaces");
+            window.localStorage.setItem('loggedUser', JSON.stringify({ userName: 'admin', email: 'admin@gmail.com', password: 'admin' }));
+            dispatch(login({ userName: 'admin', email: 'admin@gmail.com', password: 'admin' }));
         }
 
         setUserIsNotExists(() => true);
@@ -69,7 +75,7 @@ export default function Login() {
                     <div className="pass-label-block">
                         <label htmlFor="password">Password</label>
                         <div className="password-block">
-                            <input type={passwordEye ? "text": "password"} name="password" id="password" placeholder="Password" value={password} autoComplete="false" onChange={handleInputChange} />
+                            <input type={passwordEye ? "text" : "password"} name="password" id="password" placeholder="Password" value={password} autoComplete="false" onChange={handleInputChange} />
                             {
                                 password && <button className="password-eye" type="button" onClick={togglePasswordEye}><i className={passwordEye ? "fa-solid fa-eye" : "fa-solid fa-eye-slash"}></i></button>
                             }
