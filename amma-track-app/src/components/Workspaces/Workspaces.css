@@ -1,5 +1,5 @@
 .workspaces {
-  margin-top: 8rem;
+
   font-family: "Poppins"; 
 }
 
@@ -12,6 +12,7 @@
 
 .workspaces-title h4 {
   font-size: 24px;
+  font-weight: 500;
 }
 
 /* .workspaces-item {
