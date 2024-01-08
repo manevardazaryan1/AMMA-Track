@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { login } from "../redux/slices/authenticationSlice";
-import CryptoJS from 'crypto-js';
 
 export default function Login() {
     const navigate = useNavigate();

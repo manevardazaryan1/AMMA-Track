@@ -6,6 +6,10 @@ import board from '../../images/board-svgrepo-com.svg'
 import settings from '../../images/settings-svgrepo-com.svg'
 
 export const WorkspacesItem = ({ img, title, id }) => {
+
+
+  
+
   const [isClicked, setIsClicked] = useState(false)
   return (<div className="workspaces-item">
     <div onClick={() => setIsClicked((prev) => !prev)} className="workspaces-item__info">

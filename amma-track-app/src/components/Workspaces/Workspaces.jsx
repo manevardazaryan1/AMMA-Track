@@ -1,18 +1,54 @@
 import './Workspaces.css'
 import { Button } from '../Button/Button'
 import { WorkspacesItem } from '../WorkspacesItem/WorkspacesItem'
-const workspacesList = [{ id: 1, img: "https://fastly.picsum.photos/id/977/200/200.jpg?hmac=bhLVu-kBB_plx-DkWXz4gYn-ViPAhDjTtGFwu143FiA", title: 'My Task' }, { id: 2, img: "https://fastly.picsum.photos/id/719/200/200.jpg?hmac=WkMnZveCKylVzw33Ui-BNFbah8IQWImYq68wVKznlEo", title: 'Trello Clone' }, { id: 3, img: "https://fastly.picsum.photos/id/432/200/200.jpg?hmac=b4-kxXh_oTpvCBH9hueJurvHDdhy0eYNNba-mO9Q8bU", title: 'Another task' }]
+import { add } from '../../redux/slices/workspacesSlice'
+import { useDispatch, useSelector } from "react-redux";
+import { unsplash } from '../../lib/unsplash';
+import { useState, useEffect } from 'react';
+
+
 
 export const Workspaces = () => {
+
+  const workspacesList = useSelector((state) => state.workspaces.workspaces)
+  const [list,setList]=useState(useSelector((state) => state.workspaces.workspaces))
+  console.log(workspacesList);
+  const loggedUser = useSelector((state) => state.auth.loggedUser)
+  const dispatch = useDispatch()
+  const [img, setImage] = useState('')
+  
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const res = await unsplash.photos.getRandom({
+          collectionIds: ['317099'],
+          count: 1
+        })
+        console.log(res);
+        if (res && res.response) {
+          const resImg = res.response
+          console.log(resImg.urls.thumb);
+          setImage(resImg.urls.thumb)
+        } else {
+          console.error('Cant get image from unsplash');
+        }
+      }
+      catch (err) {
+        console.log(err);
+      }
+    }
+    fetchImages()
+  }, [])
+
 
   return (
     <div className="workspaces">
       <div className="workspaces-title">
         <h4>Workspaces</h4>
-        <Button type="main">+</Button>
+        <Button onClick={() => { dispatch(add({ img: 'https://images.unsplash.com/photo-1576772852498-1645ee4adfa6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NTAxMDl8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MDQ3MjE0Mjh8&ixlib=rb-4.0.3&q=80&w=200', title: 'test title', userEmail: loggedUser.payload })) }} type="main">+</Button>
       </div>
       {
-        workspacesList.map(({ img, title, id }) => {
+        list.map(({ img, title, id }) => {
           return <WorkspacesItem key={id} img={img} title={title} />
         })
       }
