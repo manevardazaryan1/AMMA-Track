@@ -6,6 +6,7 @@ import { Button } from '../Button/Button';
 
 export const Header = () => {
   const loggedIn = useSelector((state) => state.auth.loggedIn);
+  console.log(loggedIn);
   let buttons;
   if (!loggedIn) {
     buttons = (
