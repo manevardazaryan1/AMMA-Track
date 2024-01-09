@@ -1,23 +1,56 @@
 .create-box {
   position: absolute;
-  padding: 10px 10px 15px 10px;
-  background-color: rgba(228, 228, 228, 0.726);
+  padding: 15px 15px 25px 15px;
+  background-color: rgba(228, 228, 228, 0.88);
   width: fit-content;
   display: block;
   top: 10px;
   left: 90%;
+  animation: opacity .5s forwards;
+  opacity: 0;
   /* width: 320px; */
+}
+
+.create-box__type {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .create-box__images {
   display: grid;
-  grid-template-columns: repeat(3, 80px);
+  grid-template-columns: repeat(3, 120px);
+  grid-template-rows: repeat(3, 80px);
   gap: 5px;
 }
 
 .create-box__images-wrapper {
-  /* width: 70px; */
-  aspect-ratio: 1 / 1;
+  display: block;
+  border-radius: 10px;
+  border: none;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+.create-box__images-wrapper.active::before {
+  position: absolute;
+  content: '';
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url('../../images/check-mark-svgrepo-com\ \(1\).svg');
+  width: 60px;
+  height: 60px;
+  z-index: 10;
+  /* background-color: red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: block;
+  background-position: center;
+  background-size: cover;
+  opacity: 1;
 }
 
 .create-box__images-wrapper img {
@@ -40,7 +73,7 @@
 .create-box__info label {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
 .create-box__info input {
@@ -49,4 +82,19 @@
   display: block;
   border-radius: 5px;
   font-size: 18px;
+}
+
+
+.create-box__images-wrapper.active {
+  opacity: 1;
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

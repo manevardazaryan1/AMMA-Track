@@ -35,7 +35,7 @@
   opacity: .75;
 }
 
-button.account-btn {
+.button.account-btn {
   border-radius: 50%;
   height: 30px;
   width: 30px;
@@ -43,4 +43,11 @@ button.account-btn {
   align-items: center;
   justify-content: center;
   margin-right: 15px;
+}
+
+.button:disabled,
+.button[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }
