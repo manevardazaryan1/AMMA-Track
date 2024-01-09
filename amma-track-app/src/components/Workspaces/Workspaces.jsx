@@ -7,16 +7,21 @@ import { creationBoxHandle } from '../../redux/slices/workspacesSlice'
 
 export const Workspaces = () => {
   const create = useSelector((state) => state.workspaces.creationBox)
+  const workspaces = useSelector((state) => state.workspaces.workspaces)
   const dispatch = useDispatch()
   return (
     <div className="workspaces">
       <div className="workspaces-title">
         <h4>Workspaces</h4>
-        <Button onClick={() => dispatch(creationBoxHandle({val:true}))} type="main">+</Button>
+        <Button onClick={() => dispatch(creationBoxHandle({ val: true }))} type="main">+</Button>
         {create && <CreateBox type={'workspace'} />}
       </div>
       {
-
+        workspaces.map((workspace) => {
+          return (
+            <WorkspacesItem key={workspace.id} {...workspace} />
+          )
+        })
       }
     </div>
 

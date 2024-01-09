@@ -8,16 +8,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addWorkspace, creationBoxHandle } from '../../redux/slices/workspacesSlice'
 export const CreateBox = ({ type }) => {
   const [title, setTitle] = useState('');
-  const [images, setImages] = useState([{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }, { id: 7 }, { id: 8 }, { id: 9 }])
+  const [images, setImages] = useState([])
   const selectedImg = useSelector((state) => state.workspaces.selectedImg)
+  const currentUser = useSelector((state) => state.auth.loggedUser)
+  console.log(currentUser);
   const dispatch = useDispatch();
   const handleAdd = () => {
     const newWorkspace = {
-      title: 'title',
+      title,
       img: {
         thumb: selectedImg.thumb,
-        bigImg: selectedImg.bigImg,
       },
+      user: currentUser,
     };
     if (title.trim().length) {
       dispatch(addWorkspace(newWorkspace));
@@ -31,7 +33,7 @@ export const CreateBox = ({ type }) => {
       try {
         const result = await unsplash.photos.getRandom({
           collectionIds: ["317099"],
-          count: 2,
+          count: 9,
         })
         if (result && result.response) {
           const newImages = result.response;

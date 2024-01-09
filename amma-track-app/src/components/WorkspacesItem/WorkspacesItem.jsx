@@ -5,15 +5,15 @@ import arrow from '../../images/down-arrow-svgrepo-com.svg'
 import board from '../../images/board-svgrepo-com.svg'
 import settings from '../../images/settings-svgrepo-com.svg'
 
-export const WorkspacesItem = ({ img, title, id }) => {
+export const WorkspacesItem = ({ img, title }) => {
 
 
-  
+
 
   const [isClicked, setIsClicked] = useState(false)
   return (<div className="workspaces-item">
     <div onClick={() => setIsClicked((prev) => !prev)} className="workspaces-item__info">
-      <img className="workspaces-item__img" src={img} alt="img" />
+      <div className="workspaces-item__img" ><img src={img.thumb} alt="img" /></div>
       <p className="workspaces-item__title">{title}</p>
       <img className={`workspaces-arrow ${isClicked ? 'workspaces-arrow--rotated' : ''}`} src={arrow} alt="" />
     </div>

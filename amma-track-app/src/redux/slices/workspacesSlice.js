@@ -3,7 +3,7 @@ const initialState = {
   workspaces: [],
   selectedImg: {
     thumb: '',
-    bigImg: '',
+
   },
   creationBox: false,
 }
@@ -13,10 +13,9 @@ export const workSpacesSlice = createSlice({
   initialState,
   reducers: {
     addWorkspace: (state, action) => {
-      console.log('works');
-      state.workspaces.push({ title: action.payload.title, img: action.payload.img })
-      console.log(current(state.workspaces));
 
+      state.workspaces.push({ id: new Date().toISOString(), title: action.payload.title, img: action.payload.img,user:action.payload.email })
+      console.log(current(state).workspaces)
     },
     creationBoxHandle: (state, action) => {
       state.creationBox = action.payload.val;
