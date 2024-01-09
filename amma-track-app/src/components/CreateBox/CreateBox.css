@@ -1,0 +1,52 @@
+.create-box {
+  position: absolute;
+  padding: 10px 10px 15px 10px;
+  background-color: rgba(228, 228, 228, 0.726);
+  width: fit-content;
+  display: block;
+  top: 10px;
+  left: 90%;
+  /* width: 320px; */
+}
+
+.create-box__images {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  gap: 5px;
+}
+
+.create-box__images-wrapper {
+  /* width: 70px; */
+  aspect-ratio: 1 / 1;
+}
+
+.create-box__images-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  background-color: rgb(212, 212, 212);
+}
+
+.create-box__title {
+  margin-top: 10px;
+}
+
+.create-box__title span {
+  text-transform: capitalize;
+}
+
+.create-box__info label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.create-box__info input {
+  height: 20px;
+  padding: 15px 5px;
+  display: block;
+  border-radius: 5px;
+  font-size: 18px;
+}

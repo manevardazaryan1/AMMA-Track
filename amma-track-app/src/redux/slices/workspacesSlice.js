@@ -9,9 +9,7 @@ export const workSpacesSlice = createSlice({
   initialState,
   reducers: {
     add: (state, workspace) => {
-      // console.log(workspace.payload.email);
       state.workspaces = [...state.workspaces, workspace]
-
     }
   }
 })
