@@ -34,15 +34,16 @@ export default function Login() {
 
     const handleLoginForm = (e) => {
         e.preventDefault();
-        for (const user of users) {
-            console.log(user)
+        
+        // for (const user of users) {
             // if (user.payload.email === email && user.payload.password === CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex)) {
             //     window.localStorage.setItem('loggedUser', JSON.stringify(user.payload));
             //     dispatch(login(user.payload));
             //     setUserIsNotExists(() => false);
             //     navigate("/workspaces");
             // }
-        }
+        // }
+
         if (email === 'admin' && password === 'admin') {
             setUserIsNotExists(() => false);
             navigate("/workspaces");

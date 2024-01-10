@@ -11,7 +11,8 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
       signUp: (state, user) => {
-        state.users = [user, ...state.users];
+        state.users = [...state.users, user];
+        window.localStorage.setItem('users', JSON.stringify(state.users));
       },
 
       login: (state, user) => {
@@ -26,10 +27,18 @@ export const authSlice = createSlice({
         window.localStorage.setItem('isLoggedIn', 'OFF');
         window.localStorage.removeItem('loggedUser');
       },
+
+      setUsers: (state) => {
+        const signUpUsers = JSON.parse(window.localStorage.getItem("users"));
+
+        if (signUpUsers && signUpUsers.length) {
+          state.users = signUpUsers;
+        }
+      }
     },
   })
   
 
-  export const { signUp, login, logOut } = authSlice.actions
+  export const { signUp, login, logOut, setUsers } = authSlice.actions
   
   export default authSlice.reducer
