@@ -28,9 +28,10 @@ export const workSpacesSlice = createSlice({
           console.log('here');
           return { ...workspace, active: true }
         }
-        return { ...workspace, active: false }
+        else
+          return { ...workspace, active: false }
       })
-
+      console.log(current(state).workspaces)
     }
   }
 })

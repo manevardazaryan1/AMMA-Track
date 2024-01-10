@@ -8,8 +8,8 @@ import settings from '../../images/settings-svgrepo-com.svg'
 
 export const WorkspacesItem = ({ id, img, title }) => {
   const dispatch = useDispatch();
-  const activeWorkspaceId = useSelector(state => state.workspaces.workspaces.find(workspace => workspace.active && workspace.id === id))
-
+  const activeWorkspace = useSelector(state => state.workspaces.workspaces.find(workspace => workspace.active))
+  console.log('workspace', activeWorkspace);
   const [isClicked, setIsClicked] = useState(false)
   const [isActive, setIsActive] = useState('')
   const handleClick = (type, obj) => {
@@ -24,14 +24,14 @@ export const WorkspacesItem = ({ id, img, title }) => {
       <img className={`workspaces-arrow ${isClicked ? 'workspaces-arrow--rotated' : ''}`} src={arrow} alt="" />
     </div>
     <div className={`workspaces-item__more ${isClicked ? 'active' : ''}`}>
-      <div onClick={() => handleClick('boards', { id, img, title })} className={`workspaces-item__more-tab ${activeWorkspaceId === id && isActive === 'boards' ? 'active' : ''} workspaces-item__more-boards`}>
+      <div onClick={() => handleClick('boards', { id, img, title })} className={`workspaces-item__more-tab ${activeWorkspace?.id === id && isActive === 'boards' ? 'active' : ''} workspaces-item__more-boards`}>
         <img className='workspaces-item__more-icon' src={board} alt="" />
         <span>Boards</span>
       </div>
-      <div onClick={() => handleClick('settings', { id, img, title })} className={`workspaces-item__more-tab ${activeWorkspaceId === id && isActive === 'settings' ? 'active' : ''} workspaces-item__more-settings`}>
-        <img className='workspaces-item__more-icon' src={settings} alt="" />
-        <span>Settings</span>
-      </div>
+      <div onClick={() => handleClick('settings', { id, img, title })} className={`workspaces-item__more-tab ${activeWorkspace?.id === id && isActive === 'settings' ? 'active' : ''} workspaces-item__more-settings`}>
+      <img className='workspaces-item__more-icon' src={settings} alt="" />
+      <span>Settings</span>
     </div>
-  </div>)
+  </div>
+  </div >)
 }
