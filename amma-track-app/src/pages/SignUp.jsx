@@ -71,7 +71,8 @@ export default function SignUp() {
         let id = 1;
 
         if (users && usersCount) {
-            let lastUserId = users[usersCount - 1].payload["id"];
+            console.log(users[usersCount - 1])
+            let lastUserId = users[usersCount - 1]["id"];
             id = lastUserId ? ++lastUserId: id;
         }
 
@@ -79,7 +80,7 @@ export default function SignUp() {
 
             users.forEach((item) => {
 
-                if (item.payload.email === email || item.payload.userName === userName) {
+                if (item.email === email || item.userName === userName) {
                     userExistsBool = true;
                     setUserExists(() => true);
                 } else {
