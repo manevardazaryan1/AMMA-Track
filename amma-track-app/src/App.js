@@ -1,8 +1,8 @@
 import './App.css';
 import './authCss/style.css';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { login} from './redux/slices/authenticationSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, setUsers } from './redux/slices/authenticationSlice';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import MainPage from './pages/MainPage';
@@ -19,8 +19,10 @@ function App() {
   useEffect(() => {
     const isLoggedIn = window.localStorage.getItem("isLoggedIn");
     if (isLoggedIn && isLoggedIn === 'ON') {
-      dispatch(login());
+      dispatch(login(JSON.parse(window.localStorage.getItem("loggedUser"))));
     }
+
+    dispatch(setUsers());
   }, [dispatch]);
 
   return (

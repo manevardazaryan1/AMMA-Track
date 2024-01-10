@@ -64,8 +64,16 @@ export default function SignUp() {
         return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
     };
 
-    const handleLoginFormOnsubmit = (e) => {
+    const handleSignUpFormOnsubmit = (e) => {
         e.preventDefault();
+
+        const usersCount = users.length;
+        let id = 1;
+
+        if (users && usersCount) {
+            let lastUserId = users[usersCount - 1].payload["id"];
+            id = lastUserId ? ++lastUserId: id;
+        }
 
         if (!Object.values(errors).join("")) {
 
@@ -81,7 +89,7 @@ export default function SignUp() {
             });
 
             if (!users.length || !userExistsBool) {
-                dispatch(signUp({ userName, email, password: hashPassword(password) }));
+                dispatch(signUp({ id, userName, email, password: hashPassword(password) }));
                 setErrors(() => "");
                 setEmail(() => "");
                 setUserName(() => "");
@@ -116,7 +124,7 @@ export default function SignUp() {
             <div className="sign-up--wrapper">
                 <h2 className="auth-title">Sign Up</h2>
 
-                <form onSubmit={handleLoginFormOnsubmit} autoComplete="off" className="auth-form">
+                <form onSubmit={handleSignUpFormOnsubmit} autoComplete="off" className="auth-form">
                     <div>
                         <label htmlFor="username" >User Name</label>
                         <input type="text" name="username" id="username" placeholder="User Name" className={userName && errorClsses.userNameError} value={userName} onChange={handleInputChange} />
@@ -131,7 +139,7 @@ export default function SignUp() {
                             <div className={`password-block ${password && errorClsses.passwordError}`}>
                                 <input type={passwordEye ? "text" : "password"} name="password" id="password" placeholder="Password" value={password} onChange={handleInputChange} autoComplete="off" />
                                 {
-                                    password && <button className="password-eye" type="button" onClick={togglePasswordEye}><i className={passwordEye ? "fa-solid fa-eye" : "fa-solid fa-eye-slash"}></i></button>
+                                    password && <button className="password-eye" type="button" onClick={togglePasswordEye}><i className={passwordEye ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"}></i></button>
                                 }
                             </div>
                         </div>
