@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { login } from "../redux/slices/authenticationSlice";
+import CryptoJS from 'crypto-js';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -36,19 +37,20 @@ export default function Login() {
         e.preventDefault();
         
         // for (const user of users) {
-            // if (user.payload.email === email && user.payload.password === CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex)) {
-            //     window.localStorage.setItem('loggedUser', JSON.stringify(user.payload));
-            //     dispatch(login(user.payload));
-            //     setUserIsNotExists(() => false);
-            //     navigate("/workspaces");
-            // }
+        //     if (user.email === email && user.password === CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex)) {
+        //         window.localStorage.setItem('loggedUser', JSON.stringify(user));
+        //         dispatch(login(user));
+        //         setUserIsNotExists(() => false);
+        //         navigate("/workspaces");
+        //     }
         // }
 
         if (email === 'admin' && password === 'admin') {
+            const id = 1;
             setUserIsNotExists(() => false);
             navigate("/workspaces");
-            window.localStorage.setItem('loggedUser', JSON.stringify({ userName: 'admin', email: 'admin@gmail.com', password: 'admin' }));
-            dispatch(login({ userName: 'admin', email: 'admin@gmail.com', password: 'admin' }));
+            window.localStorage.setItem('loggedUser', JSON.stringify({id: id, userName: 'admin', email: 'admin@gmail.com', password: 'admin' }));
+            dispatch(login({id, userName: 'admin', email: 'admin@gmail.com', password: 'admin' }));
         }
 
         setUserIsNotExists(() => true);

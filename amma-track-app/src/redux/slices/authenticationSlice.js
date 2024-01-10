@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
+import CryptoJS from 'crypto-js';
 
 const initialState = {
     loggedIn: false,
-    users: [],
+    users: [{id: 1, userName: 'admin', email: 'admin@gmail.com', password: CryptoJS.SHA256("admin").toString(CryptoJS.enc.Hex) }],
     loggedUser: {},
 }
 
@@ -11,7 +12,7 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
       signUp: (state, user) => {
-        state.users = [...state.users, user];
+        state.users = [...state.users, user.payload];
         window.localStorage.setItem('users', JSON.stringify(state.users));
       },
 
