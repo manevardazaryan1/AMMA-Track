@@ -26,15 +26,14 @@ export const workSpacesSlice = createSlice({
     toggleActiveWorkspace: (state, action) => {
 
       state.workspaces = state.workspaces.map(workspace => {
-        console.log('workspace', workspace.id);
-        console.log('action', action.payload.id);
+
         if (workspace.id === action.payload.id) {
           console.log('here');
           return { ...workspace, active: true }
         }
         return { ...workspace, active: false }
       })
-      console.log(current(state).workspaces);
+
     }
   }
 })
