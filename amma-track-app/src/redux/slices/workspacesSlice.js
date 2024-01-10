@@ -12,7 +12,8 @@ export const workSpacesSlice = createSlice({
   initialState,
   reducers: {
     addWorkspace: (state, action) => {
-      state.workspaces.push({ id: new Date().toISOString(), title: action.payload.title, img: action.payload.img, user: action.payload.email, active: false })
+      state.workspaces.push({ id: new Date().toISOString(), title: action.payload.title, img: action.payload.img, user: action.payload, active: false })
+      console.log(current(state).workspaces)
     },
     creationBoxHandle: (state, action) => {
       state.creationBox = action.payload.val;

@@ -11,6 +11,7 @@ export const CreateBox = ({ type }) => {
   const [images, setImages] = useState([])
   const selectedImg = useSelector((state) => state.workspaces.selectedImg.thumb)
   const currentUser = useSelector((state) => state.auth.loggedUser)
+  console.log(currentUser);
   const dispatch = useDispatch();
   const handleAddClick = () => {
     const newWorkspace = {

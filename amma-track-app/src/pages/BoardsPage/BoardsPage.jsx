@@ -4,10 +4,10 @@ import { Workspaces } from '../../components/Workspaces/Workspaces'
 import { Footer } from '../../components/Footer/Footer'
 import { BoardsList } from '../../components/BoardsList/BoardsList'
 import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
 const BoardsPage = () => {
   const activeWorkspaceId = useSelector(state => state.workspaces.workspaces.find(workspace => workspace.active))
-
   return (
     <>
       <Header />
