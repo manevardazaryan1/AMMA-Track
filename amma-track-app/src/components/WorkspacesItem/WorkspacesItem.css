@@ -82,8 +82,12 @@
   transition: all .4s;
   padding: 2px 2px 2px 43px;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .workspaces-item__more-tab:hover {
+  background-color: #cacaca;
+}
+.workspaces-item__more-tab.active{
   background-color: #cacaca;
 }

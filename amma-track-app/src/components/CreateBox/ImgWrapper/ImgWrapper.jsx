@@ -1,10 +1,9 @@
 
 import { useDispatch } from 'react-redux';
 import { selectImg } from '../../../redux/slices/workspacesSlice'
-import { useState } from 'react';
+
 import { useSelector } from 'react-redux';
 export const ImgWrapper = ({ urls }) => {
-  const [selectedImg, setSelectedImg] = useState(false)
   const dispatch = useDispatch()
   const activeImg = useSelector((state) => state.workspaces.selectedImg)
 
