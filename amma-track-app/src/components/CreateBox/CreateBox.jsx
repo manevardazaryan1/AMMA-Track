@@ -8,19 +8,19 @@ import { addWorkspace, creationBoxHandle } from '../../redux/slices/workspacesSl
 export const CreateBox = ({ type }) => {
   const [title, setTitle] = useState('');
   const [images, setImages] = useState([])
-  const selectedImg = useSelector((state) => state.workspaces.selectedImg)
+  const selectedImg = useSelector((state) => state.workspaces.selectedImg.thumb)
   const currentUser = useSelector((state) => state.auth.loggedUser)
   console.log(currentUser);
   const dispatch = useDispatch();
-  const handleAddClick = (event) => {
+  const handleAddClick = () => {
     const newWorkspace = {
       title,
       img: {
-        thumb: selectedImg.thumb,
+        thumb: selectedImg,
       },
       user: currentUser,
     };
-    if (title.trim().length) {
+    if (title.trim().length && selectedImg) {
       dispatch(addWorkspace(newWorkspace));
       dispatch(creationBoxHandle({ val: false }));
       setTitle('');
@@ -30,12 +30,12 @@ export const CreateBox = ({ type }) => {
     const newWorkspace = {
       title,
       img: {
-        thumb: selectedImg.thumb,
+        thumb: selectedImg,
       },
       user: currentUser,
     };
     if (event.key === 'Enter') {
-      if (title.trim().length) {
+      if (title.trim().length && selectedImg) {
         dispatch(addWorkspace(newWorkspace));
         dispatch(creationBoxHandle({ val: false }));
         setTitle('');
@@ -81,7 +81,7 @@ export const CreateBox = ({ type }) => {
         <p className='create-box__title'><span>{type}</span> title</p>
         <label>
           <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} onKeyDown={handleEnter} />
-          <Button disabled={!title.length} type={'secondary'} onClick={handleAddClick} >Add {type}</Button>
+          <Button disabled={!title.length || !selectedImg} type={'secondary'} onClick={handleAddClick} >Add {type}</Button>
         </label>
       </div>
     </div>
