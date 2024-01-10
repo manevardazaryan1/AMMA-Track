@@ -5,6 +5,7 @@ import { Button } from '../Button/Button'
 import { ImgWrapper } from './ImgWrapper/ImgWrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { addWorkspace, creationBoxHandle } from '../../redux/slices/workspacesSlice'
+import { selectImg } from '../../redux/slices/workspacesSlice'
 export const CreateBox = ({ type }) => {
   const [title, setTitle] = useState('');
   const [images, setImages] = useState([])
@@ -24,6 +25,7 @@ export const CreateBox = ({ type }) => {
       dispatch(addWorkspace(newWorkspace));
       dispatch(creationBoxHandle({ val: false }));
       setTitle('');
+      dispatch(selectImg({ urls: { thumb: '' } }))
     }
   }
   const handleEnter = event => {
@@ -39,6 +41,7 @@ export const CreateBox = ({ type }) => {
         dispatch(addWorkspace(newWorkspace));
         dispatch(creationBoxHandle({ val: false }));
         setTitle('');
+        dispatch(selectImg({ urls: { thumb: '' } }))
       }
     }
   };

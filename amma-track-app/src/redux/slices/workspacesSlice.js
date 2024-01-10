@@ -18,10 +18,7 @@ export const workSpacesSlice = createSlice({
       state.creationBox = action.payload.val;
     },
     selectImg: (state, action) => {
-      state.selectedImg = {
-        thumb: action.payload.urls.thumb,
-        bigImg: action.payload.urls.full,
-      };
+      state.selectedImg.thumb = action.payload.urls.thumb;
     },
     toggleActiveWorkspace: (state, action) => {
 
