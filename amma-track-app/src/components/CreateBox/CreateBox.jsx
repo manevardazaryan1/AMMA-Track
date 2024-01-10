@@ -12,7 +12,7 @@ export const CreateBox = ({ type }) => {
   const currentUser = useSelector((state) => state.auth.loggedUser)
   console.log(currentUser);
   const dispatch = useDispatch();
-  const handleAdd = () => {
+  const handleAddClick = (event) => {
     const newWorkspace = {
       title,
       img: {
@@ -25,14 +25,29 @@ export const CreateBox = ({ type }) => {
       dispatch(creationBoxHandle({ val: false }));
       setTitle('');
     }
-
   }
+  const handleEnter = event => {
+    const newWorkspace = {
+      title,
+      img: {
+        thumb: selectedImg.thumb,
+      },
+      user: currentUser,
+    };
+    if (event.key === 'Enter') {
+      if (title.trim().length) {
+        dispatch(addWorkspace(newWorkspace));
+        dispatch(creationBoxHandle({ val: false }));
+        setTitle('');
+      }
+    }
+  };
   useEffect(() => {
     const fetchImages = async () => {
       try {
         const result = await unsplash.photos.getRandom({
           collectionIds: ["317099"],
-          count: 1,
+          count: 9,
         })
         if (result && result.response) {
           const newImages = result.response;
@@ -52,7 +67,7 @@ export const CreateBox = ({ type }) => {
   return (
     <div className='create-box'>
       <p className='create-box__type'>Create {type}</p>
-      <div onClick={()=>dispatch(creationBoxHandle({ vale: false }))} className="create-box__btn"><Button>X</Button></div>
+      <div onClick={() => dispatch(creationBoxHandle({ vale: false }))} className="create-box__btn"><Button>X</Button></div>
       <div className='create-box__images'>
         {
           images.map(img => {
@@ -65,8 +80,8 @@ export const CreateBox = ({ type }) => {
       <div className="create-box__info">
         <p className='create-box__title'><span>{type}</span> title</p>
         <label>
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-          <Button disabled={!title.length} type={'secondary'} onClick={handleAdd} >Add {type}</Button>
+          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} onKeyDown={handleEnter} />
+          <Button disabled={!title.length} type={'secondary'} onClick={handleAddClick} >Add {type}</Button>
         </label>
       </div>
     </div>
