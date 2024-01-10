@@ -6,14 +6,14 @@ import { BoardsList } from '../../components/BoardsList/BoardsList'
 import { useSelector } from 'react-redux'
 
 const BoardsPage = () => {
-  const currWorkspace = useSelector(state => state.workspaces.activeWorkspace)
-
+  const activeWorkspaceId = useSelector(state => state.workspaces.workspaces.find(workspace => workspace.active))
+  console.log(activeWorkspaceId);
   return (
     <>
       <Header />
       <div className="container container--boardsPage">
         <Workspaces />
-        {!!Object.keys(currWorkspace).length && < BoardsList />}
+        {activeWorkspaceId && < BoardsList />}
       </div>
 
       <Footer />

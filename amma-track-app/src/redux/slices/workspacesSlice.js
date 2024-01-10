@@ -5,7 +5,6 @@ const initialState = {
     thumb: '',
   },
   creationBox: false,
-  activeWorkspace: {}
 }
 
 export const workSpacesSlice = createSlice({
@@ -13,7 +12,7 @@ export const workSpacesSlice = createSlice({
   initialState,
   reducers: {
     addWorkspace: (state, action) => {
-      state.workspaces.push({ id: new Date().toISOString(), title: action.payload.title, img: action.payload.img, user: action.payload.email })
+      state.workspaces.push({ id: new Date().toISOString(), title: action.payload.title, img: action.payload.img, user: action.payload.email, active: false })
     },
     creationBoxHandle: (state, action) => {
       state.creationBox = action.payload.val;
@@ -25,8 +24,17 @@ export const workSpacesSlice = createSlice({
       };
     },
     toggleActiveWorkspace: (state, action) => {
-      state.activeWorkspace = action.payload
-      console.log(current(state).activeWorkspace);
+
+      state.workspaces = state.workspaces.map(workspace => {
+        console.log('workspace', workspace.id);
+        console.log('action', action.payload.id);
+        if (workspace.id === action.payload.id) {
+          console.log('here');
+          return { ...workspace, active: true }
+        }
+        return { ...workspace, active: false }
+      })
+      console.log(current(state).workspaces);
     }
   }
 })
