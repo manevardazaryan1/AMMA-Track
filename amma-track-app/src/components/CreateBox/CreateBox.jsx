@@ -1,10 +1,9 @@
+import './CreateBox.css'
 import { useEffect, useState } from 'react'
 import { unsplash } from '../../lib/unsplash'
 import { Button } from '../Button/Button'
-import './CreateBox.css'
 import { ImgWrapper } from './ImgWrapper/ImgWrapper'
 import { useDispatch, useSelector } from 'react-redux'
-
 import { addWorkspace, creationBoxHandle } from '../../redux/slices/workspacesSlice'
 export const CreateBox = ({ type }) => {
   const [title, setTitle] = useState('');
@@ -53,6 +52,7 @@ export const CreateBox = ({ type }) => {
   return (
     <div className='create-box'>
       <p className='create-box__type'>Create {type}</p>
+      <div onClick={()=>dispatch(creationBoxHandle({ vale: false }))} className="create-box__btn"><Button>X</Button></div>
       <div className='create-box__images'>
         {
           images.map(img => {
