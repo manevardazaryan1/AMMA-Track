@@ -90,7 +90,7 @@ export const CreateBox = ({ type, handleBox }) => {
       try {
         const result = await unsplash.photos.getRandom({
           collectionIds: ["317099"],
-          count: 2,
+          count: 9,
         })
         if (result && result.response) {
           const newImages = result.response;
