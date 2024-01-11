@@ -7,6 +7,7 @@ import { Button } from '../Button/Button';
 export const Header = () => {
   const loggedIn = useSelector((state) => state.auth.loggedIn);
   let buttons;
+  const loggedUser = useSelector((state) => state.auth.loggedUser);
   if (!loggedIn) {
     buttons = (
       <>
@@ -15,7 +16,8 @@ export const Header = () => {
       </>
     );
   } else {
-    const userAvatar = JSON.parse(window.localStorage.getItem("loggedUser")).email[0].toUpperCase();
+
+    const userAvatar = loggedUser ? loggedUser.email[0].toUpperCase() : '';
     buttons = (
       <>
         <Link to='/account'><Button type='account-btn'>{userAvatar}</Button></Link>

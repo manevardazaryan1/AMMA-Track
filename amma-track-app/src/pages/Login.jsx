@@ -36,20 +36,18 @@ export default function Login() {
     const handleLoginForm = (e) => {
         e.preventDefault();
         
-        // for (const user of users) {
-        //     if (user.email === email && user.password === CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex)) {
-        //         window.localStorage.setItem('loggedUser', JSON.stringify(user));
-        //         dispatch(login(user));
-        //         setUserIsNotExists(() => false);
-        //         navigate("/workspaces");
-        //     }
-        // }
+        for (const user of users) {
+            if (user.email === email && user.password === CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex)) {  
+                dispatch(login(user));
+                setUserIsNotExists(() => false);
+                navigate("/workspaces");
+            }
+        }
 
         if (email === 'admin' && password === 'admin') {
             const id = 1;
             setUserIsNotExists(() => false);
             navigate("/workspaces");
-            window.localStorage.setItem('loggedUser', JSON.stringify({id: id, userName: 'admin', email: 'admin@gmail.com', password: 'admin' }));
             dispatch(login({id, userName: 'admin', email: 'admin@gmail.com', password: 'admin' }));
         }
 
