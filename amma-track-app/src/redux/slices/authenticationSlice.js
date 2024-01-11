@@ -24,13 +24,6 @@ export const authSlice = createSlice({
       state.loggedIn = false;
       state.loggedUser = {};
     },
-
-    setUsers: (state) => {
-      const signUpUsers = JSON.parse(window.localStorage.getItem("users"));
-      if (signUpUsers && signUpUsers.length) {
-        state.users = signUpUsers;
-      }
-    }
   },
 })
 
