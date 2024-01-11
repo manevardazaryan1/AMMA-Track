@@ -18,19 +18,15 @@ export const authSlice = createSlice({
     login: (state, user) => {
       state.loggedIn = true;
       state.loggedUser = user.payload;
-
     },
 
     logOut: (state) => {
       state.loggedIn = false;
       state.loggedUser = {};
-
-
     },
 
     setUsers: (state) => {
       const signUpUsers = JSON.parse(window.localStorage.getItem("users"));
-
       if (signUpUsers && signUpUsers.length) {
         state.users = signUpUsers;
       }

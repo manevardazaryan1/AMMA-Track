@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 export default function Account() {
-    const user = JSON.parse(window.localStorage.getItem("loggedUser"));
+    const user = useSelector(state=>state.auth.loggedUser)
 
     if (!user) {
         return <Navigate to="/" />;
