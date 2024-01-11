@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { login } from "../redux/slices/authenticationSlice";
+
 import CryptoJS from 'crypto-js';
 
 export default function Login() {
     const navigate = useNavigate();
     const loggedIn = useSelector((state) => state.auth.loggedIn);
     const [passwordEye, setPasswordEye] = useState(false);
-
+    
     useEffect(() => {
         if (loggedIn) {
             navigate('/workspaces');
@@ -35,9 +36,9 @@ export default function Login() {
 
     const handleLoginForm = (e) => {
         e.preventDefault();
-        
+
         for (const user of users) {
-            if (user.email === email && user.password === CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex)) {  
+            if (user.email === email && user.password === CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex)) {
                 dispatch(login(user));
                 setUserIsNotExists(() => false);
                 navigate("/workspaces");
@@ -48,7 +49,7 @@ export default function Login() {
             const id = 1;
             setUserIsNotExists(() => false);
             navigate("/workspaces");
-            dispatch(login({id, userName: 'admin', email: 'admin@gmail.com', password: 'admin' }));
+            dispatch(login({ id, userName: 'admin', email: 'admin@gmail.com', password: 'admin' }));
         }
 
         setUserIsNotExists(() => true);

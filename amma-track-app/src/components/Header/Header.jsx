@@ -1,13 +1,16 @@
 import './Header.css';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import logo from '../../images/logo.svg';
 import { Link } from 'react-router-dom';
 import { Button } from '../Button/Button';
 
+import { deleteActiveWorkspace } from "../../redux/slices/workspacesSlice";
 export const Header = () => {
+
   const loggedIn = useSelector((state) => state.auth.loggedIn);
   let buttons;
   const loggedUser = useSelector((state) => state.auth.loggedUser);
+  const dispatch=useDispatch()
   if (!loggedIn) {
     buttons = (
       <>
@@ -21,7 +24,7 @@ export const Header = () => {
     buttons = (
       <>
         <Link to='/account'><Button type='account-btn'>{userAvatar}</Button></Link>
-        <Link to='/log-out'><Button type='secondary'>Log Out</Button></Link>
+        <Link to='/log-out'><Button onClick={()=>dispatch(deleteActiveWorkspace({}))} type='secondary'>Log Out</Button></Link>
       </>
     )
   }

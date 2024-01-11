@@ -8,22 +8,23 @@ export const ImgWrapper = ({ type, urls }) => {
   const dispatch = useDispatch()
   const activeWorkspaceImg = useSelector((state) => state.workspaces.selectedImg)
   const activeBoardImg = useSelector((state) => state.boards.selectedImg)
-  const activeImg=type==='workspace'?activeWorkspaceImg:activeBoardImg;
+  const activeImg = type === 'workspace' ? activeWorkspaceImg : activeBoardImg;
   const handleImgSelect = (obj) => {
     console.log(obj);
     switch (type) {
       case 'workspace': {
-        dispatch(selectWorkspaceImg( obj ))
+        dispatch(selectWorkspaceImg(obj))
         return
       }
       case 'board': {
-        dispatch(selectBoardImg( obj ))
+        dispatch(selectBoardImg(obj))
         return
       }
     }
   }
+  console.log(urls);
   return (
-    <div onClick={() => handleImgSelect(urls)} className={`create-box__images-wrapper ${activeImg?.thumb === urls?.thumb ? 'active' : ''}`}>
+    <div onClick={() => handleImgSelect(urls)} className={`create-box__images-wrapper ${activeImg?.thumb === urls?.thumb || activeImg?.thumb === urls?.regular ? 'active' : ''}`}>
       <img src={urls?.thumb ?? ''} alt="pic" />
     </div>
   )
