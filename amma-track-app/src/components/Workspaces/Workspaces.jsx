@@ -7,7 +7,9 @@ import { creationBoxHandle } from '../../redux/slices/workspacesSlice'
 
 export const Workspaces = () => {
   const create = useSelector((state) => state.workspaces.creationBox)
-  const workspaces = useSelector((state) => state.workspaces.workspaces)
+  const currentUser = useSelector((state) => state.auth.loggedUser);
+  const workspaces = useSelector((state) => state.workspaces.workspaces);
+  const workspacesToShow = workspaces.filter(workspace => workspace.user.id === currentUser.id)
   const dispatch = useDispatch()
   return (
     <div className="workspaces">
@@ -17,7 +19,7 @@ export const Workspaces = () => {
         {create && <CreateBox type={'workspace'} />}
       </div>
       {
-        workspaces.map((workspace) => {
+        workspacesToShow.map((workspace) => {
           return (
             <WorkspacesItem key={workspace.id} {...workspace} />
           )
