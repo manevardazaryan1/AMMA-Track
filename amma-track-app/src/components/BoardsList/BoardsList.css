@@ -48,6 +48,10 @@
   gap: 15px;
 }
 
+.boardsList-items__create-wrapper {
+  position: relative;
+}
+
 .boardsList-items__create {
   display: flex;
   align-items: center;

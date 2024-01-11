@@ -1,14 +1,29 @@
 
 import { useDispatch } from 'react-redux';
-import { selectImg } from '../../../redux/slices/workspacesSlice'
+import { selectWorkspaceImg } from '../../../redux/slices/workspacesSlice'
+import { selectBoardImg } from '../../../redux/slices/boardsSlice'
 
 import { useSelector } from 'react-redux';
-export const ImgWrapper = ({ urls }) => {
+export const ImgWrapper = ({ type, urls }) => {
   const dispatch = useDispatch()
-  const activeImg = useSelector((state) => state.workspaces.selectedImg)
-
+  const activeWorkspaceImg = useSelector((state) => state.workspaces.selectedImg)
+  const activeBoardImg = useSelector((state) => state.boards.selectedImg)
+  const activeImg=type==='workspace'?activeWorkspaceImg:activeBoardImg;
+  const handleImgSelect = (obj) => {
+    console.log(obj);
+    switch (type) {
+      case 'workspace': {
+        dispatch(selectWorkspaceImg( obj ))
+        return
+      }
+      case 'board': {
+        dispatch(selectBoardImg( obj ))
+        return
+      }
+    }
+  }
   return (
-    <div onClick={() => dispatch(selectImg({ urls }))} className={`create-box__images-wrapper ${activeImg?.thumb === urls?.thumb ? 'active' : ''}`}>
+    <div onClick={() => handleImgSelect(urls)} className={`create-box__images-wrapper ${activeImg?.thumb === urls?.thumb ? 'active' : ''}`}>
       <img src={urls?.thumb ?? ''} alt="pic" />
     </div>
   )

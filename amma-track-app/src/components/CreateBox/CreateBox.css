@@ -10,11 +10,19 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
   width: fit-content;
   display: block;
-  top: 10px;
-  left: 90%;
   animation: opacity .5s forwards;
   opacity: 0;
+  z-index: 100;
   /* width: 320px; */
+}
+
+.create-box.workspace {
+  top: 10px;
+  left: 90%;
+}
+.create-box.board{
+  top: -100%;
+  left: 103%;
 }
 
 .create-box__type {

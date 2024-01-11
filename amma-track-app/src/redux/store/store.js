@@ -14,14 +14,18 @@ import storage from 'redux-persist/lib/storage'
 
 import authReducer from '../slices/authenticationSlice'
 import workspacesReducer from '../slices/workspacesSlice'
-
+import boardsReducer from '../slices/boardsSlice'
+import creationReducer from '../slices/creationBoxSlice'
 const rootReducer = combineReducers({
   auth: authReducer,
   workspaces: workspacesReducer,
+  boards: boardsReducer,
+  creation: creationReducer,
 })
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['creation']
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
