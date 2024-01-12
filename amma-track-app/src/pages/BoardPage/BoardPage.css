@@ -22,6 +22,7 @@
     align-items: center;
     padding: 10px;
     border-radius: 5px;
+    justify-content: space-between
   }
 
   .list li button {
@@ -73,6 +74,19 @@
 
 .list li a:hover {
     color: #ddd;
+}
+
+.form-buttons{
+  display:flex;
+  align-items: center;
+  gap : 5px;
+}
+
+.createList button {
+  background-color: rgba(0, 0, 0, 0.5); 
+  border: none;
+  color: #fff; 
+  cursor: pointer;
 }
 
 
