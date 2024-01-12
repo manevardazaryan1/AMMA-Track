@@ -1,23 +1,25 @@
 .lists{
+    display: flex;
+    flex-wrap: wrap;
     list-style: none;
     padding: 0;
     margin-top: 80px;
-    margin-left: 30px;
-    display: flex;
-    flex-wrap: wrap;
+    margin-left: 30px;  
 }
 
-.list{
-  max-width: 250px;
-  width : 200px;
-  min-width:100px;
-  height: 60px; 
+.list-item{
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: 5px;
 }
 
-.list li {
+.list-titel-delete{
+  
+}
+
+
+
+/* .list li {
     display: flex;
     align-items: center;
     padding: 10px;
@@ -82,11 +84,13 @@
   gap : 5px;
 }
 
-.createList button {
-  background-color: rgba(0, 0, 0, 0.5); 
+.createList  {
+  background-color: transparent;
   border: none;
-  color: #fff; 
+  color: #000; 
   cursor: pointer;
-}
+} 
+*/
+
 
 

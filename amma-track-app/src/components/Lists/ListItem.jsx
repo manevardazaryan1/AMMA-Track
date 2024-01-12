@@ -1,14 +1,45 @@
-import React from "react";
+import React , {useState} from "react";
+import InputCard from "../Card/InputCard";
+import CardsList from "../Card/CardsList";
 
-const ListItem = ({ item, onRemove }) => (
-  <div className="list" key={item.id}>
-    <li>
-      <a href="#">{item.text}</a>
-      <button onClick={onRemove}>
-        <span>x</span>
-      </button>
+const ListItem = ({ item, onRemove }) => {
+
+  const [showForm, setShowForm] = useState(false); 
+
+  const handleToggleForm = () => {
+    setShowForm(!showForm);
+  };
+
+  return (
+    <li className="list-item" key={item.id}>
+      <div className="list-titel-delete-card">
+        <div className = "list-titel-delete">
+          <span>{item.text}</span>
+          <button onClick={onRemove}>
+              <span>x</span>
+            </button>
+        </div>
+        <div className = "list-add-card">
+          {showForm ? (
+              <>
+                <InputCard handleToggleForm={handleToggleForm}/>
+                <CardsList />
+              </>
+                ) : (
+              <>
+                <button className="transparent-button" onClick={handleToggleForm}>
+                    Add card
+                </button>
+                
+              </>
+            )}
+        </div>
+      </div>
     </li>
-  </div>
-);
+  );
+};
 
-export default ListItem
+export default ListItem;
+
+
+
