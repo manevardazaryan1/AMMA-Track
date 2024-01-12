@@ -8,6 +8,8 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Account from './pages/Account';
 import LogOut from './pages/LogOut';
+import BoardPage from './pages/BoardPage/BoardPage';
+import { BoardItem } from './components/BoardItem/BoardItem';
 import { Route, Routes } from 'react-router-dom';
 
 
@@ -24,6 +26,7 @@ function App() {
           <Route path='/account' element={<Account />} />
           <Route path='/log-out' element={<LogOut />} />
           <Route path='/workspaces' element={<BoardsPage />} />
+          <Route path='/workspaces/board' element={<BoardPage />} />
         </Routes>
       </div>
       <Footer />
