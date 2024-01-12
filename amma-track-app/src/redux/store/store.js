@@ -16,13 +16,13 @@ import authReducer from '../slices/authenticationSlice'
 import workspacesReducer from '../slices/workspacesSlice'
 import boardsReducer from '../slices/boardsSlice'
 import creationReducer from '../slices/creationBoxSlice'
-import listsReducer from '../slices/listsReducer'
+import listsSlice from '../slices/listsSlice'
 const rootReducer = combineReducers({
   auth: authReducer,
   workspaces: workspacesReducer,
   boards: boardsReducer,
   creation: creationReducer,
-  lists: listsReducer,
+  lists: listsSlice,
 })
 const persistConfig = {
   key: 'root',
