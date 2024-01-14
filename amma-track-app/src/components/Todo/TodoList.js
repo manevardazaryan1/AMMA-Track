@@ -106,10 +106,14 @@ import { addList, removeList } from '../../redux/slices/todosSlice';
 import { addCard, removeCard } from '../../redux/slices/cardsSlice';
 import './TodoList.css'
 
-const TodoList = () => {
+const TodoList = ({ boardId }) => {
+
+  
   const dispatch = useDispatch();
   const lists = useSelector(state => state.todos);
   const cards = useSelector(state => state.cards);
+  const todoListData = useSelector(state => state.todos[boardId] || {});
+
 
   const [newListTitle, setNewListTitle] = useState('');
   const [isAddingList, setIsAddingList] = useState(false);
@@ -158,54 +162,56 @@ const TodoList = () => {
   };
 
   return (
-    <div className="containerList">
-      {Object.values(lists).map(list => (
-        <div key={list.id} className={`list ${activeListId === list.id ? 'active' : ''}`} onClick={() => handleSetActiveList(list.id)}>
-          <div className="list-title-X">
-            <h3>{list.title}</h3>
-            <button onClick={() => handleRemoveList(list.id)}>X</button>
-          </div>
-          {activeListId === list.id && (
-            <div className='add-card'>
-              <input
-                type="text"
-                placeholder="Enter a title for this card..."
-                value={newCardText}
-                onChange={e => setNewCardText(e.target.value)}
-              />
-              <button onClick={handleAddCard}>Add card</button>
+    <div>
+      <h4>Todo List for Board: {boardId}</h4>
+      <div className="containerList">
+        {Object.values(lists).map(list => (
+          <div key={list.id} className={`list ${activeListId === list.id ? 'active' : ''}`} onClick={() => handleSetActiveList(list.id)}>
+            <div className="list-title-X">
+              <h3>{list.title}</h3>
+              <button onClick={() => handleRemoveList(list.id)}>X</button>
             </div>
-          )}
-
-          <ul>
-            {cards[list.id] &&
-              cards[list.id].map(card => (
-                <div className="delete-card">
-                  <li key={card.id} className="card">
-                    {card.text}
-                    <button onClick={() => handleRemoveCard(list.id, card.id)}>X</button>
-                  </li>
-                </div>
-              ))}
-          </ul>
-        </div>
-      ))}
-      {showForm ? (
-        <div className='add-list-form'>
-          <input
-            type="text"
-            placeholder="Add another list"
-            value={newListTitle}
-            onChange={e => setNewListTitle(e.target.value)}
-          />
-          <button onClick={handleAddList}>Add</button>
-          <button onClick={handleToggleForm}><span>x</span></button>
-        </div>
-      ) : (
-        <button className="add-list" onClick={handleToggleForm}>
-          Add list
-        </button>
-      )}
+            <ul>
+              {cards[list.id] &&
+                cards[list.id].map(card => (
+                  <div className="delete-card">
+                    <li key={card.id} className="card">
+                      {card.text}
+                      <button onClick={() => handleRemoveCard(list.id, card.id)}>X</button>
+                    </li>
+                  </div>
+                ))}
+            </ul>
+            {activeListId === list.id && (
+              <div className='add-card'>
+                <input
+                  type="text"
+                  placeholder="Enter a title for this card..."
+                  value={newCardText}
+                  onChange={e => setNewCardText(e.target.value)}
+                />
+                <button onClick={handleAddCard}>Add card</button>
+              </div>
+            )}
+          </div>
+        ))}
+        {showForm ? (
+          <div className='add-list-form'>
+            <input
+              type="text"
+              placeholder="Add another list"
+              value={newListTitle}
+              onChange={e => setNewListTitle(e.target.value)}
+            />
+            <button onClick={handleAddList}>Add</button>
+            <button onClick={handleToggleForm}><span>x</span></button>
+          </div>
+        ) : (
+          <button className="add-list" onClick={handleToggleForm}>
+            Add list
+          </button>
+        )}
+      </div>
     </div>
   );
 };

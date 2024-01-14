@@ -75,3 +75,43 @@
   width: 200px !important;
 }
 
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column ;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  padding: 8px;
+  width: 220px;
+  display : flex;
+  align-items: center;
+  justify-content:space-between;
+}
+
+.delete-card {
+  margin-top: 4px;
+  
+}
+
+.delete-card button {
+  background-color: #56297a;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-left: 8px;
+}
+
+.delete-card button:hover {
+  background-color: #7a39ae;
+}
+
