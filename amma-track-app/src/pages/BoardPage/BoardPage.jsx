@@ -1,12 +1,18 @@
 import React from "react"
-import Lists from "../../components/Lists/Lists"
 import "./BoardPage.css"
+import TodoList from "../../components/Todo/TodoList"
+import { Header } from '../../components/Header/Header'
+import { Footer } from '../../components/Footer/Footer'
 
 const BoardPage = () => {
     return (
+        <>
+        <Header />
         <div className="board-list-conteyner">
-                <Lists/>
+            <TodoList />
         </div>
+        <Footer />
+        </>
     )
   }
   
