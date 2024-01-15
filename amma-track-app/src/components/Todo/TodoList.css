@@ -1,0 +1,117 @@
+
+.containerList {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px;
+}
+
+.list {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 15px;
+  padding: 15px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list > div {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.list h3 {
+  margin: 0;
+}
+
+.list button {
+  background-color: #56297a;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.list button:hover {
+  background-color: #7a39ae;
+}
+
+.list.active {
+  background-color: #a7c4bc; 
+}
+
+.add-list-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-list-form input {
+  margin-bottom: 10px;
+  padding: 5px;
+  margin:2px;
+}
+
+.add-list-form button {
+  background-color: #56297a;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin:2px;
+}
+
+.add-list-form button:hover {
+  background-color: #7a39ae;
+}
+
+.add-list button {
+  width: 200px !important;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column ;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  padding: 8px;
+  width: 220px;
+  display : flex;
+  align-items: center;
+  justify-content:space-between;
+}
+
+.delete-card {
+  margin-top: 4px;
+  
+}
+
+.delete-card button {
+  background-color: #56297a;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-left: 8px;
+}
+
+.delete-card button:hover {
+  background-color: #7a39ae;
+}
+
