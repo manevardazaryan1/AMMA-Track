@@ -25,7 +25,6 @@ const rootReducer = combineReducers({
   creation: creationReducer,
   todos:todosReducer,
   cards: cardsReducer,
-
 })
 const persistConfig = {
   key: 'root',

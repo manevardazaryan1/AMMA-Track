@@ -18,6 +18,8 @@ const TodoList = ({ boardId }) => {
   const [activeListId, setActiveListId] = useState(null);
   const [showForm, setShowForm] = useState(false)
 
+  const currentTodos = lists.filter(todo => todo.boardId === boardId)
+
   const generateUniqueId = () => {
     return new Date().getTime().toString();
   };
@@ -27,7 +29,7 @@ const TodoList = ({ boardId }) => {
   const handleAddList = () => {
     if (newListTitle.trim() !== '') {
       const newListId = generateUniqueId();
-      dispatch(addList({ id: newListId, title: newListTitle }));
+      dispatch(addList({ boardId: boardId, id: newListId, title: newListTitle })); 
       setActiveListId(newListId);
       setNewListTitle("")
     }
@@ -45,6 +47,7 @@ const TodoList = ({ boardId }) => {
   const handleAddCard = () => {
     if (newCardText.trim() !== '' && activeListId !== null) {
       const newCardId = generateUniqueId();
+
       dispatch(addCard({ listId: activeListId, card: { id: newCardId, text: newCardText } }));
       setNewCardText('');
     }
@@ -62,7 +65,7 @@ const TodoList = ({ boardId }) => {
     <div>
       <h4>Todo List for Board: {boardId}</h4>
       <TodoListContainer
-        lists={Object.values(lists)}
+        lists={currentTodos}
         cards={cards}
         activeListId={activeListId}
         handleSetActiveList={handleSetActiveList}
@@ -74,22 +77,22 @@ const TodoList = ({ boardId }) => {
         boardId={boardId}
       />
       {showForm ? (
-          <div className='add-list-form'>
-            <input
-              type="text"
-              placeholder="Add another list"
-              value={newListTitle}
-              onChange={e => setNewListTitle(e.target.value)}
-            />
-            <button onClick={handleAddList}>Add</button>
-            <button onClick={handleToggleForm}><span>x</span></button>
-          </div>
-        ) : (
-          <button className="add-list" onClick={handleToggleForm}>
-            Add list
-          </button>
-        )}
-      </div>
+        <div className='add-list-form'>
+          <input
+            type="text"
+            placeholder="Add another list"
+            value={newListTitle}
+            onChange={e => setNewListTitle(e.target.value)}
+          />
+          <button onClick={handleAddList}>Add</button>
+          <button onClick={handleToggleForm}><span>x</span></button>
+        </div>
+      ) : (
+        <button className="add-list" onClick={handleToggleForm}>
+          Add list
+        </button>
+      )}
+    </div>
   );
 };
 

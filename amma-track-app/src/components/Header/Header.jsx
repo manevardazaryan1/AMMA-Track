@@ -33,7 +33,7 @@ export const Header = () => {
     <div className='header'>
       <div className="container">
         <div className="header-wrapper">
-          <Link to='/'>
+          <Link to={`${loggedIn?"/workspaces":"/"}`}>
             <img src={logo} alt="logo" />
             <p>AMMA-Track</p>
           </Link>

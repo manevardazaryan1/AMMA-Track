@@ -20,8 +20,8 @@ const TodoListCard = ({
       <ul>
         {cards &&
           cards.map(card => (
-            <div className="delete-card">
-              <li  className="card" key={card.id}>
+            <div className="delete-card" key={card.id}>
+              <li  className="card" >
                 {card.text}
                 <button onClick={() => handleRemoveCard(list.id, card.id)}>X</button>
               </li>

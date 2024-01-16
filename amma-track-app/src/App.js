@@ -11,7 +11,7 @@ import LogOut from './pages/LogOut';
 import BoardPage from './pages/BoardPage/BoardPage';
 import { BoardItem } from './components/BoardItem/BoardItem';
 import { Route, Routes } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 
 function App() {
 
@@ -26,7 +26,7 @@ function App() {
           <Route path='/account' element={<Account />} />
           <Route path='/log-out' element={<LogOut />} />
           <Route path='/workspaces' element={<BoardsPage />} />
-          <Route path='/workspaces/board' element={<BoardPage />} />
+          <Route path='/workspaces/:id' element={<BoardPage />} />
         </Routes>
       </div>
       <Footer />
