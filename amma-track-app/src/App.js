@@ -27,7 +27,7 @@ function App() {
           <Route path='/workspaces/:id' element={<BoardPage />} />
         </Routes>
       </div>
-      <Footer />
+
     </>
   );
 }

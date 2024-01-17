@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux'
 // DO like Meri workspaces:workspaceId <-----
 const BoardsPage = () => {
   const activeWorkspaceId = useSelector(state => state.workspaces.workspaces.find(workspace => workspace.active))
-  
   return (
     <>
       <Header />

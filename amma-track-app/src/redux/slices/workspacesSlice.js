@@ -28,12 +28,12 @@ export const workSpacesSlice = createSlice({
         else
           return { ...workspace, active: false }
       })
-
+      
     },
     deleteActiveWorkspace: (state, action) => {
       state.workspaces=state.workspaces.map(workspace => { return { ...workspace, active: false } })
-
     }
+
   }
 })
 export const { addWorkspace, selectWorkspaceImg, toggleActiveWorkspace, deleteActiveWorkspace } = workSpacesSlice.actions
