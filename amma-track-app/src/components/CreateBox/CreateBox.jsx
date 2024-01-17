@@ -26,6 +26,7 @@ export const CreateBox = ({ type, handleBox }) => {
             thumb: selectedWorkspaceImg,
           },
           user: currentUser,
+          active:true,
         };
         if (title.trim().length && selectedWorkspaceImg) {
           dispatch(addWorkspace(newWorkspace));
@@ -60,6 +61,7 @@ export const CreateBox = ({ type, handleBox }) => {
               thumb: selectedWorkspaceImg,
             },
             user: currentUser,
+            active:true,
           };
           if (title.trim().length && selectedWorkspaceImg) {
             dispatch(addWorkspace(newWorkspace));
