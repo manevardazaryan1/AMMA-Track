@@ -9,7 +9,6 @@ import settings from '../../images/settings-svgrepo-com.svg'
 export const WorkspacesItem = ({ id, img, title }) => {
   const dispatch = useDispatch();
   const activeWorkspace = useSelector(state => state.workspaces.workspaces.find(workspace => workspace.active))
-  console.log('workspace', activeWorkspace);
   const [isClicked, setIsClicked] = useState(false)
   const [isActive, setIsActive] = useState('')
   const handleClick = (type, obj) => {

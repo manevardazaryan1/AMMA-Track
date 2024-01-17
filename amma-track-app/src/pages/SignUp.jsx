@@ -71,7 +71,6 @@ export default function SignUp() {
         let id = 1;
 
         if (users && usersCount) {
-            console.log(users[usersCount - 1])
             let lastUserId = users[usersCount - 1]["id"];
             id = lastUserId ? ++lastUserId: id;
         }

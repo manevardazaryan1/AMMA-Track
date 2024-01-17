@@ -10,7 +10,6 @@ export const ImgWrapper = ({ type, urls }) => {
   const activeBoardImg = useSelector((state) => state.boards.selectedImg)
   const activeImg = type === 'workspace' ? activeWorkspaceImg : activeBoardImg;
   const handleImgSelect = (obj) => {
-    console.log(obj);
     switch (type) {
       case 'workspace': {
         dispatch(selectWorkspaceImg(obj))
