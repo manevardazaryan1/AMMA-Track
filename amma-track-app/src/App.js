@@ -9,9 +9,7 @@ import SignUp from './pages/SignUp';
 import Account from './pages/Account';
 import LogOut from './pages/LogOut';
 import BoardPage from './pages/BoardPage/BoardPage';
-import { BoardItem } from './components/BoardItem/BoardItem';
 import { Route, Routes } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 function App() {
 

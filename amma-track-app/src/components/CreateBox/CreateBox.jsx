@@ -4,7 +4,7 @@ import { unsplash } from '../../lib/unsplash'
 import { Button } from '../Button/Button'
 import { ImgWrapper } from './ImgWrapper/ImgWrapper'
 import { useDispatch, useSelector } from 'react-redux'
-import { addWorkspace, selectWorkspaceImg } from
+import { addWorkspace } from
   '../../redux/slices/workspacesSlice'
 import { addBoard, selectBoardImg } from '../../redux/slices/boardsSlice'
 

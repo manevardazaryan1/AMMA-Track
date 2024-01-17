@@ -22,7 +22,7 @@ export const ImgWrapper = ({ type, urls }) => {
       }
     }
   }
-  console.log(urls);
+
   return (
     <div onClick={() => handleImgSelect(urls)} className={`create-box__images-wrapper ${activeImg?.thumb === urls?.thumb || activeImg?.thumb === urls?.regular ? 'active' : ''}`}>
       <img src={urls?.thumb ?? ''} alt="pic" />

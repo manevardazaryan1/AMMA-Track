@@ -9,10 +9,8 @@ const TodoList = ({ boardId }) => {
   const dispatch = useDispatch();
   const lists = useSelector(state => state.todos);
   const cards = useSelector(state => state.cards);
-  const todoListData = useSelector(state => state.todos[boardId] || {})
 
   const [newListTitle, setNewListTitle] = useState('');
-  const [isAddingList, setIsAddingList] = useState(false);
 
   const [newCardText, setNewCardText] = useState('');
   const [activeListId, setActiveListId] = useState(null);
