@@ -26,6 +26,7 @@
 .input-error {
   outline: none;
   border: 2px solid #950101 !important;
+  border-radius: 50px;
 }
 
 .valid-input:focus-visible,
@@ -64,7 +65,7 @@
 .auth-form input {
   outline: none;
   padding: 5px;
-  border: 2px solid transparent;
+  border: 0px solid transparent;
 }
 
 .auth-form input:focus {
