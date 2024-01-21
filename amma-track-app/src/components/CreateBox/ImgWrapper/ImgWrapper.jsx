@@ -16,7 +16,9 @@ export const ImgWrapper = ({ type, urls }) => {
         return
       }
       case 'board': {
+        const img = new Image();
         dispatch(selectBoardImg(obj))
+        setTimeout(() => img.src = obj.raw, 150)
         return
       }
     }
