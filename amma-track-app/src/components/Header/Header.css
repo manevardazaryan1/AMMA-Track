@@ -3,6 +3,7 @@
   background: #ecf0f3;
   box-shadow: 4px 4px 9px #cbced1;
   position: fixed;
+  z-index: 999;
   top: 0;
 }
 

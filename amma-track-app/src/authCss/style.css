@@ -182,9 +182,9 @@
 @media only screen and (max-width: 1024px) {
   .errors {
     width: 100%;
-    padding: 20px;
+    /* padding: 20px; */
     left: 30%;
-    top: 100%;
+    /* top: 100%; */
   }
 }
 
