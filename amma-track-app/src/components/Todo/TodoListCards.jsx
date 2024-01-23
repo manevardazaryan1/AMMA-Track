@@ -1,4 +1,6 @@
 import React from 'react';
+import { useState } from 'react';
+import CardModal from '../CreateBox/CardModal';
 
 const TodoListCard = ({
   list,
@@ -11,7 +13,21 @@ const TodoListCard = ({
   setNewCardText,
   cards,
 }) => {
+  const [cardModal, setCardModal] = useState(false);
+  const [cardID, setCardId] = useState("");
+
+  const openCardModal = (cardID) => {
+    setCardModal(() => true);
+    setCardId(() => cardID)
+  }
+
+  const closeCardModal = () => {
+    setCardModal(() => false);
+    setCardId(() => "")
+  }
+
   return (
+    <>
     <div className={`list ${activeListId === list.id ? 'active' : ''}`} onClick={() => handleSetActiveList(list.id)}>
       <div className="list-title-X">
         <h3>{list.title}</h3>
@@ -23,6 +39,7 @@ const TodoListCard = ({
             <div className="delete-card" key={card.id}>
               <li  className="card" >
                 {card.text}
+                <button onClick={() => openCardModal(card.id)}><i className="fa-solid fa-pen"></i></button>
                 <button onClick={() => handleRemoveCard(list.id, card.id)}>X</button>
               </li>
             </div>
@@ -40,6 +57,17 @@ const TodoListCard = ({
         </div>
       )}
     </div>
+
+    {
+      cardModal && 
+      <>
+        <button onClick={() => closeCardModal()} className='close-card-modal-btn'><i className="fa-solid fa-xmark"></i></button>
+        <CardModal cardID={cardID} />
+      </>
+    }
+
+
+    </>
   );
 };
 

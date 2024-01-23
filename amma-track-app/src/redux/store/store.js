@@ -18,6 +18,8 @@ import boardsReducer from '../slices/boardsSlice'
 import creationReducer from '../slices/creationBoxSlice'
 import todosReducer from '../slices/todosSlice'
 import cardsReducer from '../slices/cardsSlice'
+import cardModalReducer from '../slices/cardModalSlice'
+
 const rootReducer = combineReducers({
   auth: authReducer,
   workspaces: workspacesReducer,
@@ -25,6 +27,7 @@ const rootReducer = combineReducers({
   creation: creationReducer,
   todos:todosReducer,
   cards: cardsReducer,
+  cardModal: cardModalReducer,
 })
 const persistConfig = {
   key: 'root',
