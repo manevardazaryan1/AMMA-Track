@@ -1,8 +1,6 @@
 import './App.css';
 import './authCss/style.css';
-import "./components/CreateBox/CardModal.css"
 import { Header } from './components/Header/Header';
-import { Footer } from './components/Footer/Footer';
 import MainPage from './pages/MainPage';
 import BoardsPage from './pages/BoardsPage/BoardsPage'
 import Login from './pages/Login';

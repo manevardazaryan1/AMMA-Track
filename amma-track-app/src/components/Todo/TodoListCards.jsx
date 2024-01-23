@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import CardModal from '../CreateBox/CardModal';
+import CardModal from '../CardModal/CardModal';
 
 const TodoListCard = ({
   list,

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addDescription } from '../../redux/slices/cardModalSlice';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; 
-
+import './CardModal.css'
 export default function CardModal({ cardID }) {
     const dispatch = useDispatch();
     const descriptions = useSelector((state) => state.cardModal.descriptions);
