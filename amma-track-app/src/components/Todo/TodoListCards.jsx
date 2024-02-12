@@ -1,6 +1,6 @@
-import React from 'react';
-import { useState } from 'react';
-import CardModal from '../CardModal/CardModal';
+import React from "react";
+import { useState } from "react";
+import CardModal from "../CardModal/CardModal";
 
 const TodoListCard = ({
   list,
@@ -11,62 +11,73 @@ const TodoListCard = ({
   handleAddCard,
   newCardText,
   setNewCardText,
-  cards,
+  cards
 }) => {
   const [cardModal, setCardModal] = useState(false);
   const [cardID, setCardId] = useState("");
 
   const openCardModal = (cardID) => {
     setCardModal(() => true);
-    setCardId(() => cardID)
-  }
+    setCardId(() => cardID);
+  };
 
   const closeCardModal = () => {
     setCardModal(() => false);
-    setCardId(() => "")
-  }
+    setCardId(() => "");
+  };
 
   return (
     <>
-    <div className={`list ${activeListId === list.id ? 'active' : ''}`} onClick={() => handleSetActiveList(list.id)}>
-      <div className="list-title-X">
-        <h3>{list.title}</h3>
-        <button onClick={() => handleRemoveList(list.id)}>X</button>
-      </div>
-      <ul>
-        {cards &&
-          cards.map(card => (
-            <div className="delete-card" key={card.id}>
-              <li  className="card" >
-                {card.text}
-                <button onClick={() => openCardModal(card.id)}><i className="fa-solid fa-pen"></i></button>
-                <button onClick={() => handleRemoveCard(list.id, card.id)}>X</button>
-              </li>
-            </div>
-          ))}
-      </ul>
-      {activeListId === list.id && (
-        <div className='add-card'>
-          <input
-            type="text"
-            placeholder="Enter a title for this card..."
-            value={newCardText}
-            onChange={e => setNewCardText(e.target.value)}
-          />
-          <button onClick={handleAddCard}>Add card</button>
+      <div
+        className={`list ${activeListId === list.id ? "active" : ""}`}
+        onClick={() => handleSetActiveList(list.id)}
+      >
+        <div className="list-title-X">
+          <h3>{list.title}</h3>
+          <button onClick={() => handleRemoveList(list.id)}>X</button>
         </div>
+        <ul>
+          {cards &&
+            cards.map((card) => (
+              <li className="card" key={card.id}>
+                <span className="card-content">{card.text}</span>
+                <div className="card-actions">
+                  <button onClick={() => openCardModal(card.id)}>
+                    <i className="fa-solid fa-pen"></i>
+                  </button>
+                  <button onClick={() => handleRemoveCard(list.id, card.id)}>
+                    <i className="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </li>
+            ))}
+        </ul>
+        {activeListId === list.id && (
+          <div className="add-card">
+            <input
+              type="text"
+              placeholder="Enter a title..."
+              value={newCardText}
+              onChange={(e) => setNewCardText(e.target.value)}
+            />
+            <button onClick={handleAddCard}>
+              <i className="fa-solid fa-plus"></i> Add{" "}
+            </button>
+          </div>
+        )}
+      </div>
+
+      {cardModal && (
+        <>
+          <button
+            onClick={() => closeCardModal()}
+            className="close-card-modal-btn"
+          >
+            <i className="fa-solid fa-xmark"></i>
+          </button>
+          <CardModal cardID={cardID} />
+        </>
       )}
-    </div>
-
-    {
-      cardModal && 
-      <>
-        <button onClick={() => closeCardModal()} className='close-card-modal-btn'><i className="fa-solid fa-xmark"></i></button>
-        <CardModal cardID={cardID} />
-      </>
-    }
-
-
     </>
   );
 };
