@@ -13,7 +13,6 @@ const TodoList = ({ boardId }) => {
   const cards = useSelector(state => state.cards);
 
   const [newListTitle, setNewListTitle] = useState('');
-
   const [newCardText, setNewCardText] = useState('');
   const [activeListId, setActiveListId] = useState(null);
   const [showForm, setShowForm] = useState(false)
@@ -30,14 +29,12 @@ const TodoList = ({ boardId }) => {
     if (!lists.length) fetchLists()
   }, [lists.length, dispatch])
 
-
   useEffect(() => {
     const fetchCards = async () => {
       const cardsCollection = collection(db, 'cards')
       const snapshot = await getDocs(cardsCollection)
       snapshot.docs.map((doc) => (dispatch(addCard({ ...doc.data() }))))
     }
- 
     if (!Object.keys(cards).length) fetchCards()
   }, [cards, Object.keys(cards).length, dispatch])
 
@@ -51,8 +48,14 @@ const TodoList = ({ boardId }) => {
     if (newListTitle.trim() !== '') {
       const newListId = generateUniqueId();
       const listsCollection = collection(db, 'lists');
-      await addDoc(listsCollection, {id: newListId, title: newListTitle, boardId: boardId});
-      dispatch(addList({ boardId: boardId, id: newListId, title: newListTitle })); 
+      await addDoc(listsCollection, {id: newListId, title: newListTitle, boardId: boardId, position: currentTodos.length});
+      dispatch(
+        addList({ 
+          boardId: boardId, 
+          id: newListId, 
+          title: newListTitle,
+          position: currentTodos.length,
+      })); 
       setActiveListId(newListId);
       setNewListTitle("");
     }
@@ -78,7 +81,12 @@ const TodoList = ({ boardId }) => {
     if (newCardText.trim() !== '' && activeListId !== null) {
       const newCardId = generateUniqueId();
       const cardsCollection = collection(db, 'cards');
-      dispatch(addCard({ listId: activeListId, card: { id: newCardId, text: newCardText } }));
+      dispatch(
+        addCard({ 
+          listId: activeListId, 
+          card: { id: newCardId, 
+          text: newCardText } }
+      ));
       await addDoc(cardsCollection, {listId: activeListId, card: {id: newCardId, text: newCardText}});
       setNewCardText('');
     }
@@ -101,7 +109,6 @@ const TodoList = ({ boardId }) => {
 
   return (
     <div>
-      <h4>Todo List for Board: {boardId}</h4>
       <TodoListContainer
         lists={currentTodos}
         cards={cards}
