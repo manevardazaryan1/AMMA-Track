@@ -8,16 +8,20 @@ const todosSlice = createSlice({
       state.push(action.payload);
     },
     removeTodo: (state, action) => {
-      return state.filter(todo => todo.id !== action.payload);
+      return state.filter((todo) => todo.id !== action.payload);
+    },
+    updateLists: (state, action) => {
+      return action.payload;
     },
     addList: (state, action) => {
-        state.push(action.payload);
-      },
+      state.push(action.payload);
+    },
     removeList: (state, action) => {
-        return state.filter(list => list.id !== action.payload);
-      },
+      return state.filter((list) => list.id !== action.payload);
+    },
   },
 });
 
-export const { addTodo, removeTodo,addList, removeList } = todosSlice.actions;
+export const { addTodo, removeTodo, updateLists, addList, removeList } =
+  todosSlice.actions;
 export default todosSlice.reducer;

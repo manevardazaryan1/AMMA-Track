@@ -1,5 +1,6 @@
-import './App.css';
-import './authCss/style.css';
+import React from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Header } from './components/Header/Header';
 import MainPage from './pages/MainPage';
 import BoardsPage from './pages/BoardsPage/BoardsPage'
@@ -13,21 +14,22 @@ import { Route, Routes } from 'react-router-dom';
 function App() {
 
   return (
-    <>
-      <Header />
-      <div className='App'>
-        <Routes>
-          <Route path='/' element={<MainPage />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/sign-up' element={<SignUp />} />
-          <Route path='/account' element={<Account />} />
-          <Route path='/log-out' element={<LogOut />} />
-          <Route path='/workspaces' element={<BoardsPage />} />
-          <Route path='/workspaces/:id' element={<BoardPage />} />
-        </Routes>
-      </div>
-
-    </>
+    <DndProvider backend={HTML5Backend}>
+      <>
+        <Header />
+        <div className='App'>
+          <Routes>
+            <Route path='/' element={<MainPage />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/sign-up' element={<SignUp />} />
+            <Route path='/account' element={<Account />} />
+            <Route path='/log-out' element={<LogOut />} />
+            <Route path='/workspaces' element={<BoardsPage />} />
+            <Route path='/workspaces/:id' element={<BoardPage />} />
+          </Routes>
+        </div>
+      </>
+    </DndProvider>
   );
 }
 
