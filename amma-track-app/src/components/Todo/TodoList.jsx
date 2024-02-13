@@ -6,25 +6,19 @@ import { addCard, removeCard } from '../../redux/slices/cardsSlice';
 import TodoListContainer from './TodoListContainer';
 import { db } from '../../config/firebaseConfig'; 
 import './TodoList.css';
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addList, removeList } from "../../redux/slices/todosSlice";
-import { addCard, removeCard } from "../../redux/slices/cardsSlice";
-import TodoListContainer from "./TodoListContainer";
-import "./TodoList.css";
 
 const TodoList = ({ boardId }) => {
   const dispatch = useDispatch();
-  const lists = useSelector((state) => state.todos);
-  const cards = useSelector((state) => state.cards);
+  const lists = useSelector(state => state.todos);
+  const cards = useSelector(state => state.cards);
 
-  const [newListTitle, setNewListTitle] = useState("");
+  const [newListTitle, setNewListTitle] = useState('');
 
-  const [newCardText, setNewCardText] = useState("");
+  const [newCardText, setNewCardText] = useState('');
   const [activeListId, setActiveListId] = useState(null);
-  const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(false)
 
-  const currentTodos = lists.filter((todo) => todo.boardId === boardId);
+  const currentTodos = lists.filter(todo => todo.boardId === boardId)
 
   useEffect(() => {
     const fetchLists = async () => {
@@ -59,27 +53,14 @@ const TodoList = ({ boardId }) => {
       const listsCollection = collection(db, 'lists');
       await addDoc(listsCollection, {id: newListId, title: newListTitle, boardId: boardId});
       dispatch(addList({ boardId: boardId, id: newListId, title: newListTitle })); 
-
-  const handleAddList = () => {
-    if (newListTitle.trim() !== "") {
-      const newListId = generateUniqueId();
-      dispatch(
-        addList({ boardId: boardId, id: newListId, title: newListTitle })
-      );
-
       setActiveListId(newListId);
       setNewListTitle("");
     }
   };
 
-
   const handleRemoveList = async (listId) => {
-
-  const handleRemoveList = (listId) => {
-    dispatch(removeList(listId));
-
     if (activeListId === listId) {
-      setNewCardText("");
+      setNewCardText('');
       setActiveListId(null);
     }
     dispatch(removeCard({ listId }));
@@ -100,18 +81,6 @@ const TodoList = ({ boardId }) => {
       dispatch(addCard({ listId: activeListId, card: { id: newCardId, text: newCardText } }));
       await addDoc(cardsCollection, {listId: activeListId, card: {id: newCardId, text: newCardText}});
       setNewCardText('');
-
-  const handleAddCard = () => {
-    if (newCardText.trim() !== "" && activeListId !== null) {
-      const newCardId = generateUniqueId();
-
-      dispatch(
-        addCard({
-          listId: activeListId,
-          card: { id: newCardId, text: newCardText }
-        })
-      );
-      setNewCardText("");
     }
   };
 
@@ -146,17 +115,15 @@ const TodoList = ({ boardId }) => {
         boardId={boardId}
       />
       {showForm ? (
-        <div className="add-list-form">
+        <div className='add-list-form'>
           <input
             type="text"
             placeholder="Add another list"
             value={newListTitle}
-            onChange={(e) => setNewListTitle(e.target.value)}
+            onChange={e => setNewListTitle(e.target.value)}
           />
           <button onClick={handleAddList}>Add</button>
-          <button onClick={handleToggleForm}>
-            <span>x</span>
-          </button>
+          <button onClick={handleToggleForm}><span>x</span></button>
         </div>
       ) : (
         <button className="add-list" onClick={handleToggleForm}>
