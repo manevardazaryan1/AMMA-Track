@@ -17,8 +17,12 @@ const cardsSlice = createSlice({
           state[listId] = state[listId].filter(card => card.id !== cardId);
         }
     },
+    updateCardOrder: (state, action) => {
+      const { listId, updatedCards } = action.payload;
+      state[listId] = updatedCards;
+    },
   },
 });
 
-export const { addCard, removeCard } = cardsSlice.actions;
+export const { addCard, removeCard, updateCardOrder } = cardsSlice.actions;
 export default cardsSlice.reducer;
