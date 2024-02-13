@@ -18,26 +18,33 @@ const TodoListContainer = ({
   boardId,
 }) => {
   const dispatch = useDispatch();
+ 
   const handleDragEnd = (result) => {
-    if (!result.destination) return; 
-    if (result.type === 'LIST') {
+    if (!result.destination) return;
+
+     if (result.type === 'LIST') {
       const updatedLists = Array.from(lists);
       const [removed] = updatedLists.splice(result.source.index, 1);
       updatedLists.splice(result.destination.index, 0, removed);
       dispatch(updateLists(updatedLists));
-    } else if (result.type === 'CARD'){
+    } else if (result.type === 'CARD') {
       const sourceListId = result.source.droppableId;
       const destinationListId = result.destination.droppableId;
 
       if (sourceListId === destinationListId) {
-        const sourceList = cards[sourceListId];
-        const updatedCards = Array.from(sourceList);
-        const [removed] = updatedCards.splice(result.source.index, 1);
-        updatedCards.splice(result.destination.index, 0, removed);
-        dispatch(updateCardOrder({ listId: sourceListId, updatedCards }));
+        const sourceList = [...cards[sourceListId]];
+        const [removed] = sourceList.splice(result.source.index, 1);
+        sourceList.splice(result.destination.index, 0, removed);
+        dispatch(updateCardOrder({ listId: sourceListId, updatedCards: sourceList }));
       } else {
-        // Handle moving the card between lists (not implemented here)
-        // You need to implement this based on your requirements
+        const sourceList = [...cards[sourceListId]];
+        const destinationList = [...cards[destinationListId]];
+
+        const [movedCard] = sourceList.splice(result.source.index, 1);
+        destinationList.splice(result.destination.index, 0, movedCard);
+
+        dispatch(updateCardOrder({ listId: sourceListId, updatedCards: sourceList }));
+        dispatch(updateCardOrder({ listId: destinationListId, updatedCards: destinationList }));
       }
     }
   };
