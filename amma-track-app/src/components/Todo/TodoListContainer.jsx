@@ -1,9 +1,9 @@
-// Ваш файл TodoListContainer.jsx
 import React from 'react';
 import TodoListCard from './TodoListCards';
 import { useDispatch } from 'react-redux';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import {updateLists} from "../../redux/slices/todosSlice.js"
+
 const TodoListContainer = ({
   lists,
   cards,

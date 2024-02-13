@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDrag } from 'react-dnd';
+import React from 'react';
+import { useState } from 'react';
 import CardModal from '../CardModal/CardModal';
 
 const TodoListCard = ({
@@ -12,15 +12,9 @@ const TodoListCard = ({
   newCardText,
   setNewCardText,
   cards,
-  index,
 }) => {
   const [cardModal, setCardModal] = useState(false);
   const [cardID, setCardId] = useState("");
-
-  const [, drag] = useDrag({
-    type: 'CARD',
-    item: { id: list.id, index },
-  });
 
   const openCardModal = (cardID) => {
     setCardModal(() => true);
@@ -34,11 +28,7 @@ const TodoListCard = ({
 
   return (
     <>
-    <div 
-      ref={drag}
-      className={`list ${activeListId === list.id ? 'active' : ''}`} 
-      onClick={() => handleSetActiveList(list.id)}
-    >
+    <div className={`list ${activeListId === list.id ? 'active' : ''}`} onClick={() => handleSetActiveList(list.id)}>
       <div className="list-title-X">
         <h3>{list.title}</h3>
         <button onClick={() => handleRemoveList(list.id)}>X</button>
@@ -67,6 +57,7 @@ const TodoListCard = ({
         </div>
       )}
     </div>
+
     {
       cardModal && 
       <>
@@ -74,6 +65,8 @@ const TodoListCard = ({
         <CardModal cardID={cardID} />
       </>
     }
+
+
     </>
   );
 };
