@@ -1,21 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import { collection, getDocs, addDoc } from 'firebase/firestore';
 import { validateEmail, validatePassword, validateUserName } from "../validations/validate";
 import { useSelector, useDispatch } from "react-redux";
 import { signUp } from "../redux/slices/authenticationSlice";
 import CryptoJS from 'crypto-js';
+import { db } from "../config/firebaseConfig";
 
 export default function SignUp() {
     const navigate = useNavigate();
-    const loggedIn = useSelector((state) => state.auth.loggedIn);
-
-
-    useEffect(() => {
-        if (loggedIn) {
-            navigate('/workspaces');
-        }
-    }, [loggedIn, navigate]);
-
     const users = useSelector((state) => state.auth.users);
     const dispatch = useDispatch();
     const [userName, setUserName] = useState("");
@@ -25,7 +18,7 @@ export default function SignUp() {
     const [userExists, setUserExists] = useState(false);
     const [errorClsses, setErrorClasses] = useState({});
     const [passwordEye, setPasswordEye] = useState(false);
-
+    const usersCollection = collection(db, 'users');
     let userExistsBool = true;
 
     useEffect(() => {
@@ -60,11 +53,21 @@ export default function SignUp() {
 
     }, [userName, email, password]);
 
+    useEffect(() => {
+        const fetchusers = async () => {
+          const snapshot = await getDocs(usersCollection)
+          snapshot.docs.map((doc) => (dispatch(signUp({ ...doc.data() }))))
+        }
+    
+        if (!users.length) fetchusers()
+        
+    }, [users.length, usersCollection, dispatch])
+
     const hashPassword = (password) => {
         return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
     };
 
-    const handleSignUpFormOnsubmit = (e) => {
+    const handleSignUpFormOnsubmit = async (e) => {
         e.preventDefault();
 
         const usersCount = users.length;
@@ -94,6 +97,7 @@ export default function SignUp() {
                 setEmail(() => "");
                 setUserName(() => "");
                 setPassword(() => "");
+                await addDoc(usersCollection, { id, userName, email, password: hashPassword(password) })
                 navigate("/login");
             }
         }
@@ -128,10 +132,16 @@ export default function SignUp() {
                     <div>
                         <label htmlFor="username" >User Name</label>
                         <input type="text" name="username" id="username" placeholder="User Name" className={userName && errorClsses.userNameError} value={userName} onChange={handleInputChange} />
+                        {
+                            errors?.username && <div className="error"><i className="fa-solid fa-circle-exclamation"></i> <p className="error_text">{errors?.username}</p></div>
+                        }
                     </div>
                     <div>
                         <label htmlFor="email" >Email</label>
                         <input type="text" name="email" id="email" placeholder="Email" className={email && errorClsses.emailError} value={email} onChange={handleInputChange} />
+                        {
+                            errors?.email && <div className="error"><i className="fa-solid fa-circle-exclamation"></i> <p className="error_text">{errors?.email}</p></div>
+                        }
                     </div>
                     <div>
                         <div className="pass-label-block">
@@ -142,30 +152,23 @@ export default function SignUp() {
                                     password && <button className="password-eye" type="button" onClick={togglePasswordEye}><i className={passwordEye ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"}></i></button>
                                 }
                             </div>
+                            {
+                                errors?.password && 
+                                <div className="password_errors">
+                                    <i className="fa-solid fa-circle-exclamation error_icon"></i>
+                                    {
+                                        Object.entries(errors.password).map((err) => {
+                                            return <div className="error" key={err[0]}><p className="error_text">{err[1]}</p></div>
+                                        })
+                                    }
+                                </div>
+                            }
                         </div>
                     </div>
                     <input type="submit" value="Sign Up" disabled={!userName || !email || !password} />
                 </form>
                 {
                     userExists && <div className="user-exists errors" >User Alredy exists</div>
-                }
-                {
-
-                    Object.values(errors).join("") &&
-                    <div className="errors">
-                        {
-                            Object.keys(errors).map((error) => {
-                                if (typeof errors[error] !== "object")
-                                    return errors[error] && <div className="error" key={error}>{errors[error]}</div>
-
-
-                                return Object.keys(errors[error]).map(err =>
-                                    <div key={err}>{errors[error][err]}</div>
-                                )
-                            }
-                            )
-                        }
-                    </div>
                 }
             </div>
         </div>

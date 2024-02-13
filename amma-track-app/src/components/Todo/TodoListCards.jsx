@@ -23,6 +23,11 @@ const TodoListCard = ({
 
   const closeCardModal = () => {
     setCardModal(() => false);
+
+    setCardId(() => "")
+  }
+  //console.log(cards)
+
     setCardId(() => "");
   };
 

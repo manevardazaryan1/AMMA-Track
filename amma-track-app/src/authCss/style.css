@@ -4,13 +4,14 @@
   flex-direction: column;
   align-items: center;
   position: relative;
+  margin-top: 75px;
+  margin-bottom: 50px;
 }
 
 .account-section,
 .sign-up-section,
 .login-section {
   min-height: 100vh;
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,6 +21,14 @@
 .login-section,
 .sign-up-section {
   background-color: #ecf0f3;
+}
+
+.login-section .auth-title{
+  margin-top: 91px;
+}
+
+.login-section form {
+  margin-bottom: 50px;
 }
 
 .input-error:focus-visible,
@@ -33,6 +42,7 @@
 .valid-input {
   outline: none;
   border: 2px solid #59ce8f !important;
+  border-radius: 50PX;
 }
 
 .pass-label-block {
@@ -42,6 +52,7 @@
 .password-block {
   position: relative;
   border: 2px solid transparent;
+  margin-bottom: 10px;
 }
 
 .password-eye {
@@ -90,7 +101,7 @@
   padding: 20px;
   position: relative;
   width: 350px;
-  height: 500px;
+  min-height: 500px;
   border-radius: 20px;
   padding: 40px;
   box-sizing: border-box;
@@ -103,7 +114,7 @@
   min-width: 100px;
 }
 
-.auth-form div {
+.auth-form div:not(.error) {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -141,7 +152,7 @@
   cursor: pointer;
   font-weight: 900;
   box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
-  transition: background 0.5s, transform 0.2s, box-shadow 0.2s;
+  transition: all 0.5s, transform 0.2s, box-shadow 0.2s;
 }
 
 .auth-form input[type="submit"]:hover {
@@ -177,6 +188,31 @@
 .user-is-not-exists {
   font-size: 25px;
   margin: 10px 0 10px 0;
+  color: #950101;
+  display: flex;
+}
+
+.not_exists_icon {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.error {
+  color: #950101;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row !important;
+  flex-wrap: nowrap;
+}
+
+.error_text {
+  margin-left: 10px;
+}
+
+.error_icon {
+  color: #950101;
+  margin-bottom: 10px;
 }
 
 @media only screen and (max-width: 1024px) {

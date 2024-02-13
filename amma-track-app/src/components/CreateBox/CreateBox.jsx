@@ -1,12 +1,14 @@
 import './CreateBox.css'
 import { useEffect, useState } from 'react'
 import { unsplash } from '../../lib/unsplash'
+import { collection, addDoc } from 'firebase/firestore';
 import { Button } from '../Button/Button'
 import { ImgWrapper } from './ImgWrapper/ImgWrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { addWorkspace } from
   '../../redux/slices/workspacesSlice'
 import { addBoard, selectBoardImg } from '../../redux/slices/boardsSlice'
+import { db } from '../../config/firebaseConfig';
 
 export const CreateBox = ({ type, handleBox }) => {
   const [title, setTitle] = useState('');
@@ -17,10 +19,15 @@ export const CreateBox = ({ type, handleBox }) => {
   const currentUser = useSelector((state) => state.auth.loggedUser)
   const dispatch = useDispatch();
 
-  const handleAddClick = () => {
+  const handleAddClick = async () => {
     switch (type) {
       case 'workspace':
+        const workspacesCollection = collection(db, 'workspaces')
+        const workspaceId = new Date().toISOString()
+        await addDoc(workspacesCollection, {id: workspaceId, title, img: {thumb: selectedWorkspaceImg}, user: currentUser,})
+
         const newWorkspace = {
+          id: workspaceId,
           title,
           img: {
             thumb: selectedWorkspaceImg,
@@ -36,7 +43,12 @@ export const CreateBox = ({ type, handleBox }) => {
         }
         return
       case 'board':
+        const boardsCollection = collection(db, 'boards')
+        const boardId = new Date().toISOString()
+        await addDoc(boardsCollection, {id: boardId, title, img: selectedBoardImg, workspace: activeWorkspace,})
+
         const newBoard = {
+          id: boardId,
           title,
           img: selectedBoardImg,
           workspace: activeWorkspace,
@@ -87,6 +99,7 @@ export const CreateBox = ({ type, handleBox }) => {
       }
     }
   };
+  
   useEffect(() => {
     const fetchImages = async () => {
       try {
@@ -107,8 +120,10 @@ export const CreateBox = ({ type, handleBox }) => {
         setImages([])
       }
     }
+    
     fetchImages()
   }, [])
+
   return (
     <div className={`create-box ${type}`}>
       <p className='create-box__type'>Create {type}</p>
