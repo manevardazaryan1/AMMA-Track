@@ -1,5 +1,8 @@
 import './App.css';
 import './authCss/style.css';
+import { useEffect } from 'react'; 
+import { useDispatch } from 'react-redux'; 
+import { login } from './redux/slices/authenticationSlice';
 import { Header } from './components/Header/Header';
 import MainPage from './pages/MainPage';
 import BoardsPage from './pages/BoardsPage/BoardsPage'
@@ -9,11 +12,28 @@ import Account from './pages/Account';
 import LogOut from './pages/LogOut';
 import BoardPage from './pages/BoardPage/BoardPage';
 import { Route, Routes } from 'react-router-dom';
+import NotFound from './pages/NotFound';
+import loading from './images/loading/loading.gif'
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const isLoggedIn = window.localStorage.getItem("isLoggedIn");
+    if (isLoggedIn && isLoggedIn === 'ON') {
+      dispatch(login(JSON.parse(window.localStorage.getItem("loggedUser"))));
+    }
+
+  }, [dispatch]);
 
   return (
     <>
+      {
+        <div className="loading_block">
+          <img src={loading} alt="Loading..." className="loading-gif" />
+        </div>
+      }
+
       <Header />
       <div className='App'>
         <Routes>
@@ -24,6 +44,7 @@ function App() {
           <Route path='/log-out' element={<LogOut />} />
           <Route path='/workspaces' element={<BoardsPage />} />
           <Route path='/workspaces/:id' element={<BoardPage />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
 

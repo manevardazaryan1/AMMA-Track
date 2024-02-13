@@ -1,18 +1,30 @@
 import './BoardsList.css'
+import { useEffect } from 'react'
+import { collection, getDocs} from 'firebase/firestore'
 import { BoardItem } from '../BoardItem/BoardItem'
 import { useSelector, useDispatch } from 'react-redux'
 import { boardCreationBoxHandle } from '../../redux/slices/creationBoxSlice'
 import person from '../../images/person-svgrepo-com.svg'
 import { CreateBox } from '../CreateBox/CreateBox'
-
+import { db } from '../../config/firebaseConfig'
+import { addBoard } from '../../redux/slices/boardsSlice' 
 
 export const BoardsList = () => {
-  
   const dispatch = useDispatch()
   const activeWorkspace = useSelector(state => state.workspaces.workspaces.find(workspace => workspace.active))
   const boards = useSelector(state => state.boards.boards)
-  const boardsToShow=boards.filter(board=>board.workspace.id===activeWorkspace.id)
+  const boardsToShow = boards.filter(board=>board.workspace.id === activeWorkspace.id)
   const create = useSelector(state => state.creation.boardCreationBox)
+
+  useEffect(() => {
+    const fetchBoards= async () => {
+      const boardsCollection = collection(db, 'boards')
+      const snapshot = await getDocs(boardsCollection)
+      snapshot.docs.map((doc) => (dispatch(addBoard({ ...doc.data() }))))
+    }
+    if (!boards.length) fetchBoards()
+  }, [boards.length, dispatch])
+
   return (
     <div className="boardsList">
       <div className="workspace-box">

@@ -25,6 +25,7 @@ const TodoListCard = ({
     setCardModal(() => false);
     setCardId(() => "")
   }
+  //console.log(cards)
 
   return (
     <>

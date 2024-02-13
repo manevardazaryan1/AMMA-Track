@@ -13,6 +13,7 @@ const TodoListContainer = ({
     setNewCardText,
     boardId,
   }) => {
+
     return (
         <div className="containerList">
             {lists.map((list) => (

@@ -11,8 +11,8 @@ const todosSlice = createSlice({
       return state.filter(todo => todo.id !== action.payload);
     },
     addList: (state, action) => {
-        state.push(action.payload);
-      },
+        state.push(action.payload)
+    },
     removeList: (state, action) => {
         return state.filter(list => list.id !== action.payload);
       },
