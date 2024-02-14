@@ -6,6 +6,7 @@
   border-radius: 20px;
   padding: 10px;
   background: #ecf0f474;
+  box-shadow: 2px 2px 2px #a18d8db3, -2px -2px 6px #b5b5b5;
 }
 
 .list {
