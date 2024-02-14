@@ -214,13 +214,12 @@
   background-color: #f0f0f0;
 }
 
-/* Add additional styling for the buttons if needed */
 .change-modal-content button.submit-button {
-  background-color: #4caf50; /* Green */
+  background-color: #4caf50;
   color: white;
 }
 
 .change-modal-content button.cancel-button {
-  background-color: #f44336; /* Red */
+  background-color: #f44336;
   color: white;
 }

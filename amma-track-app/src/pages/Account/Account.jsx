@@ -87,7 +87,6 @@ export default function Account() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        // Dispatch the action to update the image URL in the Redux state
         dispatch(updateUserImage({ userId: user.id, imageUrl: reader.result }));
       };
       reader.readAsDataURL(file);
