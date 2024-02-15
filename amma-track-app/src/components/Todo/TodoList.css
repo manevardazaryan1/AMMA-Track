@@ -60,12 +60,12 @@
   cursor: pointer;
   padding: 5px 10px;
   margin-left: 5px !important;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .list button:hover {
   background-color: #ffffff73;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .list input {
@@ -241,17 +241,25 @@ ul {
 
 .card-buttons {
   display: none;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
-.card:hover > .card-buttons{
+.card:hover > .card-buttons {
   display: flex;
-  transition: all .2s ease-in-out
+  transition: all 0.2s ease-in-out;
 }
 
 .delete-card button:hover {
   box-shadow: -2px 2px 2px #c5c5c5, -2px -2px 6px #ffffff;
   background-color: #fff;
+}
+
+.containerClass {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  font-size: 48px;
 }
 
 /* .delete-card button:hover {
