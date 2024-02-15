@@ -16,14 +16,15 @@ import NotFound from "./pages/NotFound";
 
 import loading from "./images/loading/loading.gif";
 
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 
 import { Route, Routes } from "react-router-dom";
 
 
 function App() {
   const dispatch = useDispatch();
-
+  const workspaces=useSelector(state=>state.workspaces.workspaces)
+  console.log(workspaces);
   useEffect(() => {
     const isLoggedIn = window.localStorage.getItem("isLoggedIn");
     if (isLoggedIn && isLoggedIn === "ON") {

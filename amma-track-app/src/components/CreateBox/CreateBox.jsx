@@ -28,10 +28,7 @@ export const CreateBox = ({ type, handleBox }) => {
   const handleAddClick = async () => {
     switch (type) {
       case 'workspace':
-        const workspacesCollection = collection(db, 'workspaces')
-        const workspaceId = new Date().toISOString()
-        await addDoc(workspacesCollection, { id: workspaceId, title, img: { thumb: selectedWorkspaceImg }, user: currentUser, })
-
+        const workspaceId = new Date().toISOString()                                      
         const newWorkspace = {
           id: workspaceId,
           title,
@@ -47,12 +44,15 @@ export const CreateBox = ({ type, handleBox }) => {
           setTitle('');
           dispatch(selectWorkspaceImg({ thumb: '' }))
         }
+        const workspacesCollection = collection(db, 'workspaces')
+
+        await addDoc(workspacesCollection, { id: workspaceId, title, img: { thumb: selectedWorkspaceImg }, user: currentUser, })
+
+
+
         return
       case 'board':
-        const boardsCollection = collection(db, 'boards')
         const boardId = new Date().toISOString()
-        await addDoc(boardsCollection, { id: boardId, title, img: selectedBoardImg, workspace: activeWorkspace, })
-
         const newBoard = {
           id: boardId,
           title,
@@ -65,6 +65,11 @@ export const CreateBox = ({ type, handleBox }) => {
           setTitle('');
           dispatch(selectBoardImg({ regular: '', raw: '' }))
         }
+        const boardsCollection = collection(db, 'boards')
+        
+        await addDoc(boardsCollection, { id: boardId, title, img: selectedBoardImg, workspace: activeWorkspace, })
+
+
         return
     }
 
