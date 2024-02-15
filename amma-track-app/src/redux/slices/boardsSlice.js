@@ -21,13 +21,10 @@ export const boardsSlice = createSlice({
       state.selectedImg.bigImg = action.payload.raw;
     },
 
-    resetBoardImg: (state, action) => {
-      state.selectedImg.thumb = '';
-      state.selectedImg.bigImg = '';
-    }
+
   }
 })
 
 
-export const { addBoard, selectBoardImg, resetBoardImg } = boardsSlice.actions
+export const { addBoard, selectBoardImg } = boardsSlice.actions
 export default boardsSlice.reducer
