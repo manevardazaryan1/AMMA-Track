@@ -20,8 +20,6 @@ export const boardsSlice = createSlice({
       state.selectedImg.thumb = action.payload.regular;
       state.selectedImg.bigImg = action.payload.raw;
     },
-
-
   }
 })
 
