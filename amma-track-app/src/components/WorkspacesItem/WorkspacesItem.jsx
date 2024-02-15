@@ -11,9 +11,11 @@ export const WorkspacesItem = ({ id, img, title }) => {
   const activeWorkspace = useSelector(state => state.workspaces.workspaces.find(workspace => workspace.active))
   const [isClicked, setIsClicked] = useState(false)
   const [isActive, setIsActive] = useState('')
+  const [settingsOpened, setSettingOpened] = useState(false)
   const handleClick = (type, obj) => {
     setIsActive(type);
-    dispatch(toggleActiveWorkspace(obj))
+    dispatch(toggleActiveWorkspace(obj));
+    setSettingOpened(true)
   }
 
   return (<div className="workspaces-item">
@@ -28,9 +30,9 @@ export const WorkspacesItem = ({ id, img, title }) => {
         <span>Boards</span>
       </div>
       <div onClick={() => handleClick('settings', { id, img, title })} className={`workspaces-item__more-tab ${activeWorkspace?.id === id && isActive === 'settings' ? 'active' : ''} workspaces-item__more-settings`}>
-      <img className='workspaces-item__more-icon' src={settings} alt="" />
-      <span>Settings</span>
+        <img className='workspaces-item__more-icon' src={settings} alt="" />
+        <span>Settings</span>
+      </div>
     </div>
-  </div>
   </div >)
 }
