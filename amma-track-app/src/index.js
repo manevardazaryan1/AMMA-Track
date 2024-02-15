@@ -17,13 +17,3 @@ root.render(
   </Provider>
 );
 
-const handleWindowLoad = () => {
-  setTimeout(() => {
-    console.log("mane")
-      document.querySelector(".loading_block").classList.add("hide");
-      document.body.classList.remove("disabled");
-  }, 1000);
-};
-
-window.addEventListener('load', handleWindowLoad);
-
