@@ -1,15 +1,19 @@
 import './CreateBox.css'
 import { useEffect, useState } from 'react'
-import { unsplash } from '../../lib/unsplash'
-import { collection, addDoc } from 'firebase/firestore';
-import { Button } from '../Button/Button'
-import { ImgWrapper } from './ImgWrapper/ImgWrapper'
-import { useDispatch, useSelector } from 'react-redux'
 
 import { addWorkspace, selectWorkspaceImg } from
   '../../redux/slices/workspacesSlice'
 import { addBoard, selectBoardImg } from '../../redux/slices/boardsSlice'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { unsplash } from '../../lib/unsplash'
+import { collection, addDoc } from 'firebase/firestore';
+
+import { Button } from '../Button/Button'
+import { ImgWrapper } from './ImgWrapper/ImgWrapper'
+
 import { db } from '../../config/firebaseConfig';
+
 
 export const CreateBox = ({ type, handleBox }) => {
   const [title, setTitle] = useState('');
