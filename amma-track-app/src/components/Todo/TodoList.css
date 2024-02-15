@@ -41,6 +41,7 @@
 .add-card {
   width: 400px;
 }
+
 .list h3 {
   margin: 0;
 }
@@ -125,7 +126,7 @@ li {
   align-items: center;
   justify-content: center;
   position: fixed;
-  top: 61px;
+  top: 66px;
   left: 50%;
   z-index: 1;
   transform: translateX(-50%);
@@ -183,9 +184,13 @@ li {
   width: 200px !important;
 }
 
+.add-list {
+  top: 80px;
+}
+
 ul {
   list-style-type: none;
-  padding: 0;
+  padding: 10px;
   margin: 0;
   display: flex;
   flex-wrap: wrap;

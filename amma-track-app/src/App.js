@@ -33,11 +33,6 @@ function App() {
 
   return (
     <>
-      {
-        <div className="loading_block">
-          <img src={loading} alt="Loading..." className="loading-gif" />
-        </div>
-      }
 
       <Header />
       <div className="App">
