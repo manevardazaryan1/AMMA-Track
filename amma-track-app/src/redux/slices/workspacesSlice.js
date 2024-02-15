@@ -13,7 +13,7 @@ export const workSpacesSlice = createSlice({
   reducers: {
     addWorkspace: (state, action) => {
       state.workspaces = state.workspaces.map(workspace => { return { ...workspace, active: false } })
-      state.workspaces.push({ id: action.payload.id, title: action.payload.title, img: action.payload.img, user: action.payload.user, active: action.payload.active })
+      state.workspaces.unshift({ id: action.payload.id, title: action.payload.title, img: action.payload.img, user: action.payload.user, active: action.payload.active })
       // console.log(current(state).workspaces)
       // state.workspaces = [action.payload, ...state.workspaces]
     },
