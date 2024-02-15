@@ -18,6 +18,7 @@ const TodoListContainer = ({
   newCardText,
   setNewCardText,
   boardId,
+  isLoading
 }) => {
   const dispatch = useDispatch();
 
@@ -52,36 +53,38 @@ const TodoListContainer = ({
   return (
     <>
       {
-        !lists.length ? <p style={{display:"flex",justifyContent:"center",alignItems:"center",minHeight:"300px",fontSize:"48px"}} className="containerList">Add your first list!</p> : <DragDropContext onDragEnd={handleDragEnd}>
-          <Droppable droppableId="todo-lists" direction="horizontal" type="LIST">
-            {(provided) => (
-              <div ref={provided.innerRef} {...provided.droppableProps} className="containerList">
-                {lists.map((list, index) => (
-                  <Draggable key={list.id} draggableId={list.id} index={index} type="LIST">
-                    {(provided) => (
-                      <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <TodoListCard
-                          key={list.id}
-                          list={list}
-                          activeListId={activeListId}
-                          handleSetActiveList={handleSetActiveList}
-                          handleRemoveList={handleRemoveList}
-                          handleRemoveCard={handleRemoveCard}
-                          handleAddCard={handleAddCard}
-                          newCardText={newCardText}
-                          setNewCardText={setNewCardText}
-                          cards={cards[list.id]}
-                          index={index}
-                        />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        isLoading ? <p style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "300px", fontSize: "48px" }} className="containerList">Loading...</p> :
+          !lists.length ? <p style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "300px", fontSize: "48px" }} className="containerList">Add your first list!</p> :
+            <DragDropContext onDragEnd={handleDragEnd}>
+              <Droppable droppableId="todo-lists" direction="horizontal" type="LIST">
+                {(provided) => (
+                  <div ref={provided.innerRef} {...provided.droppableProps} className="containerList">
+                    {lists.map((list, index) => (
+                      <Draggable key={list.id} draggableId={list.id} index={index} type="LIST">
+                        {(provided) => (
+                          <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                            <TodoListCard
+                              key={list.id}
+                              list={list}
+                              activeListId={activeListId}
+                              handleSetActiveList={handleSetActiveList}
+                              handleRemoveList={handleRemoveList}
+                              handleRemoveCard={handleRemoveCard}
+                              handleAddCard={handleAddCard}
+                              newCardText={newCardText}
+                              setNewCardText={setNewCardText}
+                              cards={cards[list.id]}
+                              index={index}
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
       }
     </>
   );
