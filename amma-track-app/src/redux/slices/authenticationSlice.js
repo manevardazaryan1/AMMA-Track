@@ -4,7 +4,7 @@ import CryptoJS from 'crypto-js';
 const initialState = {
   loggedIn: false,
   users: [{ id: 1, userName: 'admin', email: 'admin@gmail.com', password: CryptoJS.SHA256("admin").toString(CryptoJS.enc.Hex) }],
-  loggedUser: {},
+  loggedUser: "",
 }
 
 export const authSlice = createSlice({
@@ -18,11 +18,15 @@ export const authSlice = createSlice({
     login: (state, user) => {
       state.loggedIn = true;
       state.loggedUser = user.payload;
+      window.localStorage.setItem('isLoggedIn', 'ON');
+      window.localStorage.setItem('loggedUser', JSON.stringify(user.payload));
     },
 
     logOut: (state) => {
       state.loggedIn = false;
       state.loggedUser = {};
+      window.localStorage.setItem('isLoggedIn', 'OFF');
+      window.localStorage.removeItem('loggedUser');
     },
   },
 })
