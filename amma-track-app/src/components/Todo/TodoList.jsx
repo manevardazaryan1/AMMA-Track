@@ -115,7 +115,24 @@ const TodoList = ({ boardId }) => {
   };
 
   return (
-    <div>
+    <div className='to-do-lists'>
+        {
+        showForm ? (
+        <div className='add-list-form list-buttons'>
+          <input
+            type="text"
+            placeholder="Add another list"
+            value={newListTitle}
+            onChange={e => setNewListTitle(e.target.value)}
+          />
+          <button onClick={handleAddList}><i className="fa-solid fa-check"></i></button>
+          <button onClick={handleToggleForm}><span><i className="fa-solid fa-x"></i></span></button>
+        </div>
+      ) : (
+        <button className="add-list list-buttons" onClick={handleToggleForm}>
+          Add list
+        </button>
+      )}
       <TodoListContainer
         lists={currentTodos}
         cards={cards}
@@ -128,22 +145,6 @@ const TodoList = ({ boardId }) => {
         setNewCardText={setNewCardText}
         boardId={boardId}
       />
-      {showForm ? (
-        <div className='add-list-form'>
-          <input
-            type="text"
-            placeholder="Add another list"
-            value={newListTitle}
-            onChange={e => setNewListTitle(e.target.value)}
-          />
-          <button onClick={handleAddList}>Add</button>
-          <button onClick={handleToggleForm}><span>x</span></button>
-        </div>
-      ) : (
-        <button className="add-list" onClick={handleToggleForm}>
-          Add list
-        </button>
-      )}
     </div>
   );
 };
