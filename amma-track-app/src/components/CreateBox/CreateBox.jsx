@@ -1,5 +1,9 @@
 import './CreateBox.css'
+
 import { useEffect, useState } from 'react'
+
+import { Button } from '../Button/Button'
+import { ImgWrapper } from './ImgWrapper/ImgWrapper'
 
 import { addWorkspace, selectWorkspaceImg } from
   '../../redux/slices/workspacesSlice'
@@ -8,9 +12,6 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { unsplash } from '../../lib/unsplash'
 import { collection, addDoc } from 'firebase/firestore';
-
-import { Button } from '../Button/Button'
-import { ImgWrapper } from './ImgWrapper/ImgWrapper'
 
 import { db } from '../../config/firebaseConfig';
 
