@@ -67,11 +67,11 @@ const TodoListContainer = ({
   return (
     <>
       {isLoading ? (
-        <p className="containerList containerClass">
+        <div className="containerList containerClass">
           <ListLoading />
-        </p>
+        </div>
       ) : !lists.length ? (
-        <p className="containerList containerClass">Add your first list!</p>
+        <div className="containerList containerClass">Add your first list!</div>
       ) : (
         <DragDropContext onDragEnd={handleDragEnd}>
           <Droppable
