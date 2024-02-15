@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import './TodoList.css';
+import { useState, useEffect } from 'react';
+
+import TodoListContainer from './TodoListContainer';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { addList, removeList } from '../../redux/slices/todosSlice';
 import { addCard, removeCard } from '../../redux/slices/cardsSlice';
-import TodoListContainer from './TodoListContainer';
-import { db } from '../../config/firebaseConfig'; 
-import './TodoList.css';
+
+import { db } from '../../config/firebaseConfig';
+import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore';
+
 
 const TodoList = ({ boardId }) => {
   const dispatch = useDispatch();
@@ -48,14 +52,14 @@ const TodoList = ({ boardId }) => {
     if (newListTitle.trim() !== '') {
       const newListId = generateUniqueId();
       const listsCollection = collection(db, 'lists');
-      await addDoc(listsCollection, {id: newListId, title: newListTitle, boardId: boardId, position: currentTodos.length});
+      await addDoc(listsCollection, { id: newListId, title: newListTitle, boardId: boardId, position: currentTodos.length });
       dispatch(
-        addList({ 
-          boardId: boardId, 
-          id: newListId, 
+        addList({
+          boardId: boardId,
+          id: newListId,
           title: newListTitle,
           position: currentTodos.length,
-      })); 
+        }));
       setActiveListId(newListId);
       setNewListTitle("");
     }
@@ -70,7 +74,7 @@ const TodoList = ({ boardId }) => {
     const listsCollection = collection(db, "lists")
     const snapshot = await getDocs(listsCollection)
 
-    for(let list of snapshot.docs.filter(doc => doc.data().id === listId)) {
+    for (let list of snapshot.docs.filter(doc => doc.data().id === listId)) {
       if (list.id)
         await deleteDoc(doc(db, 'lists', list.id))
     }
@@ -82,12 +86,15 @@ const TodoList = ({ boardId }) => {
       const newCardId = generateUniqueId();
       const cardsCollection = collection(db, 'cards');
       dispatch(
-        addCard({ 
-          listId: activeListId, 
-          card: { id: newCardId, 
-          text: newCardText } }
-      ));
-      await addDoc(cardsCollection, {listId: activeListId, card: {id: newCardId, text: newCardText}});
+        addCard({
+          listId: activeListId,
+          card: {
+            id: newCardId,
+            text: newCardText
+          }
+        }
+        ));
+      await addDoc(cardsCollection, { listId: activeListId, card: { id: newCardId, text: newCardText } });
       setNewCardText('');
     }
   };
@@ -97,7 +104,7 @@ const TodoList = ({ boardId }) => {
     const cardsCollection = collection(db, "cards")
     const snapshot = await getDocs(cardsCollection)
 
-    for(let card of snapshot.docs.filter(doc => doc.data().card.id === cardId)) {
+    for (let card of snapshot.docs.filter(doc => doc.data().card.id === cardId)) {
       if (card.id)
         await deleteDoc(doc(db, 'cards', card.id))
     }
@@ -108,7 +115,24 @@ const TodoList = ({ boardId }) => {
   };
 
   return (
-    <div>
+    <div className='to-do-lists'>
+        {
+        showForm ? (
+        <div className='add-list-form list-buttons'>
+          <input
+            type="text"
+            placeholder="Add another list"
+            value={newListTitle}
+            onChange={e => setNewListTitle(e.target.value)}
+          />
+          <button onClick={handleAddList}><i className="fa-solid fa-check"></i></button>
+          <button onClick={handleToggleForm}><span><i className="fa-solid fa-x"></i></span></button>
+        </div>
+      ) : (
+        <button className="add-list list-buttons" onClick={handleToggleForm}>
+          Add list
+        </button>
+      )}
       <TodoListContainer
         lists={currentTodos}
         cards={cards}
@@ -121,22 +145,6 @@ const TodoList = ({ boardId }) => {
         setNewCardText={setNewCardText}
         boardId={boardId}
       />
-      {showForm ? (
-        <div className='add-list-form'>
-          <input
-            type="text"
-            placeholder="Add another list"
-            value={newListTitle}
-            onChange={e => setNewListTitle(e.target.value)}
-          />
-          <button onClick={handleAddList}>Add</button>
-          <button onClick={handleToggleForm}><span>x</span></button>
-        </div>
-      ) : (
-        <button className="add-list" onClick={handleToggleForm}>
-          Add list
-        </button>
-      )}
     </div>
   );
 };

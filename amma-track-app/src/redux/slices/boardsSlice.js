@@ -12,8 +12,8 @@ export const boardsSlice = createSlice({
   initialState,
   reducers: {
     addBoard: (state, action) => {
-      //state.boards.push({ id: action.payload.id, title: action.payload.title, img: action.payload.img, workspace: action.payload.workspace })
-      state.boards = [action.payload, ...state.boards]
+      // state.boards.push({ id: action.payload.id, title: action.payload.title, img: action.payload.img, workspace: action.payload.workspace })
+      state.boards.push(action.payload)
     },
 
     selectBoardImg: (state, action) => {

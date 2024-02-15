@@ -1,19 +1,25 @@
 import "./App.css";
 import "./authCss/style.css";
+
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+
 import { login } from "./redux/slices/authenticationSlice";
 import { Header } from "./components/Header/Header";
-import MainPage from "./pages/MainPage";
-import BoardsPage from "./pages/BoardsPage/BoardsPage";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Account from "./pages/Account/Account";
 import LogOut from "./pages/LogOut";
+import MainPage from "./pages/MainPage";
+import BoardsPage from "./pages/BoardsPage/BoardsPage";
 import BoardPage from "./pages/BoardPage/BoardPage";
-import { Route, Routes } from "react-router-dom";
 import NotFound from "./pages/NotFound";
+
 import loading from "./images/loading/loading.gif";
+
+import { useDispatch } from "react-redux";
+
+import { Route, Routes } from "react-router-dom";
+
 
 function App() {
   const dispatch = useDispatch();

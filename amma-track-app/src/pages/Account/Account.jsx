@@ -12,7 +12,6 @@ import {
 import "./Account.css";
 import cameraIcon from "../../images/camera-icon.svg";
 import { validatePassword } from "../../validations/validate";
-import { clearUserWorkspaces } from "../../redux/slices/workspacesSlice";
 
 export default function Account() {
   const dispatch = useDispatch();
@@ -74,8 +73,6 @@ export default function Account() {
   };
 
   const handleDeleteConfirmation = () => {
-    dispatch(clearUserWorkspaces({ userId: user.id }));
-
     dispatch(deleteAccount({ userId: user.id }));
     dispatch(logOut());
     setShowDeleteModal(false);
