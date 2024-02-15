@@ -5,15 +5,15 @@ import { useEffect, useState } from 'react'
 import { Button } from '../Button/Button'
 import { ImgWrapper } from './ImgWrapper/ImgWrapper'
 
+import { useDispatch, useSelector } from 'react-redux'
+import { addBoard, selectBoardImg } from '../../redux/slices/boardsSlice'
 import { addWorkspace, selectWorkspaceImg } from
   '../../redux/slices/workspacesSlice'
-import { addBoard, selectBoardImg } from '../../redux/slices/boardsSlice'
-import { useDispatch, useSelector } from 'react-redux'
 
 import { unsplash } from '../../lib/unsplash'
-import { collection, addDoc } from 'firebase/firestore';
 
 import { db } from '../../config/firebaseConfig';
+import { collection, addDoc } from 'firebase/firestore';
 
 
 export const CreateBox = ({ type, handleBox }) => {

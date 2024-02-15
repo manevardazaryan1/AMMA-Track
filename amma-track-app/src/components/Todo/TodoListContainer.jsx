@@ -1,9 +1,11 @@
-import React from 'react';
 import TodoListCard from './TodoListCards';
+
 import { useDispatch } from 'react-redux';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import {updateLists} from "../../redux/slices/todosSlice.js"
 import {updateCardOrder} from "../../redux/slices/cardsSlice.js"
+
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+
 
 const TodoListContainer = ({
   lists,

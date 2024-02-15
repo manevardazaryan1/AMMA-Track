@@ -1,3 +1,4 @@
+//css
 import './Workspaces.css'
 //react hooks
 import { useEffect } from 'react'
@@ -7,13 +8,17 @@ import { addWorkspace } from '../../redux/slices/workspacesSlice'
 import { Button } from '../Button/Button'
 import { WorkspacesItem } from '../WorkspacesItem/WorkspacesItem'
 import { CreateBox } from '../CreateBox/CreateBox'
+//imgs
+
+//helpers
+
 //redux
 import { useDispatch, useSelector } from 'react-redux'
 //libraries
 import { useNavigate } from "react-router-dom";
 //database
-import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../../config/firebaseConfig'
+import { collection, getDocs } from 'firebase/firestore'
 
 export const Workspaces = () => {
   const create = useSelector((state) => state.creation.workspaceCreationBox)

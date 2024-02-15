@@ -1,11 +1,17 @@
 import { useState, useEffect } from "react";
+
 import { useNavigate } from 'react-router-dom';
-import { collection, getDocs, addDoc } from 'firebase/firestore';
+
 import { validateEmail, validatePassword, validateUserName } from "../validations/validate";
+
 import { useSelector, useDispatch } from "react-redux";
 import { signUp } from "../redux/slices/authenticationSlice";
+
 import CryptoJS from 'crypto-js';
+
 import { db } from "../config/firebaseConfig";
+import { collection, getDocs, addDoc } from 'firebase/firestore';
+
 
 export default function SignUp() {
     const navigate = useNavigate();

@@ -1,10 +1,14 @@
 import './WorkspacesItem.css'
-import { toggleActiveWorkspace } from '../../redux/slices/workspacesSlice'
-import { useDispatch, useSelector } from 'react-redux'
+
 import { useState } from 'react'
+
 import arrow from '../../images/down-arrow-svgrepo-com.svg'
 import board from '../../images/board-svgrepo-com.svg'
 import settings from '../../images/settings-svgrepo-com.svg'
+
+import { useDispatch, useSelector } from 'react-redux'
+import { toggleActiveWorkspace } from '../../redux/slices/workspacesSlice'
+
 
 export const WorkspacesItem = ({ id, img, title }) => {
   const dispatch = useDispatch();

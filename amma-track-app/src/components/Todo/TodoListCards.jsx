@@ -1,7 +1,9 @@
-import React from 'react';
 import { useState } from 'react';
+
 import CardModal from '../CardModal/CardModal';
+
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+
 
 const TodoListCard = ({
   list,

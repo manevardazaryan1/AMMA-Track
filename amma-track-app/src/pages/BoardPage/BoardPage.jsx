@@ -1,13 +1,17 @@
-import React from "react"
 import { useEffect } from "react"
-import { useDispatch } from "react-redux" 
-import { collection, getDocs} from 'firebase/firestore'
-import "./BoardPage.css"
+
 import TodoList from "../../components/Todo/TodoList"
+
+import { useDispatch, useSelector } from "react-redux"
+import { addBoard } from "../../redux/slices/boardsSlice"
+
+import "./BoardPage.css"
+
 import { useParams } from "react-router-dom"
-import { useSelector } from "react-redux"
+
 import { db } from '../../config/firebaseConfig'
-import { addBoard } from "../../redux/slices/boardsSlice" 
+import { collection, getDocs } from 'firebase/firestore'
+
 
 const BoardPage = () => {
     const dispatch = useDispatch()
@@ -15,10 +19,10 @@ const BoardPage = () => {
     const currentBoard = useSelector(state => state.boards.boards);
 
     useEffect(() => {
-        const fetchBoards= async () => {
-          const boardsCollection = collection(db, 'boards')
-          const snapshot = await getDocs(boardsCollection)
-          snapshot.docs.map((doc) => (dispatch(addBoard({ ...doc.data() }))))
+        const fetchBoards = async () => {
+            const boardsCollection = collection(db, 'boards')
+            const snapshot = await getDocs(boardsCollection)
+            snapshot.docs.map((doc) => (dispatch(addBoard({ ...doc.data() }))))
         }
         if (!currentBoard.length) fetchBoards()
     }, [currentBoard.length, dispatch])
