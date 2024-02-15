@@ -9,6 +9,7 @@
   overflow-x: scroll;
   padding-top: 143px;
   min-height: calc(100vh - 10px);
+  width: 100%;
 }
 
 .list {
