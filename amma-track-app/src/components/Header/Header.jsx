@@ -1,11 +1,14 @@
 import "./Header.css";
-import { useDispatch, useSelector } from "react-redux";
-import logo from "../../images/logo.svg";
-import { Link } from "react-router-dom";
+
 import { Button } from "../Button/Button";
+
 import ammaTruckLogo from "../../images/amma-truck-logo.png";
 
+import { useDispatch, useSelector } from "react-redux";
 import { deleteActiveWorkspace } from "../../redux/slices/workspacesSlice";
+
+import { Link } from "react-router-dom";
+
 export const Header = () => {
   const loggedIn = useSelector((state) => state.auth.loggedIn);
   let buttons;

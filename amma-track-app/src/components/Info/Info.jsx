@@ -1,6 +1,10 @@
 import './Info.css'
+
 import { Button } from '../Button/Button'
+
 import { Link } from 'react-router-dom'
+
+
 export const Info = () => {
   return (
     <div className='info'>

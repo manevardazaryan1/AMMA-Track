@@ -4,6 +4,7 @@ const initialState = {
   selectedImg: {
     thumb: '',
   },
+  settingsOpened: false,
 }
 
 export const workSpacesSlice = createSlice({
@@ -11,10 +12,10 @@ export const workSpacesSlice = createSlice({
   initialState,
   reducers: {
     addWorkspace: (state, action) => {
-      //state.workspaces = state.workspaces.map(workspace => { return { ...workspace, active: false } })
-      //state.workspaces.push({ id: action.payload.id, title: action.payload.title, img: action.payload.img, user: action.payload.user, active: action.payload.active })
-      //console.log(current(state).workspaces)
-      state.workspaces = [action.payload, ...state.workspaces]
+      state.workspaces = state.workspaces.map(workspace => { return { ...workspace, active: false } })
+      state.workspaces.unshift({ id: action.payload.id, title: action.payload.title, img: action.payload.img, user: action.payload.user, active: action.payload.active })
+      // console.log(current(state).workspaces)
+      // state.workspaces = [action.payload, ...state.workspaces]
     },
     workspaceCreationBoxHandle: (state, action) => {
       state.creationBox = action.payload.val;
@@ -30,13 +31,16 @@ export const workSpacesSlice = createSlice({
         else
           return { ...workspace, active: false }
       })
-
     },
     deleteActiveWorkspace: (state, action) => {
       state.workspaces = state.workspaces.map(workspace => { return { ...workspace, active: false } })
-    }
+    },
+
+    openSettings: (state, action) => {
+      state.settingsOpened = true;
+    },
 
   }
 })
-export const { addWorkspace, selectWorkspaceImg, toggleActiveWorkspace, deleteActiveWorkspace } = workSpacesSlice.actions
+export const { addWorkspace, selectWorkspaceImg, toggleActiveWorkspace, deleteActiveWorkspace, openSettings } = workSpacesSlice.actions
 export default workSpacesSlice.reducer

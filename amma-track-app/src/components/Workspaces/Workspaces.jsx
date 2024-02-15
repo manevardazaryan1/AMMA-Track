@@ -1,14 +1,24 @@
+//css
 import './Workspaces.css'
+//react hooks
 import { useEffect } from 'react'
-import { collection, getDocs} from 'firebase/firestore'
-import { useNavigate } from "react-router-dom";
+//components
+import { workspaceCreationBoxHandle } from '../../redux/slices/creationBoxSlice'
+import { addWorkspace } from '../../redux/slices/workspacesSlice'
 import { Button } from '../Button/Button'
 import { WorkspacesItem } from '../WorkspacesItem/WorkspacesItem'
 import { CreateBox } from '../CreateBox/CreateBox'
+//imgs
+
+//helpers
+
+//redux
 import { useDispatch, useSelector } from 'react-redux'
-import { workspaceCreationBoxHandle } from '../../redux/slices/creationBoxSlice'
+//libraries
+import { useNavigate } from "react-router-dom";
+//database
 import { db } from '../../config/firebaseConfig'
-import { addWorkspace } from '../../redux/slices/workspacesSlice'
+import { collection, getDocs } from 'firebase/firestore'
 
 export const Workspaces = () => {
   const create = useSelector((state) => state.creation.workspaceCreationBox)
@@ -18,7 +28,7 @@ export const Workspaces = () => {
   const dispatch = useDispatch()
   const loggedIn = window.localStorage.getItem("isLoggedIn")
   const navigate = useNavigate();
- 
+
   useEffect(() => {
     if (loggedIn && loggedIn === "OFF") {
       navigate("/");
