@@ -1,7 +1,10 @@
-import { Navigate } from "react-router-dom";
 import { useEffect } from "react";
+
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/slices/authenticationSlice";
+
+import { Navigate } from "react-router-dom";
+
 
 export default function Account() {
   const user = JSON.parse(window.localStorage.getItem("loggedUser"));
