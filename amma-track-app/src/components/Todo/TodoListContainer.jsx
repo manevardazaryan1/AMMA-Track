@@ -23,7 +23,7 @@ const TodoListContainer = ({
  
   const handleDragEnd = (result) => {
     if (!result.destination) return;
-
+  
     if (result.type === 'LIST') {
       const updatedLists = Array.from(lists);
       const [removed] = updatedLists.splice(result.source.index, 1);
@@ -32,15 +32,15 @@ const TodoListContainer = ({
     } else if (result.type === 'CARD') {
       const sourceListId = result.source.droppableId;
       const destinationListId = result.destination.droppableId;
-
-    if (sourceListId === destinationListId) {
-        const sourceList = [...cards[sourceListId]];
+  
+      if (sourceListId === destinationListId) {
+        const sourceList = Array.isArray(cards[sourceListId]) ? [...cards[sourceListId]] : [];
         const [removed] = sourceList.splice(result.source.index, 1);
         sourceList.splice(result.destination.index, 0, removed);
         dispatch(updateCardOrder({ listId: sourceListId, updatedCards: sourceList }));
       } else {
-        const sourceList = [...cards[sourceListId]];
-        const destinationList = [...cards[destinationListId]];
+        const sourceList = Array.isArray(cards[sourceListId]) ? [...cards[sourceListId]] : [];
+        const destinationList = Array.isArray(cards[destinationListId]) ? [...cards[destinationListId]] : [];
         const [movedCard] = sourceList.splice(result.source.index, 1);
         destinationList.splice(result.destination.index, 0, movedCard);
         dispatch(updateCardOrder({ listId: sourceListId, updatedCards: sourceList }));
@@ -48,7 +48,7 @@ const TodoListContainer = ({
       }
     }
   };
-
+  
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId="todo-lists" direction="horizontal" type="LIST">

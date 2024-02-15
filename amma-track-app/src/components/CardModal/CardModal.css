@@ -1,12 +1,12 @@
 .card-modal {
   position: fixed;
-  top: 150%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: #fff;
   padding: 20px;
-  height: 62vh;
-  min-height: 42vh;
+  height: 90vh;
+  min-height: 90vh;
   z-index: 999;
   box-shadow: 2px 11px 14px #414141, 2px 0px 20px #666666;
   min-width: 55%;
@@ -27,7 +27,7 @@
 
 .close-card-modal-btn {
   position: fixed;
-  top: 11vh;
+  top: 12vh;
   left: 75%;
   transform: translate(-100%, -100%);
   z-index: 999999;
@@ -41,7 +41,7 @@
   height: 40px;
   width: 50px;
   font-weight: 900;
-  transition: all 0.2s;
+  transition: all .2s;
 }
 
 .description-block {
@@ -56,11 +56,7 @@
 
 .edit-btn,
 .save-description-btn {
-  background: linear-gradient(
-    141deg,
-    rgba(255, 154, 0, 1) 0%,
-    rgba(205, 0, 255, 1) 100%
-  );
+  background: linear-gradient( 141deg, rgba(255, 154, 0, 1) 0%, rgba(205, 0, 255, 1) 100% );
   color: #fff;
   height: 40px;
   border-radius: 20px;
@@ -74,16 +70,12 @@
 
 .close-card-modal-btn:hover {
   box-shadow: 1px 2px 12px #eee, -1px -2px 12px #ddd;
-  transition: all 0.2s;
+  transition: all .2s;
 }
 
 .edit-btn:hover,
 .save-description-btn:hover {
-  background: linear-gradient(
-    141deg,
-    rgba(255, 153, 0, 0.96) 0%,
-    rgba(205, 0, 255, 0.96) 100%
-  );
+  background: linear-gradient( 141deg, rgba(255, 153, 0, 0.96) 0%, rgba(205, 0, 255, 0.96) 100% );
   transform: scale(1.01);
   box-shadow: 8px 8px 8px #cbced1, -8px -8px 8px white;
   transition: all 0.2s;
@@ -108,70 +100,62 @@
   padding: 20px;
 }
 
-.scroll_effect::-webkit-scrollbar {
+.scroll_effect::-webkit-scrollbar{
   width: 15px;
 }
 
-.scroll_effect::-webkit-scrollbar-track {
+.scroll_effect::-webkit-scrollbar-track{
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   background: #fff;
 }
 
-.scroll_effect::-webkit-scrollbar-thumb {
+.scroll_effect::-webkit-scrollbar-thumb{
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   -webkit-box-shadow: inset 0 0 1px rgb(0, 0, 0);
 }
 
-.scroll_effect::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(
-    141deg,
-    rgba(255, 154, 0, 1) 0%,
-    rgba(205, 0, 255, 1) 100%
-  );
+.scroll_effect::-webkit-scrollbar-thumb:hover{
+  background: linear-gradient( 141deg, rgba(255, 154, 0, 1) 0%, rgba(205, 0, 255, 1) 100% );
 }
 
-.description-title {
+.description-title{
   font-size: 35px;
-  background: linear-gradient(
-    141deg,
-    rgba(255, 154, 0, 1) 0%,
-    rgba(205, 0, 255, 1) 100%
-  );
+  background: linear-gradient( 141deg, rgba(255, 154, 0, 1) 0%, rgba(205, 0, 255, 1) 100% );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 1024px) { 
   .card-modal {
-    width: 90%;
+      width: 90%;
   }
 
   .close-card-modal-btn {
-    left: 92%;
+      left: 92%;
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 768px) { 
   .description {
-    flex-direction: column-reverse;
+      flex-direction: column-reverse;
   }
 
   .edit-btn {
-    margin-right: 0;
-    margin-bottom: 10px;
+      margin-right: 0;
+      margin-bottom: 10px;
   }
 }
 
-@media only screen and (max-width: 575px) {
+@media only screen and (max-width: 575px) { 
   .close-card-modal-btn {
-    left: 89%;
+      left: 89%;
   }
 }
 
-@media only screen and (max-width: 450px) {
-  .description-title {
-    font-size: 21px;
+@media only screen and (max-width: 450px) { 
+  .description-title{
+      font-size: 21px;
   }
 }
