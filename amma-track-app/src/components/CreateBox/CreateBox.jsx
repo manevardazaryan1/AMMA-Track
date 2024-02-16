@@ -1,12 +1,20 @@
 import './CreateBox.css'
+
 import { useEffect, useState } from 'react'
-import { unsplash } from '../../lib/unsplash'
+
 import { Button } from '../Button/Button'
 import { ImgWrapper } from './ImgWrapper/ImgWrapper'
+
 import { useDispatch, useSelector } from 'react-redux'
-import { addWorkspace } from
-  '../../redux/slices/workspacesSlice'
 import { addBoard, selectBoardImg } from '../../redux/slices/boardsSlice'
+import { addWorkspace, selectWorkspaceImg } from
+  '../../redux/slices/workspacesSlice'
+
+import { unsplash } from '../../lib/unsplash'
+
+import { db } from '../../config/firebaseConfig';
+import { collection, addDoc } from 'firebase/firestore';
+
 
 export const CreateBox = ({ type, handleBox }) => {
   const [title, setTitle] = useState('');
@@ -17,26 +25,36 @@ export const CreateBox = ({ type, handleBox }) => {
   const currentUser = useSelector((state) => state.auth.loggedUser)
   const dispatch = useDispatch();
 
-  const handleAddClick = () => {
+  const handleAddClick = async () => {
     switch (type) {
       case 'workspace':
+        const workspaceId = new Date().toISOString()                                      
         const newWorkspace = {
+          id: workspaceId,
           title,
           img: {
             thumb: selectedWorkspaceImg,
           },
           user: currentUser,
-          active:true,
+          active: true,
         };
         if (title.trim().length && selectedWorkspaceImg) {
           dispatch(addWorkspace(newWorkspace));
           dispatch(handleBox({ val: false }));
           setTitle('');
-          dispatch(selectBoardImg({ thumb: ''}))
+          dispatch(selectWorkspaceImg({ thumb: '' }))
         }
+        const workspacesCollection = collection(db, 'workspaces')
+
+        await addDoc(workspacesCollection, { id: workspaceId, title, img: { thumb: selectedWorkspaceImg }, user: currentUser, })
+
+
+
         return
       case 'board':
+        const boardId = new Date().toISOString()
         const newBoard = {
+          id: boardId,
           title,
           img: selectedBoardImg,
           workspace: activeWorkspace,
@@ -45,8 +63,13 @@ export const CreateBox = ({ type, handleBox }) => {
           dispatch(addBoard(newBoard));
           dispatch(handleBox({ val: false }));
           setTitle('');
-          dispatch(selectBoardImg({ thumb: '' }))
+          dispatch(selectBoardImg({ regular: '', raw: '' }))
         }
+        const boardsCollection = collection(db, 'boards')
+        
+        await addDoc(boardsCollection, { id: boardId, title, img: selectedBoardImg, workspace: activeWorkspace, })
+
+
         return
     }
 
@@ -61,13 +84,13 @@ export const CreateBox = ({ type, handleBox }) => {
               thumb: selectedWorkspaceImg,
             },
             user: currentUser,
-            active:true,
+            active: true,
           };
           if (title.trim().length && selectedWorkspaceImg) {
             dispatch(addWorkspace(newWorkspace));
             dispatch(handleBox({ val: false }));
             setTitle('');
-            dispatch(selectBoardImg({ thumb: ''}))
+            dispatch(selectWorkspaceImg({ thumb: '' }))
           }
           return
         case 'board':
@@ -87,6 +110,11 @@ export const CreateBox = ({ type, handleBox }) => {
       }
     }
   };
+  const handleClose = () => {
+    dispatch(selectWorkspaceImg({ thumb: '' }))
+    dispatch(selectBoardImg({ regular: '', raw: '' }))
+    dispatch(handleBox({ val: false }))
+  }
   useEffect(() => {
     const fetchImages = async () => {
       try {
@@ -107,12 +135,14 @@ export const CreateBox = ({ type, handleBox }) => {
         setImages([])
       }
     }
+
     fetchImages()
   }, [])
+
   return (
     <div className={`create-box ${type}`}>
       <p className='create-box__type'>Create {type}</p>
-      <div onClick={() => dispatch(handleBox({ vale: false }))} className="create-box__btn"><Button>X</Button></div>
+      <div onClick={handleClose} className="create-box__btn"><Button>X</Button></div>
       <div className='create-box__images'>
         {
           images.map(img => {
@@ -126,7 +156,7 @@ export const CreateBox = ({ type, handleBox }) => {
         <p className='create-box__title'><span>{type}</span> title</p>
         <label>
           <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} onKeyDown={handleEnter} />
-          <Button disabled={!(title.length && (selectedWorkspaceImg || selectedBoardImg))} type={'secondary'} onClick={handleAddClick} >Add {type}</Button>
+          <Button disabled={!(title.length && (selectedWorkspaceImg || selectedBoardImg.thumb))} type={'secondary'} onClick={handleAddClick} >Add {type}</Button>
         </label>
       </div>
     </div>

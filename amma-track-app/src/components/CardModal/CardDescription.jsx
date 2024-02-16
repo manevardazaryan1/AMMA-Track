@@ -1,23 +1,50 @@
-import React, { useState } from 'react';
+import 'react-quill/dist/quill.snow.css'; 
+import { useState, useEffect } from 'react';
+
 import { useSelector, useDispatch } from "react-redux";
 import { addDescription } from '../../redux/slices/cardModalSlice';
+
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; 
+
+import { db } from '../../config/firebaseConfig';
+import { collection, addDoc, getDocs, updateDoc, doc } from 'firebase/firestore';
 
 
 export default function CardDescription({ cardID }) {
     const dispatch = useDispatch();
     const descriptions = useSelector((state) => state.cardModal.descriptions);
     const description = descriptions.find(card => card.cardID === cardID)
-
     const [text, setText] = useState("");
+
+    useEffect(() => {
+        const fetchDescriptions = async () => {
+          const descriptionsCollection = collection(db, 'descriptions')
+          const snapshot = await getDocs(descriptionsCollection)
+          snapshot.docs.reverse().map((doc) => (dispatch(addDescription({ ...doc.data() }))))
+        }
+    
+        if (!descriptions.length) fetchDescriptions()
+        
+    }, [descriptions.length, dispatch])
 
     const handleChange = (value) => {
         setText(() => value);
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         dispatch(addDescription({ cardID, description: text }))
+        let updated = false;
+        const descriptionsCollection = collection(db, 'descriptions');
+        const snapshot = await getDocs(descriptionsCollection)
+        for(let descriptionDoc of snapshot.docs.filter(doc => doc.data().cardID === cardID)) {
+            if (descriptionDoc.id) {
+                await updateDoc(doc(db, 'descriptions', descriptionDoc.id), { cardID, description: text});
+            } 
+            updated = true;
+        }
+        
+        if (!updated)
+            await addDoc(descriptionsCollection, { cardID, description: text })
         setText(() => "");
     };
 

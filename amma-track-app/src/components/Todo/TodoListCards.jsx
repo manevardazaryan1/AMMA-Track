@@ -1,7 +1,9 @@
-import React from 'react';
 import { useState } from 'react';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
+
 import CardModal from '../CardModal/CardModal';
+
+import { Droppable, Draggable } from 'react-beautiful-dnd';
+
 
 const TodoListCard = ({
   list,
@@ -31,7 +33,7 @@ const TodoListCard = ({
     <div className={`list ${activeListId === list.id ? 'active' : ''}`} onClick={() => handleSetActiveList(list.id)}>
       <div className="list-title-X">
         <h3>{list.title}</h3>
-        <button onClick={() => handleRemoveList(list.id)}>X</button>
+        <button onClick={() => handleRemoveList(list.id)}><i className="fa-solid fa-x"></i></button>
       </div>
       <Droppable droppableId={list.id} type="CARD">
         {(provided, snapshot) => (
@@ -51,10 +53,13 @@ const TodoListCard = ({
                     >
                       <li className="card">
                         {card.text}
-                        <button onClick={() => openCardModal(card.id)}>
-                          <i className="fa-solid fa-pen"></i>
-                        </button>
-                        <button onClick={() => handleRemoveCard(list.id, card.id)}>X</button>
+                        <div className="card-buttons">                        
+                          <button onClick={() => openCardModal(card.id)} className="open-card-modal-button">
+                            <i className="fa-solid fa-pen"></i>
+                          </button>
+                          <button onClick={() => handleRemoveCard(list.id, card.id)}><i className="fa-solid fa-x"></i></button>
+                        </div>
+
                       </li>
                     </div>
                   )}

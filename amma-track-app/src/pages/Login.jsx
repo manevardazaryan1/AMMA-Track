@@ -1,16 +1,23 @@
 import { useState, useEffect } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { login } from "../redux/slices/authenticationSlice";
+import { signUp } from "../redux/slices/authenticationSlice";
+
 import CryptoJS from "crypto-js";
+import { useNavigate } from "react-router-dom";
+
+import { db } from "../config/firebaseConfig";
+import { collection, getDocs } from 'firebase/firestore';
+
 
 export default function Login() {
   const navigate = useNavigate();
-  const loggedIn = useSelector((state) => state.auth.loggedIn);
+  const loggedIn = window.localStorage.getItem("isLoggedIn")
   const [passwordEye, setPasswordEye] = useState(false);
 
   useEffect(() => {
-    if (loggedIn) {
+    if (loggedIn && loggedIn === "ON") {
       navigate("/workspaces");
     }
   }, [loggedIn, navigate]);
@@ -20,6 +27,17 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userIsNotExists, setUserIsNotExists] = useState(false);
+  const usersCollection = collection(db, 'users');
+
+  useEffect(() => {
+    const fetchusers = async () => {
+      const snapshot = await getDocs(usersCollection)
+      snapshot.docs.map((doc) => (dispatch(signUp({ ...doc.data() }))))
+    }
+
+    if (!users.length) fetchusers()
+    
+  }, [users.length, usersCollection, dispatch])
 
   const handleInputChange = (e) => {
     switch (e.target.name) {
@@ -51,13 +69,15 @@ export default function Login() {
       const id = 1;
       setUserIsNotExists(() => false);
       navigate("/workspaces");
+      const fixedUser = {
+        id,
+        userName: "admin",
+        email: "admin@gmail.com",
+        password: "admin"
+      }
+      window.localStorage.setItem('loggedUser', JSON.stringify(fixedUser));
       dispatch(
-        login({
-          id,
-          userName: "admin",
-          email: "admin@gmail.com",
-          password: "admin"
-        })
+        login(fixedUser)
       );
     }
 
@@ -73,7 +93,7 @@ export default function Login() {
       <h2 className="auth-title">Login</h2>
 
       {userIsNotExists && (
-        <div className="user-is-not-exists">User doesn't exists</div>
+        <div className="user-is-not-exists"><i className="fa-solid fa-ban not_exists_icon"></i>User doesn't exists</div>
       )}
 
       <form autoComplete="off" onSubmit={handleLoginForm} className="auth-form">

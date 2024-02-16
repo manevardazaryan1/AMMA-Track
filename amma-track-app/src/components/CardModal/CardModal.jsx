@@ -1,8 +1,9 @@
 import './CardModal.css'
+
 import CardDescription from './CardDescription';
 
-export default function CardModal({ cardID }) {
 
+export default function CardModal({ cardID }) {
     return (
         <div className="card-modal-block">
             <div className="card-modal scroll_effect"> 
