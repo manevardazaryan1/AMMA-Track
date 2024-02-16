@@ -59,6 +59,7 @@ const TodoListCard = ({
                           </button>
                           <button onClick={() => handleRemoveCard(list.id, card.id)}><i className="fa-solid fa-x"></i></button>
                         </div>
+
                       </li>
                     </div>
                   )}

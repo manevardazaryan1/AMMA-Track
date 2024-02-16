@@ -39,15 +39,18 @@ const TodoListContainer = ({
     if (!result.destination) return;
 
     if (result.type === "LIST") {
+
       const updatedLists = Array.from(lists);
       const [removed] = updatedLists.splice(result.source.index, 1);
       updatedLists.splice(result.destination.index, 0, removed);
       dispatch(updateLists(updatedLists));
+
     } else if (result.type === "CARD") {
       const sourceListId = result.source.droppableId;
       const destinationListId = result.destination.droppableId;
 
       if (sourceListId === destinationListId) {
+
         const sourceList = Array.isArray(cards[sourceListId])
           ? [...cards[sourceListId]]
           : [];

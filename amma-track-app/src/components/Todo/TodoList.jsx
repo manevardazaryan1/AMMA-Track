@@ -13,16 +13,15 @@ import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore'
 
 const TodoList = ({ boardId }) => {
   const dispatch = useDispatch();
-  const lists = useSelector(state => state.todos);
-  const cards = useSelector(state => state.cards);
+  const lists = useSelector((state) => state.todos);
+  const cards = useSelector((state) => state.cards);
 
   const [newListTitle, setNewListTitle] = useState('');
   const [newCardText, setNewCardText] = useState('');
-  const [activeListId, setActiveListId] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [activeListId, setActiveListId] = useState(null);
 
-  const currentTodos = lists.filter(todo => todo.boardId === boardId)
+  const currentTodos = lists.filter((todo) => todo.boardId === boardId);
 
   useEffect(() => {
     const fetchLists = async () => {
@@ -54,14 +53,9 @@ const TodoList = ({ boardId }) => {
   const handleAddList = async () => {
     if (newListTitle.trim() !== '') {
       const newListId = generateUniqueId();
+
       const listsCollection = collection(db, 'lists');
       await addDoc(listsCollection, { id: newListId, title: newListTitle, boardId: boardId, position: currentTodos.length });
-      dispatch(
-        addList({
-          boardId: boardId,
-          id: newListId,
-          title: newListTitle,
-          position: currentTodos.length,
         }));
       setActiveListId(newListId);
       setNewListTitle("");
@@ -87,6 +81,7 @@ const TodoList = ({ boardId }) => {
   const handleAddCard = async () => {
     if (newCardText.trim() !== '' && activeListId !== null) {
       const newCardId = generateUniqueId();
+
       const cardsCollection = collection(db, 'cards');
       dispatch(
         addCard({
@@ -98,6 +93,7 @@ const TodoList = ({ boardId }) => {
         }
         ));
       await addDoc(cardsCollection, { listId: activeListId, card: { id: newCardId, text: newCardText } });
+
       setNewCardText('');
     }
   };
@@ -118,6 +114,7 @@ const TodoList = ({ boardId }) => {
   };
 
   return (
+
     <div className='to-do-lists'>
       {
         showForm ? (
@@ -140,9 +137,9 @@ const TodoList = ({ boardId }) => {
         lists={currentTodos}
         cards={cards}
         activeListId={activeListId}
-        handleSetActiveList={handleSetActiveList}
         handleRemoveList={handleRemoveList}
         handleRemoveCard={handleRemoveCard}
+        handleSetActiveList={handleSetActiveList}
         handleAddCard={handleAddCard}
         newCardText={newCardText}
         setNewCardText={setNewCardText}
