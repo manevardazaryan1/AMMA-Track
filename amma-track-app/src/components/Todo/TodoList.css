@@ -46,9 +46,7 @@
   /* gap: 15px; */
 }
 
-.add-card {
-  width: 400px;
-}
+
 
 .list h3 {
   margin: 0;
@@ -121,6 +119,11 @@
 
 li {
   display: flex;
+}
+
+.list-title-X h3{
+  max-width: calc(100% - 17px);
+  overflow: hidden;
 }
 
 .add-list-form {
@@ -277,4 +280,8 @@ ul {
 
 .containerClass-text {
   margin-bottom: 175px;
+}
+
+.add-card {
+  display: flex;
 }
