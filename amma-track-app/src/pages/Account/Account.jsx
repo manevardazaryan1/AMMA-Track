@@ -90,6 +90,8 @@ export default function Account() {
     }
   };
 
+  const userInitial = user.userName ? user.userName[0].toUpperCase() : "";
+
   return (
     <div className="account-section">
       {showChangePasswordModal && (
@@ -160,7 +162,11 @@ export default function Account() {
       )}
       <div className="account-container">
         <div className="account-avatar">
-          <img src={user.image || "/default-avatar.png"} alt="Profile" />
+          {user.image ? (
+            <img src={user.image} alt="Profile" />
+          ) : (
+            <div className="default-avatar">{userInitial}</div>
+          )}
           <div className="account-avatar-overlay">
             <img
               src={cameraIcon}
