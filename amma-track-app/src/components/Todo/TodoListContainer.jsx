@@ -1,4 +1,7 @@
 import TodoListCard from "./TodoListCards";
+
+import { useRef, useEffect, useState } from "react";
+
 import { ListLoading } from "../ListLoading/ListLoading.jsx";
 import { useDispatch } from "react-redux";
 import { updateLists } from "../../redux/slices/todosSlice.js";
@@ -19,6 +22,17 @@ const TodoListContainer = ({
   boardId,
   isLoading
 }) => {
+
+  const elementRef = useRef(null);
+  const [elementWidth, setElementWidth] = useState(0)
+  const [viewportWidth, setViewportWidth] = useState(0)
+  useEffect(() => {
+    // Get the width of the element
+    console.log(isLoading);
+    setElementWidth(() => { let curr = elementRef?.current?.offsetWidth; console.log(curr, 'all'); return curr })
+    setViewportWidth(() => { let curr = window.innerWidth; console.log(curr, 'screen'); return curr })
+
+  }, [isLoading]);
   const dispatch = useDispatch();
 
   const handleDragEnd = (result) => {
@@ -71,55 +85,59 @@ const TodoListContainer = ({
           <ListLoading />
         </div>
       ) : !lists.length ? (
-        <div className="containerList containerClass">Add your first list!</div>
+        <div className="containerList containerClass"><p className="containerClass-text">Add your first list!</p></div>
       ) : (
-        <DragDropContext onDragEnd={handleDragEnd}>
-          <Droppable
-            droppableId="todo-lists"
-            direction="horizontal"
-            type="LIST"
-          >
-            {(provided) => (
-              <div
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                className="containerList"
-              >
-                {lists.map((list, index) => (
-                  <Draggable
-                    key={list.id}
-                    draggableId={list.id}
-                    index={index}
-                    type="LIST"
-                  >
-                    {(provided) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
-                        <TodoListCard
-                          key={list.id}
-                          list={list}
-                          activeListId={activeListId}
-                          handleSetActiveList={handleSetActiveList}
-                          handleRemoveList={handleRemoveList}
-                          handleRemoveCard={handleRemoveCard}
-                          handleAddCard={handleAddCard}
-                          newCardText={newCardText}
-                          setNewCardText={setNewCardText}
-                          cards={cards[list.id]}
-                          index={index}
-                        />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+
+        <div ref={elementRef} style={elementWidth > viewportWidth ? { overflowX: "scroll"} : {width:'100%'}} className="wrapper">
+          <DragDropContext onDragEnd={handleDragEnd}>
+            <Droppable
+              droppableId="todo-lists"
+              direction="horizontal"
+              type="LIST"
+            >
+              {(provided) => (
+                <div
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+
+                  className={`containerList ${elementWidth > viewportWidth ? '--content' : ''}`}
+                >
+                  {lists.map((list, index) => (
+                    <Draggable
+                      key={list.id}
+                      draggableId={list.id}
+                      index={index}
+                      type="LIST"
+                    >
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <TodoListCard
+                            key={list.id}
+                            list={list}
+                            activeListId={activeListId}
+                            handleSetActiveList={handleSetActiveList}
+                            handleRemoveList={handleRemoveList}
+                            handleRemoveCard={handleRemoveCard}
+                            handleAddCard={handleAddCard}
+                            newCardText={newCardText}
+                            setNewCardText={setNewCardText}
+                            cards={cards[list.id]}
+                            index={index}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </div >
       )}
     </>
   );
