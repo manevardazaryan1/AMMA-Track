@@ -19,8 +19,7 @@ const BoardsPage = () => {
         <Workspaces />
         {activeWorkspaceId && < BoardsList />}
       </div>
-      {true && <WorkspaceSettings />}
-      <Footer />
+      {settings && <WorkspaceSettings />}
     </>
   )
 }

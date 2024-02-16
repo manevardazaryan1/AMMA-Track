@@ -7,7 +7,7 @@ import board from '../../images/board-svgrepo-com.svg'
 import settings from '../../images/settings-svgrepo-com.svg'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleActiveWorkspace } from '../../redux/slices/workspacesSlice'
+import { toggleActiveWorkspace, openSettings } from '../../redux/slices/workspacesSlice'
 
 
 export const WorkspacesItem = ({ id, img, title }) => {
@@ -15,11 +15,10 @@ export const WorkspacesItem = ({ id, img, title }) => {
   const activeWorkspace = useSelector(state => state.workspaces.workspaces.find(workspace => workspace.active))
   const [isClicked, setIsClicked] = useState(false)
   const [isActive, setIsActive] = useState('')
-  const [settingsOpened, setSettingOpened] = useState(false)
   const handleClick = (type, obj) => {
     setIsActive(type);
     dispatch(toggleActiveWorkspace(obj));
-    setSettingOpened(true)
+    dispatch(openSettings())
   }
 
   return (<div className="workspaces-item">

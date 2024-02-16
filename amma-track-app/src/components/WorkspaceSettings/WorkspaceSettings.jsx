@@ -1,3 +1,6 @@
+import './WorkspaceSettings.css'
+
+
 export const WorkspaceSettings = () => {
   return (
     <div className="settings-container">
