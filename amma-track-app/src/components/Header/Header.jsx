@@ -26,7 +26,10 @@ export const Header = () => {
       </>
     );
   } else {
-    const userAvatar = loggedUser ? loggedUser.email[0].toUpperCase() : "";
+    const userAvatar =
+      loggedUser && loggedUser.userName
+        ? loggedUser.userName[0].toUpperCase()
+        : "";
     buttons = (
       <>
         <Link to="/account">

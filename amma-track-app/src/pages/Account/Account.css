@@ -14,15 +14,11 @@
   text-align: center;
   width: 350px;
 }
-.account-avatar {
-  position: relative;
-}
+
 .account-avatar img {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  margin-bottom: 20px;
-  border: 2px solid #cbced1;
   object-fit: cover;
 }
 
@@ -128,12 +124,13 @@
 
 .account-avatar-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
+  width: 50px;
+  height: 50px;
+  top: 31px;
+  left: 34px;
   right: 0;
   bottom: 0;
-  border-radius: 100%; /* Make the overlay circular */
-  background: rgba(0, 0, 0, 0.6);
+  border-radius: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,8 +144,8 @@
 }
 
 .account-avatar-icon {
-  width: 20px;
-  height: 20px;
+  width: 10px;
+  height: 10px;
 }
 
 .account-avatar-upload {
@@ -222,4 +219,20 @@
 .change-modal-content button.cancel-button {
   background-color: #f44336;
   color: white;
+}
+
+.account-avatar {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 0 auto 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #cbced1;
+  background-color: #5d2d85;
+  color: #ffffff;
+  font-size: 48px;
+  font-family: "Roboto", sans-serif;
 }
