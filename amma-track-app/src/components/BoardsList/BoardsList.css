@@ -45,7 +45,7 @@
 .boardsList-items {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 15px;position: relative;
 }
 
 .boardsList-items__create-wrapper {

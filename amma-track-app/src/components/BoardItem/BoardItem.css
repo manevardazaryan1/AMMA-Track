@@ -13,6 +13,7 @@
   -webkit-text-stroke-color: black;
   cursor: pointer;
   transition: all .3s;
+  gap: 15px;position: relative;
 }
 
 .boardItem__text-wrapper {
@@ -28,4 +29,37 @@
 }
 .boardItem:hover .boardItem__text-wrapper {
   background-color: rgba(0, 0, 0, 0.488);
+}
+.boardItem__editBtn{
+  background-color: transparent;
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 20px;
+  z-index: 9999;
+  opacity: 0;
+  border: 1px solid red;
+}
+.boardItem:hover .boardItem__editBtn{
+  opacity: 1;
+}
+
+.boardItem__menu{
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  background-color: red;
+  z-index: 999;
+  font-size: 14px;
+}
+.newBoardTitle{
+  background-color: #59595994;
+  border: none;
+  max-width: 200px;
+  color: white;
+  font-size: 16px;
 }

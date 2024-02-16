@@ -1,6 +1,6 @@
 import './BoardsList.css'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { CreateBox } from '../CreateBox/CreateBox'
 import { BoardItem } from '../BoardItem/BoardItem'
@@ -21,7 +21,8 @@ export const BoardsList = () => {
   const boards = useSelector(state => state.boards.boards)
   const boardsToShow = boards.filter(board => board.workspace.id === activeWorkspace.id)
   const create = useSelector(state => state.creation.boardCreationBox)
-
+  const [menuOpened, setMenuOpened] = useState(false);
+  const [openedMenuId, setOpenedMenuId] = useState('')
   useEffect(() => {
     const fetchBoards = async () => {
       const boardsCollection = collection(db, 'boards')
@@ -42,7 +43,7 @@ export const BoardsList = () => {
         <p>Your boards</p>
       </div>
       <div className="boardsList-items">
-        {boardsToShow.map(item => <BoardItem key={item.id} {...item} />)}
+        {boardsToShow.map(item => <BoardItem  openedMenuId={openedMenuId} setOpenedMenuId={setOpenedMenuId} setMenuOpened={setMenuOpened} menuOpened={menuOpened} key={item.id} {...item} />)}
         <div className="boardsList-items__create-wrapper">
           <div onClick={() => dispatch(boardCreationBoxHandle({ val: true }))} className='boardsList-items__create'>
             Create new board
