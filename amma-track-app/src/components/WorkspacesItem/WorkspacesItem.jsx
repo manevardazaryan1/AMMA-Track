@@ -18,7 +18,8 @@ export const WorkspacesItem = ({ id, img, title }) => {
   const handleClick = (type, obj) => {
     setIsActive(type);
     dispatch(toggleActiveWorkspace(obj));
-    dispatch(openSettings())
+    if (type === 'settings')
+      dispatch(openSettings())
   }
 
   return (<div className="workspaces-item">
