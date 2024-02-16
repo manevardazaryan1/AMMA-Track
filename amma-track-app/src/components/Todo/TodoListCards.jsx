@@ -69,15 +69,18 @@ const TodoListCard = ({
         )}
       </Droppable>
       {activeListId === list.id && (
-        <div className='add-card'>
-          <input
-            type="text"
-            placeholder="Enter a title for this card..."
-            value={newCardText}
-            onChange={e => setNewCardText(e.target.value)}
-          />
-          <button onClick={handleAddCard}>Add card</button>
-        </div>
+        <form onSubmit={handleAddCard}>
+          <div className='add-card'>
+            <input
+              type="text"
+              placeholder="Enter a title for this card..."
+              value={newCardText}
+              onChange={e => setNewCardText(e.target.value)}
+            />
+            <button type="submit" >Add card</button>
+          </div>
+        </form>
+        
       )}
       {cardModal &&
         <>

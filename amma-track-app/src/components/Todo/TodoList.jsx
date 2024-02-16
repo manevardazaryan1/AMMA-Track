@@ -51,7 +51,8 @@ const TodoList = ({ boardId }) => {
 
   const handleToggleForm = () => setShowForm(!showForm);
 
-  const handleAddList = async () => {
+  const handleAddList = async (e) => {
+    e.preventDefault();
     if (newListTitle.trim() !== '') {
       const newListId = generateUniqueId();
       const listsCollection = collection(db, 'lists');
@@ -84,7 +85,8 @@ const TodoList = ({ boardId }) => {
     dispatch(removeList(listId));
   };
 
-  const handleAddCard = async () => {
+  const handleAddCard = async (e) => {
+    e.preventDefault();
     if (newCardText.trim() !== '' && activeListId !== null) {
       const newCardId = generateUniqueId();
       const cardsCollection = collection(db, 'cards');
@@ -120,15 +122,17 @@ const TodoList = ({ boardId }) => {
     <div className='to-do-lists'>
       {
         showForm ? (
-          <div className='add-list-form list-buttons'>
-            <input
-              type="text"
-              placeholder="Add another list"
-              value={newListTitle}
-              onChange={e => setNewListTitle(e.target.value)}
-            />
-            <button onClick={handleAddList}><i className="fa-solid fa-check"></i></button>
-            <button onClick={handleToggleForm}><span><i className="fa-solid fa-x"></i></span></button>
+          <div className='add-list-form'>
+            <form onSubmit={handleAddList} className='list-buttons'>
+              <input
+                type="textn"
+                placeholder="Add another list"
+                value={newListTitle}
+                onChange={(e) => setNewListTitle(e.target.value)}
+              />
+              <button type="submit"><i className="fa-solid fa-check"></i></button>
+              <button onClick={handleToggleForm}><i className="fa-solid fa-x"></i></button>
+            </form>
           </div>
         ) : (
           <button className="add-list list-buttons" onClick={handleToggleForm}>
