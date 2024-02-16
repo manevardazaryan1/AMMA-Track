@@ -12,6 +12,8 @@ import {
 import "./Account.css";
 import cameraIcon from "../../images/camera-icon.svg";
 import { validatePassword } from "../../validations/validate";
+import { db } from "../../config/firebaseConfig";
+import { collection, updateDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
 
 export default function Account() {
   const dispatch = useDispatch();
@@ -25,22 +27,36 @@ export default function Account() {
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const [showChangeUsernameModal, setShowChangeUsernameModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const usersCollection = collection(db, "users");
 
   if (!user) {
     return <Navigate to="/login" />;
   }
 
-  const handlePasswordChange = (e) => {
+  const changeAccountData = async (data) => {
+    const snapshot = await getDocs(usersCollection)
+    for(let userDoc of snapshot.docs.filter(doc => doc.data().id === user.id)) {
+        if (userDoc.id) {
+            await updateDoc(doc(db, "users", userDoc.id), {
+              ...userDoc.data(),
+              ...data,
+            });
+        } 
+    }
+  }
+
+  const handlePasswordChange = async (e) => {
     e.preventDefault();
     const errors = validatePassword(newPassword);
     setPasswordErrors(errors);
 
     if (Object.keys(errors).length === 0 && newPassword === confirmPassword) {
       dispatch(updatePassword({ userId: user.id, newPassword }));
-      setNewPassword("");
+      setNewPassword();
       setConfirmPassword("");
       setFeedbackMessage("Password successfully changed.");
       setShowChangePasswordModal(false);
+      await changeAccountData({password: newPassword});
     } else if (newPassword !== confirmPassword) {
       setPasswordErrors({
         ...errors,
@@ -49,7 +65,7 @@ export default function Account() {
     }
   };
 
-  const handleUsernameChange = (e) => {
+  const handleUsernameChange = async (e) => {
     e.preventDefault();
     if (newUsername.trim() === "") {
       setFeedbackMessage("Username cannot be empty.");
@@ -60,6 +76,8 @@ export default function Account() {
     window.localStorage.setItem("loggedUser", JSON.stringify(updatedUser));
     setShowChangeUsernameModal(false);
     setFeedbackMessage("Username successfully changed.");
+    const snapshot = await getDocs(usersCollection)
+    await changeAccountData({userName: newUsername});
   };
 
   const handleSwitchAccount = () => {
@@ -72,14 +90,19 @@ export default function Account() {
     setShowDeleteModal(true);
   };
 
-  const handleDeleteConfirmation = () => {
+  const handleDeleteConfirmation = async () => {
     dispatch(deleteAccount({ userId: user.id }));
     dispatch(logOut());
     setShowDeleteModal(false);
+    const snapshot = await getDocs(usersCollection)
+    for (let userDoc of snapshot.docs.filter(doc => doc.data().id === user.id)) {
+      if (userDoc.id)
+        await deleteDoc(doc(db, "users", userDoc.id))
+    }
     navigate("/");
   };
 
-  const handleImageUpload = (event) => {
+  const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -87,6 +110,8 @@ export default function Account() {
         dispatch(updateUserImage({ userId: user.id, imageUrl: reader.result }));
       };
       reader.readAsDataURL(file);
+      console.log(file)
+      await changeAccountData({image: file.name});
     }
   };
 

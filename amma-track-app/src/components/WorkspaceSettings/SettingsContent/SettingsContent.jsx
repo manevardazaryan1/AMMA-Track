@@ -5,26 +5,49 @@ import { useSelector, useDispatch } from "react-redux"
 import { changeTitle, changeIcon, deleteWorkspace, closeSettings } from "../../../redux/slices/workspacesSlice"
 
 import { unsplash } from "../../../lib/unsplash";
+import { db } from "../../../config/firebaseConfig"
+import { collection, updateDoc, getDocs, deleteDoc, doc } from 'firebase/firestore'
 export const SettingsContent = ({ type }) => {
   const [newTitle, setNewTitle] = useState('')
   const [imgList, setImgList] = useState([])
   const [selectedImg, setSelectedImg] = useState({ thumb: '', id: '' })
   const activeWorkspace = useSelector(state => state.workspaces.workspaces.find(workspace => workspace.active))
+  const workspacesCollection = collection(db, 'workspaces')
   const dispatch = useDispatch()
 
-  const titleChangeSubmit = (e) => {
+  const changeWorkspaceData = async (data) => {
+    const snapshot = await getDocs(workspacesCollection)
+    for(let workspaceDoc of snapshot.docs.filter(doc => doc.data().id === activeWorkspace.id)) {
+        if (workspaceDoc.id) {
+            await updateDoc(doc(db, 'workspaces', workspaceDoc.id), {
+              ...workspaceDoc.data(),
+              ...data,
+            })
+        } 
+    }
+  }
+
+  const titleChangeSubmit = async (e) => {
     e.preventDefault();
     dispatch(changeTitle({ id: activeWorkspace.id, newTitle }))
+    changeWorkspaceData({title: newTitle})
   }
 
   const iconChange = () => {
     dispatch(changeIcon({ id: activeWorkspace.id, thumb: selectedImg.thumb }))
     setSelectedImg({ thumb: '', id: '' });
+    changeWorkspaceData({img: {thumb: selectedImg.thumb}})
   }
 
-  const onDeleteWorkspace = () => {
+  const onDeleteWorkspace = async () => {
     dispatch(deleteWorkspace({ id: activeWorkspace.id }))
     dispatch(closeSettings())
+    const snapshot = await getDocs(workspacesCollection)
+    for(let workspaceDoc of snapshot.docs.filter(doc => doc.data().id === activeWorkspace.id)) {
+      if (workspaceDoc.id) {
+          await deleteDoc(doc(db, 'workspaces', workspaceDoc.id))
+      } 
+    }
   }
   const closeSettingBox = () => {
     setSelectedImg({ thumb: '', id: '' });

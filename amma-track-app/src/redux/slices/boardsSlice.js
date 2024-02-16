@@ -2,7 +2,7 @@ import { createSlice, current } from '@reduxjs/toolkit';
 const initialState = {
   boards: [
     {
-      id: "2024-02-15T15:11:09.063A",
+      id: "2024-02-16T16:51:09.616Z",
       img: {
         bigImg: "https://images.unsplash.com/photo-1519515533456-ed9f2c73ca33?ixid=M3w1NTAxMDl8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MDgwMDk4Njd8&ixlib=rb-4.0.3",
         thumb: "https://images.unsplash.com/photo-1519515533456-ed9f2c73ca33?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NTAxMDl8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MDgwMDk4Njd8&ixlib=rb-4.0.3&q=80&w=1080",
