@@ -121,6 +121,11 @@ li {
   display: flex;
 }
 
+.list-title-X h3{
+  max-width: calc(100% - 17px);
+  overflow: hidden;
+}
+
 .add-list-form {
   display: flex;
   align-items: center;
@@ -275,4 +280,8 @@ ul {
 
 .containerClass-text {
   margin-bottom: 175px;
+}
+
+.add-card {
+  display: flex;
 }
