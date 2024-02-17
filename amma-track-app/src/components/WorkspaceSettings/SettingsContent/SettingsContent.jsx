@@ -8,10 +8,11 @@ import { unsplash } from "../../../lib/unsplash";
 import { db } from "../../../config/firebaseConfig"
 import { collection, updateDoc, getDocs, deleteDoc, doc } from 'firebase/firestore'
 export const SettingsContent = ({ type }) => {
-  const [newTitle, setNewTitle] = useState('')
+  
+  const activeWorkspace = useSelector(state => state.workspaces.workspaces.find(workspace => workspace.active))
+  const [newTitle, setNewTitle] = useState(activeWorkspace.title)
   const [imgList, setImgList] = useState([])
   const [selectedImg, setSelectedImg] = useState({ thumb: '', id: '' })
-  const activeWorkspace = useSelector(state => state.workspaces.workspaces.find(workspace => workspace.active))
   const workspacesCollection = collection(db, 'workspaces')
   const dispatch = useDispatch()
 
