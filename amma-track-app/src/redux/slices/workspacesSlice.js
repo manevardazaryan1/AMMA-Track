@@ -10,7 +10,8 @@ const initialState = {
         id: 1,
         password: "admin",
         userName: "admin"
-      }
+      },
+      status: 'Pro',
     },
     {
       id: "2024-02-12T11:40:39.958A",
@@ -21,7 +22,8 @@ const initialState = {
         id: 1,
         password: "admin",
         userName: "admin"
-      }
+      },
+      status: 'Free'
     }
   ],
   selectedImg: {
@@ -44,6 +46,7 @@ export const workSpacesSlice = createSlice({
         img: action.payload.img,
         user: action.payload.user,
         active: action.payload.active,
+        status: action.payload.status
       });
       // console.log(current(state).workspaces)
       // state.workspaces = [action.payload, ...state.workspaces]
@@ -83,6 +86,10 @@ export const workSpacesSlice = createSlice({
     },
     deleteWorkspace: (state, action) => {
       state.workspaces = state.workspaces.filter(workspace => workspace.id !== action.payload.id)
+    },
+    activateProStatus: (state, action) => {
+      const workSpaceToActivate = state.workspaces.find(workspace => workspace.id === action.payload.id);
+      workSpaceToActivate.status = 'Pro';
     }
   }
 });
@@ -95,6 +102,7 @@ export const {
   changeTitle,
   changeIcon,
   deleteWorkspace,
-  closeSettings
+  closeSettings,
+  activateProStatus
 } = workSpacesSlice.actions;
 export default workSpacesSlice.reducer;

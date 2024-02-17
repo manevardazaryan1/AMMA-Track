@@ -37,7 +37,7 @@ export const CreateBox = ({ type, handleBox }) => {
           },
           user: currentUser,
           active: true,
-          status: false,
+          status: 'Free',
         };
         if (title.trim().length && selectedWorkspaceImg) {
           dispatch(addWorkspace(newWorkspace));
@@ -88,6 +88,7 @@ export const CreateBox = ({ type, handleBox }) => {
             },
             user: currentUser,
             active: true,
+            status: 'Free',
           };
           if (title.trim().length && selectedWorkspaceImg) {
             dispatch(addWorkspace(newWorkspace));

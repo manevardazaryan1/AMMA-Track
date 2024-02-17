@@ -7,6 +7,8 @@ import { BoardItem } from '../BoardItem/BoardItem'
 import { boardCreationBoxHandle } from '../../redux/slices/creationBoxSlice'
 
 import person from '../../images/person-svgrepo-com.svg'
+import freeCard from '../../images/free-credit-card.png'
+import proCard from '../../images/credit-card_pro.png'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { addBoard } from '../../redux/slices/boardsSlice'
@@ -34,7 +36,13 @@ export const BoardsList = () => {
     <div className="boardsList">
       <div className="workspace-box">
         <img src={activeWorkspace.img.thumb} alt="workspace img" />
-        <p>{activeWorkspace.title}</p>
+        <div className="workspace-box__text-info">
+          <p>{activeWorkspace.title}</p>
+          <p className='workspace-status'>
+            <img className={`${activeWorkspace.status==='Pro' ? 'workspace-status__img--pro':'workspace-status__img--free'} workspace-status__img`} src={activeWorkspace.status === 'Free' ? freeCard : proCard} alt="" />
+            <span>{activeWorkspace.status}</span>
+          </p>
+        </div>
       </div>
       <div className='boardsList-text'>
         <img src={person} alt="person" />

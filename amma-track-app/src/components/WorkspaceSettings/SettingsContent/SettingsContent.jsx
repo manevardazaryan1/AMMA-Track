@@ -2,11 +2,13 @@ import { ImgWrapper } from "../../CreateBox/ImgWrapper/ImgWrapper";
 import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux"
-import { changeTitle, changeIcon, deleteWorkspace, closeSettings } from "../../../redux/slices/workspacesSlice"
+import { changeTitle, changeIcon, deleteWorkspace, closeSettings, activateProStatus } from "../../../redux/slices/workspacesSlice"
 
 import { unsplash } from "../../../lib/unsplash";
 import { db } from "../../../config/firebaseConfig"
 import { collection, updateDoc, getDocs, deleteDoc, doc } from 'firebase/firestore'
+
+import { WORKSPACE_PRICE } from '../../../constants/workspacePrice'
 export const SettingsContent = ({ type }) => {
 
   const activeWorkspace = useSelector(state => state.workspaces.workspaces.find(workspace => workspace.active))
@@ -60,6 +62,11 @@ export const SettingsContent = ({ type }) => {
       setPassIsCorrect(false)
     }
   }
+
+  const onStatusBuy = () => {
+    dispatch(activateProStatus({ id: activeWorkspace.id }))
+  }
+
   const closeSettingBox = () => {
     setSelectedImg({ thumb: '', id: '' });
     dispatch(closeSettings())
@@ -141,10 +148,16 @@ export const SettingsContent = ({ type }) => {
             case 'status': {
               return (
                 <div className="settings-icon">
-                  <p className="settings-title__text">In progress...</p>
-                  <p className="settings-title__text"></p>
+                  <p className="settings-title__text">Your current status is: <strong>{activeWorkspace.status}</strong></p>
+                  {activeWorkspace.status === 'Pro' ? <p className="settings-title__text">
+                    This status gives you the ability to create more and an infinite number of boards. In the future you also will be able to add members to this workspaces.
+                  </p> : <>
+                    <p className="settings-title__text">This status allows you to create 7 boards. If this quantity does not suit you, you can activate the pro status.In the future you also will be able to add members to this workspaces.</p>
+                    <p className="settings-title__text">Cost of <strong>Pro</strong> status is  {WORKSPACE_PRICE}.</p>
+                    <button onClick={onStatusBuy}>Buy it</button>
+                  </>}
 
-                  {/* <button onClick={iconChange}>Delete</button> */}
+
                 </div>
               )
             }
