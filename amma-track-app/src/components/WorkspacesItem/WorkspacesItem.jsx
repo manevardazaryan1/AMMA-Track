@@ -16,8 +16,10 @@ export const WorkspacesItem = ({ id, img, title }) => {
   const [isClicked, setIsClicked] = useState(false)
   const [isActive, setIsActive] = useState('')
   const handleClick = (type, obj) => {
+    console.log('Click to active');
     setIsActive(type);
     dispatch(toggleActiveWorkspace(obj));
+    localStorage.setItem('activeWorkspaceId', obj.id)
     if (type === 'settings')
       dispatch(openSettings())
   }

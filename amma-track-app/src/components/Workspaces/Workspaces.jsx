@@ -4,7 +4,7 @@ import './Workspaces.css'
 import { useEffect } from 'react'
 //components
 import { workspaceCreationBoxHandle } from '../../redux/slices/creationBoxSlice'
-import { addWorkspace } from '../../redux/slices/workspacesSlice'
+import { addWorkspace,toggleActiveWorkspace } from '../../redux/slices/workspacesSlice'
 import { Button } from '../Button/Button'
 import { WorkspacesItem } from '../WorkspacesItem/WorkspacesItem'
 import { CreateBox } from '../CreateBox/CreateBox'
@@ -42,6 +42,7 @@ export const Workspaces = () => {
       const workspacesCollection = collection(db, 'workspaces')
       const snapshot = await getDocs(workspacesCollection)
       snapshot.docs.reverse().map((doc) => (dispatch(addWorkspace({ ...doc.data() }))))
+
     }
     if (!workspaces.length) fetchWorkspaces()
   }, [workspaces.length, dispatch])
