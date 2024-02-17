@@ -5,7 +5,7 @@ import { Button } from "../Button/Button";
 import ammaTruckLogo from "../../images/amma-truck-logo.png";
 
 import { useDispatch, useSelector } from "react-redux";
-import { deleteActiveWorkspace } from "../../redux/slices/workspacesSlice";
+import { deleteActiveWorkspace, closeSettings } from "../../redux/slices/workspacesSlice";
 
 import { Link } from "react-router-dom";
 
@@ -33,11 +33,11 @@ export const Header = () => {
     buttons = (
       <>
         <Link to="/account">
-          <Button type="account-btn">{userAvatar}</Button>
+          <Button onClick={() => dispatch(closeSettings())} type="account-btn">{userAvatar}</Button>
         </Link>
         <Link to="/log-out">
           <Button
-            onClick={() => dispatch(deleteActiveWorkspace({}))}
+            onClick={() => { dispatch(closeSettings()); dispatch(deleteActiveWorkspace({})) }}
             type="secondary"
           >
             Log Out

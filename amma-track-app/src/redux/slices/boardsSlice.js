@@ -53,7 +53,7 @@ export const boardsSlice = createSlice({
     editBoard: (state, action) => {
       const boardToChange = state.boards.find(board => board.id === action.payload.id);
       boardToChange.title = action.payload.title
-      console.log(current(state).boards);
+
     }
   }
 })

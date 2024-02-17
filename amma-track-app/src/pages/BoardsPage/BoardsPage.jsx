@@ -28,6 +28,7 @@ const BoardsPage = () => {
       </div>
       {settings && <WorkspaceSettings />}
     </>
+    
   )
 }
 

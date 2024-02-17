@@ -24,9 +24,8 @@ export const Workspaces = () => {
   const create = useSelector((state) => state.creation.workspaceCreationBox)
   const currentUser = useSelector((state) => state.auth.loggedUser)
   const workspaces = useSelector((state) => state.workspaces.workspaces)
-  console.log(currentUser.id,'id');
   const workspacesToShow = workspaces && workspaces.filter(workspace => workspace?.user?.id === currentUser.id)
-  console.log();
+
   const dispatch = useDispatch()
   const loggedIn = window.localStorage.getItem("isLoggedIn")
   const navigate = useNavigate();
