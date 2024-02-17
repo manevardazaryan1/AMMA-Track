@@ -20,7 +20,9 @@ const TodoListContainer = ({
   newCardText,
   setNewCardText,
   boardId,
-  isLoading
+  isLoading,
+  setCardModal,
+  setCardId
 }) => {
 
   const elementRef = useRef(null);
@@ -28,9 +30,8 @@ const TodoListContainer = ({
   const [viewportWidth, setViewportWidth] = useState(0)
   useEffect(() => {
     // Get the width of the element
-    console.log(isLoading);
-    setElementWidth(() => { let curr = elementRef?.current?.offsetWidth; console.log(curr, 'all'); return curr })
-    setViewportWidth(() => { let curr = window.innerWidth; console.log(curr, 'screen'); return curr })
+    setElementWidth(() => { let curr = elementRef?.current?.offsetWidth; return curr })
+    setViewportWidth(() => { let curr = window.innerWidth; return curr })
 
   }, [isLoading]);
   const dispatch = useDispatch();
@@ -130,6 +131,8 @@ const TodoListContainer = ({
                             setNewCardText={setNewCardText}
                             cards={cards[list.id]}
                             index={index}
+                            setCardModal={setCardModal} 
+                            setCardId={setCardId}
                           />
                         </div>
                       )}

@@ -1,6 +1,7 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 import TodoList from "../../components/Todo/TodoList"
+import CardModal from "../../components/CardModal/CardModal"
 
 import { useDispatch, useSelector } from "react-redux"
 import { addBoard } from "../../redux/slices/boardsSlice"
@@ -17,6 +18,8 @@ const BoardPage = () => {
     const dispatch = useDispatch()
     const { id } = useParams()
     const currentBoard = useSelector(state => state.boards.boards);
+    const [cardModal, setCardModal] = useState(false);
+    const [cardID, setCardId] = useState("");
 
     useEffect(() => {
         const fetchBoards = async () => {
@@ -29,9 +32,14 @@ const BoardPage = () => {
 
     const selectedImg = currentBoard.find(board => board.id === id)?.img?.bigImg
     return (
-        <div style={{ backgroundImage: `url(${selectedImg})` }} className="board-list-conteyner">
-            <TodoList boardId={id} />
-        </div>
+        <>
+            <div style={{ backgroundImage: `url(${selectedImg})` }} className="board-list-conteyner">
+                <TodoList boardId={id} setCardModal={setCardModal} setCardId={setCardId}/>
+            </div>
+            {
+                cardModal && <CardModal cardID={cardID} setCardId={setCardId} setCardModal={setCardModal}/>
+            }
+        </>
     )
 }
 

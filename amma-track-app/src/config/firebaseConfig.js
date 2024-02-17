@@ -2,14 +2,14 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDLhB_aC4ybR3b3h5bvUeZUROUuS_mjH54",
-    authDomain: "amma-track-89dd0.firebaseapp.com",
-    projectId: "amma-track-89dd0",
-    storageBucket: "amma-track-89dd0.appspot.com",
-    messagingSenderId: "487367767220",
-    appId: "1:487367767220:web:017001df2d1abea94993e1",
-    measurementId: "G-L4LK7NCF9K"
-  };
+  apiKey: "AIzaSyBDzGMH_gEJsi6PAxnGKCf9A1-b4M3pdOA",
+  authDomain: "amma-track-app.firebaseapp.com",
+  projectId: "amma-track-app",
+  storageBucket: "amma-track-app.appspot.com",
+  messagingSenderId: "573514537905",
+  appId: "1:573514537905:web:f90ca48363ffb910947b90",
+  measurementId: "G-VPV0LTZQZL"
+};
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);

@@ -3,14 +3,7 @@ import CryptoJS from "crypto-js";
 
 const initialState = {
   loggedIn: false,
-  users: [
-    {
-      id: 1,
-      userName: "admin",
-      email: "admin@gmail.com",
-      password: CryptoJS.SHA256("admin").toString(CryptoJS.enc.Hex)
-    }
-  ],
+  users: [],
   loggedUser: {}
 };
 

@@ -51,7 +51,13 @@ export const CreateBox = ({ setCreateCount, type, handleBox }) => {
           dispatch(selectWorkspaceImg({ thumb: '' }))
         }
         const workspacesCollection = collection(db, 'workspaces')
-        await addDoc(workspacesCollection, { id: workspaceId, title, img: { thumb: selectedWorkspaceImg }, user: currentUser, })
+        await addDoc(workspacesCollection, { id: workspaceId, 
+          title, 
+          img: { thumb: selectedWorkspaceImg }, 
+          user: currentUser, 
+          status: 'Free',
+          count: MAX_COUNT,
+        })
         return
       case 'board':
         const boardId = new Date().toISOString()
@@ -69,7 +75,6 @@ export const CreateBox = ({ setCreateCount, type, handleBox }) => {
           dispatch(selectBoardImg({ regular: '', raw: '' }))
         }
         const boardsCollection = collection(db, 'boards')
-
         await addDoc(boardsCollection, { id: boardId, title, img: selectedBoardImg, workspace: activeWorkspace, })
 
 
@@ -77,7 +82,7 @@ export const CreateBox = ({ setCreateCount, type, handleBox }) => {
     }
 
   }
-  const handleEnter = event => {
+  const handleEnter = async event => {
     if (event.key === 'Enter') {
       switch (type) {
         case 'workspace':
@@ -100,6 +105,14 @@ export const CreateBox = ({ setCreateCount, type, handleBox }) => {
             setTitle('');
             dispatch(selectWorkspaceImg({ thumb: '' }))
           }
+          const workspacesCollection = collection(db, 'workspaces')
+          await addDoc(workspacesCollection, { id: workspaceId, 
+            title, 
+            img: { thumb: selectedWorkspaceImg }, 
+            user: currentUser, 
+            status: 'Free',
+            count: MAX_COUNT,
+          })
           return
         case 'board':
           const boardId = new Date().toISOString()
@@ -116,6 +129,8 @@ export const CreateBox = ({ setCreateCount, type, handleBox }) => {
             dispatch(selectBoardImg({ regular: '', raw: '' }))
             dispatch(remainingDecr({ id: activeWorkspace.id }))
           }
+          const boardsCollection = collection(db, 'boards')
+          await addDoc(boardsCollection, { id: boardId, title, img: selectedBoardImg, workspace: activeWorkspace, })
           return
       }
     }

@@ -6,7 +6,7 @@ import { addList, removeList } from '../../redux/slices/todosSlice';
 import { addCard, removeCard } from '../../redux/slices/cardsSlice';
 import { db } from '../../config/firebaseConfig';
 import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore';
-const TodoList = ({ boardId }) => {
+const TodoList = ({ boardId, setCardModal, setCardId }) => {
   const dispatch = useDispatch();
   const lists = useSelector(state => state.todos);
   const cards = useSelector(state => state.cards);
@@ -132,6 +132,8 @@ const TodoList = ({ boardId }) => {
         setNewCardText={setNewCardText}
         boardId={boardId}
         isLoading={isLoading}
+        setCardModal={setCardModal} 
+        setCardId={setCardId}
       />
     </div>
   );

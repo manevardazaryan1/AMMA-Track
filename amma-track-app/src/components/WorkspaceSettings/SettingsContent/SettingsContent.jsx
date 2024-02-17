@@ -97,7 +97,7 @@ export const SettingsContent = ({ type }) => {
         setImgList([])
       }
     }
-    // fetchImages()
+    fetchImages()
   }, [])
   return (
     <div className="settings-content">

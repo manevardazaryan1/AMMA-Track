@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import CardModal from '../CardModal/CardModal';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 const TodoListCard = ({
   list,
@@ -11,17 +9,17 @@ const TodoListCard = ({
   newCardText,
   setNewCardText,
   cards,
+  setCardModal,
+  setCardId
 }) => {
-  const [cardModal, setCardModal] = useState(false);
-  const [cardID, setCardId] = useState("");
-  const openCardModal = (cardID) => {
+
+  const openCardModal = (cardID, setCardModal, setCardId) => {
+    document.body.style.overflowY = "hidden";
     setCardModal(() => true);
     setCardId(() => cardID)
   }
-  const closeCardModal = () => {
-    setCardModal(() => false);
-    setCardId(() => "")
-  }
+
+
   return (
     <div className={`list ${activeListId === list.id ? 'active' : ''}`} onClick={() => handleSetActiveList(list.id)}>
       <div className="list-title-X">
@@ -47,7 +45,7 @@ const TodoListCard = ({
                       <li className="card">
                         {card.text}
                         <div className="card-buttons">
-                          <button onClick={() => openCardModal(card.id)} className="open-card-modal-button">
+                          <button onClick={() => openCardModal(card.id, setCardModal, setCardId)} className="open-card-modal-button">
                             <i className="fa-solid fa-pen"></i>
                           </button>
                           <button onClick={() => handleRemoveCard(list.id, card.id)}><i className="fa-solid fa-x"></i></button>
@@ -73,12 +71,6 @@ const TodoListCard = ({
           </div>
         </form>
       )}
-      {cardModal &&
-        <>
-          <button onClick={() => closeCardModal()} className='close-card-modal-btn'><i className="fa-solid fa-xmark"></i></button>
-          <CardModal cardID={cardID} />
-        </>
-      }
     </div>
   );
 };

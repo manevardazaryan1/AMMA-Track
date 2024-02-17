@@ -20,7 +20,7 @@ export const Header = () => {
     buttons = (
       <>
         <Link to="/login">
-          <Button type="main">Login</Button>
+          <Button type="main">Sign In</Button>
         </Link>
         <Link to="/sign-up">
           <Button type="secondary">Sign-up</Button>
