@@ -37,7 +37,7 @@
   display: flex;
 }
 
-.list>div {
+.list > div {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -45,8 +45,6 @@
   padding: 0 8px 0 8px;
   /* gap: 15px; */
 }
-
-
 
 .list h3 {
   margin: 0;
@@ -121,7 +119,7 @@ li {
   display: flex;
 }
 
-.list-title-X h3{
+.list-title-X h3 {
   max-width: calc(100% - 17px);
   overflow: hidden;
 }
@@ -255,7 +253,7 @@ ul {
   transition: all 0.2s ease-in-out;
 }
 
-.card:hover>.card-buttons {
+.card:hover > .card-buttons {
   display: flex;
   transition: all 0.2s ease-in-out;
 }
@@ -280,6 +278,19 @@ ul {
 
 .containerClass-text {
   margin-bottom: 175px;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 3.5rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.4;
+  margin: 0 0 365px 0;
+  padding: 49px;
+
+  border-radius: 0.5em;
+  box-shadow: -3px 4px 8px rgb(0 0 0 / 10%);
+  text-shadow: 1px 1px 2px black;
+  backdrop-filter: blur(3px);
 }
 
 .add-card {

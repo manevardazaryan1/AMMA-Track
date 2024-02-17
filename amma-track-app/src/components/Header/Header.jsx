@@ -55,7 +55,7 @@ export const Header = () => {
         <div className="header-wrapper">
           <Link to={`${loggedIn ? "/workspaces" : "/"}`}>
             <img src={ammaTruckLogo} alt="logo" />
-            <p>AMMA-Track</p>
+            <p>AMMA-TRACK</p>
           </Link>
           <div className="header-buttons">{buttons}</div>
         </div>
