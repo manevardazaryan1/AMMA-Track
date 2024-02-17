@@ -7,16 +7,19 @@ import { ImgWrapper } from './ImgWrapper/ImgWrapper'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { addBoard, selectBoardImg } from '../../redux/slices/boardsSlice'
-import { addWorkspace, selectWorkspaceImg } from
+import { addWorkspace, selectWorkspaceImg, remainingDecr } from
   '../../redux/slices/workspacesSlice'
 
 import { unsplash } from '../../lib/unsplash'
 
+
+
 import { db } from '../../config/firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 
+import { MAX_COUNT } from '../../constants/boards'
 
-export const CreateBox = ({ type, handleBox }) => {
+export const CreateBox = ({ setCreateCount, type, handleBox }) => {
   const [title, setTitle] = useState('');
   const [images, setImages] = useState([])
   const selectedWorkspaceImg = useSelector((state) => state.workspaces.selectedImg.thumb)
@@ -38,19 +41,17 @@ export const CreateBox = ({ type, handleBox }) => {
           user: currentUser,
           active: true,
           status: 'Free',
+          count: MAX_COUNT,
         };
-        if (title.trim().length && selectedWorkspaceImg) {
+        if (selectedWorkspaceImg) {
           dispatch(addWorkspace(newWorkspace));
           dispatch(handleBox({ val: false }));
           setTitle('');
+
           dispatch(selectWorkspaceImg({ thumb: '' }))
         }
         const workspacesCollection = collection(db, 'workspaces')
-
         await addDoc(workspacesCollection, { id: workspaceId, title, img: { thumb: selectedWorkspaceImg }, user: currentUser, })
-
-
-
         return
       case 'board':
         const boardId = new Date().toISOString()
@@ -60,9 +61,10 @@ export const CreateBox = ({ type, handleBox }) => {
           img: selectedBoardImg,
           workspace: activeWorkspace,
         };
-        if (title.trim().length && selectedBoardImg) {
+        if (selectedBoardImg) {
           dispatch(addBoard(newBoard));
           dispatch(handleBox({ val: false }));
+          dispatch(remainingDecr({ id: activeWorkspace.id }))
           setTitle('');
           dispatch(selectBoardImg({ regular: '', raw: '' }))
         }
@@ -89,10 +91,12 @@ export const CreateBox = ({ type, handleBox }) => {
             user: currentUser,
             active: true,
             status: 'Free',
+            count: MAX_COUNT,
           };
-          if (title.trim().length && selectedWorkspaceImg) {
+          if (selectedWorkspaceImg) {
             dispatch(addWorkspace(newWorkspace));
             dispatch(handleBox({ val: false }));
+
             setTitle('');
             dispatch(selectWorkspaceImg({ thumb: '' }))
           }
@@ -105,11 +109,12 @@ export const CreateBox = ({ type, handleBox }) => {
             img: selectedBoardImg,
             workspace: activeWorkspace,
           };
-          if (title.trim().length && selectedBoardImg) {
+          if (selectedBoardImg) {
             dispatch(addBoard(newBoard));
             dispatch(handleBox({ val: false }));
             setTitle('');
             dispatch(selectBoardImg({ regular: '', raw: '' }))
+            dispatch(remainingDecr({ id: activeWorkspace.id }))
           }
           return
       }
@@ -161,7 +166,7 @@ export const CreateBox = ({ type, handleBox }) => {
         <p className='create-box__title'><span>{type}</span> title</p>
         <label>
           <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} onKeyDown={handleEnter} />
-          <Button disabled={!(title.length && (selectedWorkspaceImg || selectedBoardImg.thumb))} type={'secondary'} onClick={handleAddClick} >Add {type}</Button>
+          <Button disabled={!(selectedWorkspaceImg || selectedBoardImg.thumb)} type={'secondary'} onClick={handleAddClick} >Add {type}</Button>
         </label>
       </div>
     </div>

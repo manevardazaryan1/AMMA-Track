@@ -7,6 +7,8 @@ import ammaTruckLogo from "../../images/amma-truck-logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteActiveWorkspace, closeSettings } from "../../redux/slices/workspacesSlice";
 
+import { boardCreationBoxHandle, workspaceCreationBoxHandle } from "../../redux/slices/creationBoxSlice";
+
 import { Link } from "react-router-dom";
 
 export const Header = () => {
@@ -33,11 +35,11 @@ export const Header = () => {
     buttons = (
       <>
         <Link to="/account">
-          <Button onClick={() => dispatch(closeSettings())} type="account-btn">{userAvatar}</Button>
+          <Button onClick={() => { dispatch(closeSettings()); dispatch(boardCreationBoxHandle({ val: false })); dispatch(workspaceCreationBoxHandle({ val: false })) }} type="account-btn">{userAvatar}</Button>
         </Link>
         <Link to="/log-out">
           <Button
-            onClick={() => { dispatch(closeSettings()); dispatch(deleteActiveWorkspace({})) }}
+            onClick={() => { dispatch(closeSettings()); dispatch(deleteActiveWorkspace({})); dispatch(boardCreationBoxHandle({ val: false })); dispatch(workspaceCreationBoxHandle({ val: false })) }}
             type="secondary"
           >
             Log Out

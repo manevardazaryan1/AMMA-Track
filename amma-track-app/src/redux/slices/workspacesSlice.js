@@ -11,7 +11,8 @@ const initialState = {
         password: "admin",
         userName: "admin"
       },
-      status: 'Pro',
+      status: 'Free',
+      count: 6,
     },
     {
       id: "2024-02-12T11:40:39.958A",
@@ -23,7 +24,8 @@ const initialState = {
         password: "admin",
         userName: "admin"
       },
-      status: 'Free'
+      status: 'Pro',
+      count: 7,
     }
   ],
   selectedImg: {
@@ -46,7 +48,8 @@ export const workSpacesSlice = createSlice({
         img: action.payload.img,
         user: action.payload.user,
         active: action.payload.active,
-        status: action.payload.status
+        status: action.payload.status,
+        count: action.payload.count,
       });
       // console.log(current(state).workspaces)
       // state.workspaces = [action.payload, ...state.workspaces]
@@ -90,6 +93,14 @@ export const workSpacesSlice = createSlice({
     activateProStatus: (state, action) => {
       const workSpaceToActivate = state.workspaces.find(workspace => workspace.id === action.payload.id);
       workSpaceToActivate.status = 'Pro';
+    },
+    remainingDecr:(state,action)=>{
+      const workSpaceToDecr = state.workspaces.find(workspace => workspace.id === action.payload.id);
+      workSpaceToDecr.count-=1;
+    },
+    remainingInc:(state,action)=>{
+      const workSpaceToInc = state.workspaces.find(workspace => workspace.id === action.payload.id);
+      workSpaceToInc.count+=1;
     }
   }
 });
@@ -103,6 +114,8 @@ export const {
   changeIcon,
   deleteWorkspace,
   closeSettings,
-  activateProStatus
+  activateProStatus,
+  remainingInc,
+  remainingDecr,
 } = workSpacesSlice.actions;
 export default workSpacesSlice.reducer;

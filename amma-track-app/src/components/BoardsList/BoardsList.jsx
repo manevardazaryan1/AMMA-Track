@@ -17,12 +17,15 @@ import { db } from '../../config/firebaseConfig'
 import { collection, getDocs } from 'firebase/firestore'
 
 
+
 export const BoardsList = () => {
   const dispatch = useDispatch()
   const activeWorkspace = useSelector(state => state.workspaces.workspaces.find(workspace => workspace.active))
   const boards = useSelector(state => state.boards.boards)
   const boardsToShow = boards.filter(board => board.workspace.id === activeWorkspace.id)
+  const limit = activeWorkspace.status === 'Free';
   const create = useSelector(state => state.creation.boardCreationBox)
+  const [showError, setShowError] = useState(false)
   useEffect(() => {
     const fetchBoards = async () => {
       const boardsCollection = collection(db, 'boards')
@@ -31,7 +34,16 @@ export const BoardsList = () => {
     }
     if (!boards.length) fetchBoards()
   }, [boards.length, dispatch])
-
+  const onClickCreate = () => {
+    if (activeWorkspace.count > 0 || !limit)
+      dispatch(boardCreationBoxHandle({ val: true }))
+    else {
+      setShowError(true)
+      setTimeout(() => {
+        setShowError(false)
+      }, 2800)
+    }
+  }
   return (
     <div className="boardsList">
       <div className="workspace-box">
@@ -39,7 +51,7 @@ export const BoardsList = () => {
         <div className="workspace-box__text-info">
           <p>{activeWorkspace.title}</p>
           <p className='workspace-status'>
-            <img className={`${activeWorkspace.status==='Pro' ? 'workspace-status__img--pro':'workspace-status__img--free'} workspace-status__img`} src={activeWorkspace.status === 'Free' ? freeCard : proCard} alt="" />
+            <img className={`${activeWorkspace.status === 'Pro' ? 'workspace-status__img--pro' : 'workspace-status__img--free'} workspace-status__img`} src={activeWorkspace.status === 'Free' ? freeCard : proCard} alt="" />
             <span>{activeWorkspace.status}</span>
           </p>
         </div>
@@ -51,8 +63,9 @@ export const BoardsList = () => {
       <div className="boardsList-items">
         {boardsToShow.map(item => <BoardItem key={item.id} {...item} />)}
         <div className="boardsList-items__create-wrapper">
-          <div onClick={() => dispatch(boardCreationBoxHandle({ val: true }))} className='boardsList-items__create'>
-            Create new board
+          <div onClick={onClickCreate} className='boardsList-items__create'>
+            <p>Create new board</p>
+            {limit && <p className='boardsList-items__create--limit'>{showError ? <p className='boardList-items__create--error'>Activate Pro status in settings if u need more</p> : `${activeWorkspace.count} remaining`}</p>}
           </div>
           {create && <CreateBox handleBox={boardCreationBoxHandle} type={'board'} />}
         </div>
