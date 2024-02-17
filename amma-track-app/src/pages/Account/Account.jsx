@@ -21,7 +21,6 @@ import {
   doc
 } from "firebase/firestore";
 import DeleteModal from "../../components/CardModal/DeleteModal";
-import { Button } from "../../components/Button/Button";
 
 export default function Account() {
   const dispatch = useDispatch();
