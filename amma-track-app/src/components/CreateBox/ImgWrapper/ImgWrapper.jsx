@@ -1,9 +1,8 @@
-
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectWorkspaceImg } from '../../../redux/slices/workspacesSlice'
 import { selectBoardImg } from '../../../redux/slices/boardsSlice'
 
-import { useSelector } from 'react-redux';
+
 export const ImgWrapper = ({ type, urls }) => {
   const dispatch = useDispatch()
   const activeWorkspaceImg = useSelector((state) => state.workspaces.selectedImg)
@@ -30,3 +29,6 @@ export const ImgWrapper = ({ type, urls }) => {
     </div>
   )
 }
+
+
+

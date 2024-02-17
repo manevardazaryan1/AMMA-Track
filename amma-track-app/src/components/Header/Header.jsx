@@ -1,11 +1,16 @@
 import "./Header.css";
-import { useDispatch, useSelector } from "react-redux";
-import logo from "../../images/logo.svg";
-import { Link } from "react-router-dom";
+
 import { Button } from "../Button/Button";
+
 import ammaTruckLogo from "../../images/amma-truck-logo.png";
 
-import { deleteActiveWorkspace } from "../../redux/slices/workspacesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteActiveWorkspace, closeSettings } from "../../redux/slices/workspacesSlice";
+
+import { boardCreationBoxHandle, workspaceCreationBoxHandle } from "../../redux/slices/creationBoxSlice";
+
+import { Link } from "react-router-dom";
+
 export const Header = () => {
   const loggedIn = useSelector((state) => state.auth.loggedIn);
   let buttons;
@@ -15,7 +20,7 @@ export const Header = () => {
     buttons = (
       <>
         <Link to="/login">
-          <Button type="main">Login</Button>
+          <Button type="main">Sign In</Button>
         </Link>
         <Link to="/sign-up">
           <Button type="secondary">Sign-up</Button>
@@ -23,15 +28,18 @@ export const Header = () => {
       </>
     );
   } else {
-    const userAvatar = loggedUser ? loggedUser.email[0].toUpperCase() : "";
+    const userAvatar =
+      loggedUser && loggedUser.userName
+        ? loggedUser.userName[0].toUpperCase()
+        : "";
     buttons = (
       <>
         <Link to="/account">
-          <Button type="account-btn">{userAvatar}</Button>
+          <Button onClick={() => { dispatch(closeSettings()); dispatch(boardCreationBoxHandle({ val: false })); dispatch(workspaceCreationBoxHandle({ val: false })) }} type="account-btn">{userAvatar}</Button>
         </Link>
         <Link to="/log-out">
           <Button
-            onClick={() => dispatch(deleteActiveWorkspace({}))}
+            onClick={() => { dispatch(closeSettings()); dispatch(deleteActiveWorkspace({})); dispatch(boardCreationBoxHandle({ val: false })); dispatch(workspaceCreationBoxHandle({ val: false })) }}
             type="secondary"
           >
             Log Out
@@ -47,7 +55,7 @@ export const Header = () => {
         <div className="header-wrapper">
           <Link to={`${loggedIn ? "/workspaces" : "/"}`}>
             <img src={ammaTruckLogo} alt="logo" />
-            <p>AMMA-Track</p>
+            <p>AMMA-TRACK</p>
           </Link>
           <div className="header-buttons">{buttons}</div>
         </div>

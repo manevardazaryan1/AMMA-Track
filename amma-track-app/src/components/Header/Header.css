@@ -22,7 +22,8 @@
   display: flex;
   gap: 10px;
   font-family: "Poppins";
-
+  font-size: 1.4rem;
+  font-weight: 900;
   align-items: center;
   text-decoration: none;
 }
