@@ -43,7 +43,7 @@ export const workSpacesSlice = createSlice({
         title: action.payload.title,
         img: action.payload.img,
         user: action.payload.user,
-        active: action.payload.active
+        active: action.payload.active,
       });
       // console.log(current(state).workspaces)
       // state.workspaces = [action.payload, ...state.workspaces]

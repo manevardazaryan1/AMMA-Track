@@ -28,7 +28,7 @@ export const CreateBox = ({ type, handleBox }) => {
   const handleAddClick = async () => {
     switch (type) {
       case 'workspace':
-        const workspaceId = new Date().toISOString()                                      
+        const workspaceId = new Date().toISOString()
         const newWorkspace = {
           id: workspaceId,
           title,
@@ -37,6 +37,7 @@ export const CreateBox = ({ type, handleBox }) => {
           },
           user: currentUser,
           active: true,
+          status: false,
         };
         if (title.trim().length && selectedWorkspaceImg) {
           dispatch(addWorkspace(newWorkspace));
@@ -66,7 +67,7 @@ export const CreateBox = ({ type, handleBox }) => {
           dispatch(selectBoardImg({ regular: '', raw: '' }))
         }
         const boardsCollection = collection(db, 'boards')
-        
+
         await addDoc(boardsCollection, { id: boardId, title, img: selectedBoardImg, workspace: activeWorkspace, })
 
 
@@ -78,7 +79,9 @@ export const CreateBox = ({ type, handleBox }) => {
     if (event.key === 'Enter') {
       switch (type) {
         case 'workspace':
+          const workspaceId = new Date().toISOString()
           const newWorkspace = {
+            id: workspaceId,
             title,
             img: {
               thumb: selectedWorkspaceImg,
@@ -94,10 +97,11 @@ export const CreateBox = ({ type, handleBox }) => {
           }
           return
         case 'board':
+          const boardId = new Date().toISOString()
           const newBoard = {
+            id: boardId,
             title,
             img: selectedBoardImg,
-
             workspace: activeWorkspace,
           };
           if (title.trim().length && selectedBoardImg) {
