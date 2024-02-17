@@ -179,11 +179,12 @@
 }
 
 .change-modal-content {
-  background: #fff;
+  background: #e8e8e8;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
   width: 300px;
+  box-shadow: 4px 4px 8px #565656, -4px -4px 8px rgb(107 101 101);
 }
 
 .change-modal-content h2 {
@@ -193,32 +194,43 @@
 .change-modal-content input {
   width: 100%;
   padding: 10px;
+  background-color: #e8e8e8;
   margin-bottom: 20px;
-  border-radius: 5px;
+  border-radius: 3.5em;
   border: 1px solid #ddd;
+  box-shadow: inset 7px 7px 7px #c1c4c7, inset -7px -7px 7px white;
+  outline: none;
 }
 
-.change-modal-content button {
+.change-modal-content input:focus {
+  outline: none;
+  box-shadow: inset 4px 4px 4px #cbced1, inset -4px -4px 4px white !important;
+  transition: all 0.3s ease-in-out;
+}
+.change-modal-content button,
+.delete-modal-content button {
   padding: 10px 20px;
   margin-right: 10px;
-  border-radius: 5px;
+  border-radius: 3.5em;
+  background: #e8e8e8;
+  box-shadow: 5px 5px 10px #c5c5c5, -5px -5px 10px #ffffff;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.5s ease-in-out;
 }
 
-.change-modal-content button:hover {
-  background-color: #f0f0f0;
+.change-modal-content button:hover,
+.delete-modal-content button:hover {
+  background: linear-gradient(145deg, #f8f8f8, #d1d1d1);
+  box-shadow: 5px 5px 10px #c5c5c5, -5px -5px 10px #ffffff;
+  transition: background-color 0.5s ease-in-out;
 }
 
-.change-modal-content button.submit-button {
-  background-color: #4caf50;
-  color: white;
-}
-
-.change-modal-content button.cancel-button {
-  background-color: #f44336;
-  color: white;
+.change-modal-content button:active,
+.delete-modal-content button:active {
+  background: #e8e8e8;
+  box-shadow: inset 5px 5px 10px #c5c5c5, inset -5px -5px 10px #ffffff;
+  transition: background-color 0.5s ease-in-out;
 }
 
 .account-avatar {
