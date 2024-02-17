@@ -8,46 +8,56 @@ import { unsplash } from "../../../lib/unsplash";
 import { db } from "../../../config/firebaseConfig"
 import { collection, updateDoc, getDocs, deleteDoc, doc } from 'firebase/firestore'
 export const SettingsContent = ({ type }) => {
-  
+
   const activeWorkspace = useSelector(state => state.workspaces.workspaces.find(workspace => workspace.active))
   const [newTitle, setNewTitle] = useState(activeWorkspace.title)
+  const [pass, setPass] = useState('')
   const [imgList, setImgList] = useState([])
   const [selectedImg, setSelectedImg] = useState({ thumb: '', id: '' })
+  const [passIsCorrect, setPassIsCorrect] = useState(true)
   const workspacesCollection = collection(db, 'workspaces')
   const dispatch = useDispatch()
+  const loggedUs = useSelector(state => state.auth.loggedUser)
 
   const changeWorkspaceData = async (data) => {
     const snapshot = await getDocs(workspacesCollection)
-    for(let workspaceDoc of snapshot.docs.filter(doc => doc.data().id === activeWorkspace.id)) {
-        if (workspaceDoc.id) {
-            await updateDoc(doc(db, 'workspaces', workspaceDoc.id), {
-              ...workspaceDoc.data(),
-              ...data,
-            })
-        } 
+    for (let workspaceDoc of snapshot.docs.filter(doc => doc.data().id === activeWorkspace.id)) {
+      if (workspaceDoc.id) {
+        await updateDoc(doc(db, 'workspaces', workspaceDoc.id), {
+          ...workspaceDoc.data(),
+          ...data,
+        })
+      }
     }
   }
 
   const titleChangeSubmit = async (e) => {
     e.preventDefault();
     dispatch(changeTitle({ id: activeWorkspace.id, newTitle }))
-    changeWorkspaceData({title: newTitle})
+    changeWorkspaceData({ title: newTitle })
   }
 
   const iconChange = () => {
     dispatch(changeIcon({ id: activeWorkspace.id, thumb: selectedImg.thumb }))
     setSelectedImg({ thumb: '', id: '' });
-    changeWorkspaceData({img: {thumb: selectedImg.thumb}})
+    changeWorkspaceData({ img: { thumb: selectedImg.thumb } })
   }
 
-  const onDeleteWorkspace = async () => {
-    dispatch(deleteWorkspace({ id: activeWorkspace.id }))
-    dispatch(closeSettings())
-    const snapshot = await getDocs(workspacesCollection)
-    for(let workspaceDoc of snapshot.docs.filter(doc => doc.data().id === activeWorkspace.id)) {
-      if (workspaceDoc.id) {
+  const onDeleteWorkspace = async (e) => {
+    e.preventDefault()
+    if (pass === loggedUs.password) {
+      dispatch(deleteWorkspace({ id: activeWorkspace.id }))
+      dispatch(closeSettings())
+      setPassIsCorrect(true);
+      const snapshot = await getDocs(workspacesCollection)
+      for (let workspaceDoc of snapshot.docs.filter(doc => doc.data().id === activeWorkspace.id)) {
+        if (workspaceDoc.id) {
           await deleteDoc(doc(db, 'workspaces', workspaceDoc.id))
-      } 
+        }
+      }
+    }
+    else {
+      setPassIsCorrect(false)
     }
   }
   const closeSettingBox = () => {
@@ -143,7 +153,12 @@ export const SettingsContent = ({ type }) => {
                 <div className="settings-icon">
                   <p className="settings-title__text">Before deleting <strong>{activeWorkspace.title}</strong> workspace, make sure you really need it.</p>
                   <p className="settings-title__text --delete">Workspaces cannot be restored.</p>
-
+                  <form onSubmit={onDeleteWorkspace}>
+                    <label className="setting-title__input">Input your password
+                      <input type="password" value={pass} onChange={(e) => setPass(e.target.value)} />
+                    </label>
+                  </form>
+                  {!passIsCorrect && <p>Wrong password, try again.</p>}
                   <button className="btn-delete" onClick={onDeleteWorkspace}>Delete</button>
                 </div>
               )
