@@ -29,6 +29,7 @@ export const BoardItem = ({ id, img, title }) => {
     e.preventDefault()
     dispatch(editBoard({ id, title: newTitle }))
     setIsEditable(false)
+    
     const snapshot = await getDocs(boardsCollection)
     for (let boardDoc of snapshot.docs.filter(doc => doc.data().id === id)) {
       if (boardDoc.id) {
@@ -39,29 +40,29 @@ export const BoardItem = ({ id, img, title }) => {
       }
     }
   }
-  // useEffect(() => {
-  //   const handleClickOutside = async (event) => {
-  //     if (newTitle !== activeWorkspace.title) {
-  //       if (boardFormRef.current && !boardFormRef.current.contains(event.target)) {
-  //         dispatch(editBoard({ id, title: newTitle }))
-  //         setIsEditable(false)
-  //         const snapshot = await getDocs(boardsCollection)
-  //         for (let boardDoc of snapshot.docs.filter(doc => doc.data().id === id)) {
-  //           if (boardDoc.id) {
-  //             await updateDoc(doc(db, 'boards', boardDoc.id), {
-  //               ...boardDoc.data(),
-  //               title: newTitle,
-  //             })
-  //           }
-  //         }
-  //       }
-  //     }
-  //   };
-  //   document.addEventListener('click', handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener('click', handleClickOutside);
-  //   };
-  // }, [newTitle]);
+  useEffect(() => {
+    const handleClickOutside = async (event) => {
+      if (isEditable) {
+        if (boardFormRef.current && !boardFormRef.current.contains(event.target)) {
+          dispatch(editBoard({ id, title: newTitle }))
+          setIsEditable(false)
+          const snapshot = await getDocs(boardsCollection)
+          for (let boardDoc of snapshot.docs.filter(doc => doc.data().id === id)) {
+            if (boardDoc.id) {
+              await updateDoc(doc(db, 'boards', boardDoc.id), {
+                ...boardDoc.data(),
+                title: newTitle,
+              })
+            }
+          }
+        }
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [newTitle,isEditable]);
 
   return (
 
@@ -73,7 +74,7 @@ export const BoardItem = ({ id, img, title }) => {
       <button className='boardItem__editBtn'>
         <span>...</span>
         <div className='boardItem__btnWrapper'>
-          <p onClick={() => setIsEditable(true)}>Edit</p>
+          <p onClick={() => {console.log('isEditable');setIsEditable((prev)=>{console.log(prev); return true})}}>Edit</p>
           <p onClick={onDeleteBoard}>Delete</p>
         </div>
       </button>
