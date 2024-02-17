@@ -38,9 +38,6 @@ export const BoardItem = ({ id, img, title}) => {
   useEffect(() => {
     const handleClickOutside = async (event) => {
       if (boardFormRef.current && !boardFormRef.current.contains(event.target)) {
-        console.log(boardFormRef.current, 'current');
-        console.log(event.target, 'target');
-        console.log(newTitle);
         dispatch(editBoard({ id, title: newTitle }))
         setIsEditable(false)
         const snapshot = await getDocs(boardsCollection)
@@ -54,9 +51,7 @@ export const BoardItem = ({ id, img, title}) => {
         }
       }
     };
-
     document.addEventListener('click', handleClickOutside);
-
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
