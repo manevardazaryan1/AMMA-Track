@@ -23,7 +23,7 @@ export const Header = () => {
           <Button type="main">Sign In</Button>
         </Link>
         <Link to="/sign-up">
-          <Button type="secondary">Sign-up</Button>
+          <Button type="secondary">Sign Up</Button>
         </Link>
       </>
     );
