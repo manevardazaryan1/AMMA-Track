@@ -12,6 +12,7 @@ import proCard from '../../images/credit-card_pro.png'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { addBoard } from '../../redux/slices/boardsSlice'
+import { changeCount } from '../../redux/slices/workspacesSlice'
 
 import { db } from '../../config/firebaseConfig'
 import { collection, getDocs } from 'firebase/firestore'
@@ -23,6 +24,7 @@ export const BoardsList = () => {
   const activeWorkspace = useSelector(state => state.workspaces.workspaces.find(workspace => workspace.active))
   const boards = useSelector(state => state.boards.boards)
   const boardsToShow = boards.filter(board => board.workspace.id === activeWorkspace.id)
+
   const limit = activeWorkspace.status === 'Free';
   const create = useSelector(state => state.creation.boardCreationBox)
   const [showError, setShowError] = useState(false)
@@ -34,6 +36,10 @@ export const BoardsList = () => {
     }
     if (!boards.length) fetchBoards()
   }, [boards.length, dispatch])
+  useEffect(() => {
+    if (activeWorkspace.count === 7)
+      dispatch(changeCount({ count: boardsToShow.length, id: activeWorkspace.id }))
+  }, [boardsToShow.length])
   const onClickCreate = () => {
     if (activeWorkspace.count > 0 || !limit)
       dispatch(boardCreationBoxHandle({ val: true }))
