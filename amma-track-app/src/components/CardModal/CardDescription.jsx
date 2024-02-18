@@ -10,7 +10,7 @@ import 'react-quill/dist/quill.snow.css';
 function CardDescription({ cardID }) {
     const dispatch = useDispatch();
     const descriptions = useSelector((state) => state.cardModal.descriptions);
-    const description = descriptions.find(card => card.cardID === cardID)
+    const description = descriptions.find(card => card.cardID === cardID);
     const [text, setText] = useState('');
     useEffect(() => {
         const fetchDescriptions = async () => {
