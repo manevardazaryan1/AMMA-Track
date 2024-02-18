@@ -67,13 +67,18 @@ export const workSpacesSlice = createSlice({
       const workSpaceToActivate = state.workspaces.find(workspace => workspace.id === action.payload.id);
       workSpaceToActivate.status = 'Pro';
     },
-    remainingDecr:(state,action)=>{
+    remainingDecr: (state, action) => {
       const workSpaceToDecr = state.workspaces.find(workspace => workspace.id === action.payload.id);
-      workSpaceToDecr.count-=1;
+      workSpaceToDecr.count -= 1;
     },
-    remainingInc:(state,action)=>{
+    remainingInc: (state, action) => {
       const workSpaceToInc = state.workspaces.find(workspace => workspace.id === action.payload.id);
-      workSpaceToInc.count+=1;
+      workSpaceToInc.count += 1;
+    },
+    changeCount: (state, action) => {
+      const workSpaceToChange = state.workspaces.find(workspace => workspace.id === action.payload.id);
+      console.log(action.payload.count);
+      workSpaceToChange.count-=action.payload.count;
     }
   }
 });
@@ -90,5 +95,6 @@ export const {
   activateProStatus,
   remainingInc,
   remainingDecr,
+  changeCount
 } = workSpacesSlice.actions;
 export default workSpacesSlice.reducer;
