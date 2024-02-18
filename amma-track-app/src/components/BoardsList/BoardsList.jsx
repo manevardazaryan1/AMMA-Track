@@ -33,13 +33,10 @@ export const BoardsList = () => {
       const boardsCollection = collection(db, 'boards')
       const snapshot = await getDocs(boardsCollection)
       snapshot.docs.map((doc) => (dispatch(addBoard({ ...doc.data() }))))
-      console.log(boards, 'snap');
     }
     if (!boards.length) fetchBoards()
   }, [boards.length, dispatch])
   useEffect(() => {
-    console.log(boardsToShow);
-
     if (activeWorkspace.count === 7)
       dispatch(changeCount({ count: boardsToShow.length, id: activeWorkspace.id }))
   }, [boardsToShow.length])

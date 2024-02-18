@@ -77,7 +77,6 @@ export const workSpacesSlice = createSlice({
     },
     changeCount: (state, action) => {
       const workSpaceToChange = state.workspaces.find(workspace => workspace.id === action.payload.id);
-      console.log(action.payload.count);
       workSpaceToChange.count-=action.payload.count;
     }
   }
