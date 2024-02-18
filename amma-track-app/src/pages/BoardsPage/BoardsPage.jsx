@@ -7,18 +7,19 @@ import { Workspaces } from '../../components/Workspaces/Workspaces'
 import { BoardsList } from '../../components/BoardsList/BoardsList'
 import { WorkspaceSettings } from '../../components/WorkspaceSettings/WorkspaceSettings'
 
-import { useSelector,useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { toggleActiveWorkspace } from '../../redux/slices/workspacesSlice'
 
 
 const BoardsPage = () => {
   const activeWorkspaceId = useSelector(state => state.workspaces.workspaces.find(workspace => workspace.active));
   const settings = useSelector(state => state.workspaces.settingsOpened);
-  const dispatch=useDispatch()
+  const workspaces = useSelector((state) => state.workspaces.workspaces)
+  const dispatch = useDispatch()
   useEffect(() => {
     const activeWorkspaceId = localStorage.getItem('activeWorkspaceId')
     dispatch(toggleActiveWorkspace({ id: activeWorkspaceId }))
-  }, [])
+  }, [workspaces.length])
   return (
     <>
       <Header />
@@ -28,7 +29,7 @@ const BoardsPage = () => {
       </div>
       {settings && <WorkspaceSettings />}
     </>
-    
+
   )
 }
 
