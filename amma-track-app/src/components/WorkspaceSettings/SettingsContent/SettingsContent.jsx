@@ -65,8 +65,9 @@ export const SettingsContent = ({ type }) => {
     }
   }
 
-  const onStatusBuy = () => {
+  const onStatusBuy = async () => {
     dispatch(activateProStatus({ id: activeWorkspace.id }))
+    changeWorkspaceData({ status: 'Pro' })
   }
 
   const closeSettingBox = () => {
