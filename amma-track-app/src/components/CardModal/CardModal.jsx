@@ -6,7 +6,7 @@ import logo from "../../images/amma-truck-logo.png"
 function CardModal({ cardID, setCardModal, setCardId }) {
     const path = window.location.href.split("/");
     const boardId = path[path.length - 1];
-    const boardImage  = useSelector((state) => state.boards.boards).filter((board) => board.id === boardId)[0]?.img?.thumb;
+    const boardImage  = useSelector((state) => state.boards.boards).filter((board) => board.id === boardId)[0]?.img?.bigImg;
 
     const closeCardModal = () => {
         document.body.style.overflowY = "scroll";
